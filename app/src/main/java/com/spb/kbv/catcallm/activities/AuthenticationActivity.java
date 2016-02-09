@@ -3,10 +3,10 @@ package com.spb.kbv.catcallm.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.infrastructure.Auth;
+import com.spb.kbv.catcallm.services.Account;
 import com.squareup.otto.Subscribe;
 
 public class AuthenticationActivity extends BaseActivity {
@@ -21,7 +21,7 @@ public class AuthenticationActivity extends BaseActivity {
 
         auth = application.getAuth();
         if (!auth.hasAuthToken()){
-            startActivity(new Intent(this, RegisterActivity.class));
+            startActivity(new Intent(this, RegistrationActivity.class));
             finish();
             return;
         }
@@ -31,13 +31,13 @@ public class AuthenticationActivity extends BaseActivity {
 
     @Subscribe
     public void onLoginWithLocalToken(Account.LoginWithLocalTokenResponse response){
-        if (!response.didSucceed()){
+       /* if (!response.didSucceed()){
             Toast.makeText(this, "Pleas login again", Toast.LENGTH_SHORT).show();
             auth.setAuthToken(null);
-            startActivity(new Intent(this, RegisterActivity.class));
+            startActivity(new Intent(this, RegistrationActivity.class));
             finish();
             return;
-        }
+        }*/
         Intent intent;
         String returnTo = getIntent().getStringExtra(EXTRA_RETURN_TO_ACTIVITY);
         if (returnTo != null){

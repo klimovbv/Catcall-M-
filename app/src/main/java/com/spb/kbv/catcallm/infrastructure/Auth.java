@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.spb.kbv.catcallm.activities.RegistrationActivity;
+
 public class Auth {
     private static final String AUTH_PREFERENCES = "AUTH_PREFERENCES";
     private static final String AUTH_PREFERENCES_TOKEN = "AUTH_PREFERENCES_TOKEN";
@@ -42,7 +44,7 @@ public class Auth {
     public void logout() {
         setAuthToken(null);
 
-        Intent loginIntent = new Intent(context, RegisterActivity.class);
+        Intent loginIntent = new Intent(context, RegistrationActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(loginIntent);
     }

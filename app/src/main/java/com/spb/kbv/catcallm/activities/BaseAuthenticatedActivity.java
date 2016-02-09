@@ -1,6 +1,5 @@
 package com.spb.kbv.catcallm.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -9,9 +8,9 @@ public abstract class BaseAuthenticatedActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!application.getAuth().getUser().isLoggedIn()){
+        /*if (!application.getAuth().getUser().isLoggedIn()){
             if (application.getAuth().hasAuthToken()){
-                Intent intent = new Intent(this, AuthenticationActivity.class;
+                Intent intent = new Intent(this, AuthenticationActivity.class);
                 intent.putExtra(AuthenticationActivity.EXTRA_RETURN_TO_ACTIVITY, getClass().getName());
                 startActivity(intent);
             } else {
@@ -19,7 +18,7 @@ public abstract class BaseAuthenticatedActivity extends BaseActivity {
             }
             finish();
             return;
-        }
+        }*/
         onCatcallAppCreate(savedInstanceState);
     }
 

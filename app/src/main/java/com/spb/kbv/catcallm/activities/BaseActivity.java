@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.View;
 
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
+import com.spb.kbv.catcallm.views.NavDrawer;
 import com.squareup.otto.Bus;
 
 public class BaseActivity extends ActionBarActivity {
@@ -18,6 +20,7 @@ public class BaseActivity extends ActionBarActivity {
     protected Toolbar toolbar;
     protected boolean isTablet;
     protected Bus bus;
+    protected NavDrawer navDrawer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +59,16 @@ public class BaseActivity extends ActionBarActivity {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
+    }
+
+    protected void setNavDrawer(NavDrawer navDrawer){
+        this.navDrawer = navDrawer;
+        this.navDrawer.create();
+
+        overridePendingTransition(0, 0);
+        View rootView = findViewById(android.R.id.content);
+        rootView.setAlpha(0);
+        rootView.animate().alpha(1).setDuration(450).start();
     }
 
     public Toolbar getToolbar() {
