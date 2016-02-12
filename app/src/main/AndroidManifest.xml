@@ -35,6 +35,8 @@
 
         <activity android:name=".activities.SelectCompanyActivity"/>
 
+        <activity android:name=".activities.SettingsActivity"/>
+
     </application>
 
 </manifest>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <header android:fragment="com.com.spb.kbv.catcallm.activities.SettingsActivity$Prefs1Fragment"
+        android:title="Настройки аккаунта"
+        android:summary="Персональные настройки аккаунта" />
+
+    <header android:fragment="com.spb.kbv.catcallm.activities.SettingsActivity$Prefs2Fragment"
+        android:title="Дополнительные настройки"
+        android:summary="Дополнительные настройки аккаунта">
+        <extra android:name="resource" android:value="mypreferences" />
+    </header>
+</PreferenceScreen>

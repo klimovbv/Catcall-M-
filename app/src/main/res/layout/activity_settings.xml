@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    android:background="#ffd2d2d2">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <include layout="@layout/include_toolbar"
+            android:id="@+id/include_toolbar"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/include_toolbar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/top_settings"
+                    android:background="#ffffffff">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/activity_settings_profile_settings">
+
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:id="@+id/activity_settings_avatar"
+                            android:src="@drawable/ic_launcher"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/activity_settings_username"
+                            android:layout_toRightOf="@id/activity_settings_avatar"
+                            android:text="User Name"
+                            android:layout_alignTop="@id/activity_settings_avatar"
+                            android:layout_alignBottom="@id/activity_settings_avatar"
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="10dp"/>
+
+                    </RelativeLayout>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CHANGE PROFILE SETTINGS"
+                        android:gravity="center"
+                        android:textColor="#ff5064aa"
+                        android:background="@drawable/button_white"
+                        android:id="@+id/activity_settings_changeprofile_button"
+                        android:layout_below="@id/activity_settings_profile_settings"/>
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="List Of Other Settings"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:background="#ffffff"
+                    android:layout_below="@id/top_settings"/>
+
+            </RelativeLayout>
+
+
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+    <include layout="@layout/include_main_nav_drawer"/>
+
+</android.support.v4.widget.DrawerLayout>

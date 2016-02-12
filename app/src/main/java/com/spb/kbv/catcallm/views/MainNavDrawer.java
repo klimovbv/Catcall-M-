@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.activities.SelectCompanyActivity;
+import com.spb.kbv.catcallm.activities.SettingsActivity;
 import com.spb.kbv.catcallm.infrastructure.User;
 
 public class MainNavDrawer extends NavDrawer{
@@ -16,20 +17,21 @@ public class MainNavDrawer extends NavDrawer{
     public MainNavDrawer(final BaseActivity activity) {
         super(activity);
 
-        addItem(new ActivityNavDrawerItem(SelectCompanyActivity.class,
+        addItem(new ActivityNavDrawerItem(
+                SelectCompanyActivity.class,
                 "New Dialog",
                 null,
                 R.drawable.ic_launcher,
                 R.id.include_main_nav_drawer_topItems));
 
-        /*addItem(new SearchForCompaniesActivity(
-                ListOf.class,
-                "Search For Companies",
+        addItem(new ActivityNavDrawerItem(
+                SettingsActivity.class,
+                "Settings",
                 null,
                 R.drawable.ic_launcher,
                 R.id.include_main_nav_drawer_topItems));
 
-        addItem(new ActivityNavDrawerItem(ProfileActivity.class,
+        /*addItem(new ActivityNavDrawerItem(ProfileActivity.class,
                 "Profile",
                 null,
                 R.drawable.ic_launcher,
