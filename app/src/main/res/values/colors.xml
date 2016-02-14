@@ -8,4 +8,6 @@
     <color name="list_item_message_background">#eee</color>
     <color name="list_item_message_background_unread">#FFF2CF</color>
     <color name="list_item_nav_drawer_selected_item_background">#12000000</color>
+    <color name="background_message_client">#e7e7e7</color>
+    <color name="background_message_from">#c9ff2f</color>
 </resources>
