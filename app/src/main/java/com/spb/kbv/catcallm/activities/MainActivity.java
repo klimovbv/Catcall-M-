@@ -1,5 +1,6 @@
 package com.spb.kbv.catcallm.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.spb.kbv.catcallm.R;
@@ -12,5 +13,7 @@ public class MainActivity extends BaseAuthenticatedActivity {
         setContentView(R.layout.activity_main);
 
         setNavDrawer(new MainNavDrawer(this));
+
+
     }
 }

@@ -54,7 +54,7 @@ public class MessageListAdapter extends BaseAdapter{
         if (message.isFromUs()){
             messageFrom.setVisibility(View.GONE);
         } else {
-            messageFrom.setText(message.getOtherUser().getUserName());
+            messageFrom.setText(message.getOtherUser().getUsername());
         }
 
         messageText.setText(message.getMessageText());

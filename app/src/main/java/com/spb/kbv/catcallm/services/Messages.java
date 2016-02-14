@@ -1,6 +1,7 @@
 package com.spb.kbv.catcallm.services;
 
 import com.spb.kbv.catcallm.services.entities.Message;
+import com.spb.kbv.catcallm.services.entities.UserDetails;
 
 public final class Messages {
     private Messages(){
@@ -17,21 +18,20 @@ public final class Messages {
     public static class SendMessageResponse {
         public Message message;
 
-        public SendMessageResponse (Message message) {
-            this.message = message;
-        }
+
     }
 
     public static class ReceiveIncomeMessageRequest {
+        public UserDetails details;
 
+        public ReceiveIncomeMessageRequest(UserDetails details) {
+            this.details = details;
+        }
     }
 
     public static class ReceiveIncomeMessageResponse {
         public Message message;
 
-        public ReceiveIncomeMessageResponse(Message message) {
-            this.message = message;
-        }
     }
 
 

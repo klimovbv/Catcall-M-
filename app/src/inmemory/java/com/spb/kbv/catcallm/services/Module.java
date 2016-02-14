@@ -6,5 +6,6 @@ public class Module {
     public static void register (CatcallApplication application) {
         /*new InMemoryAccountService(application);*/
         new InMemoryMessagesService(application);
+        new InMemoryContactsService(application);
     }
 }

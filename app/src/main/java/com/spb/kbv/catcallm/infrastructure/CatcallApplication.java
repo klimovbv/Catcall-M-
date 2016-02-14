@@ -2,6 +2,7 @@ package com.spb.kbv.catcallm.infrastructure;
 
 import android.app.Application;
 
+import com.spb.kbv.catcallm.services.Module;
 import com.squareup.otto.Bus;
 import com.squareup.picasso.Picasso;
 
@@ -19,6 +20,7 @@ public class CatcallApplication extends Application {
         super.onCreate();
         auth = new Auth(this);
         createAuthedPicasso();
+        Module.register(this);
     }
 
     private void createAuthedPicasso() {
