@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Catcall-M-.iml" filepath="$PROJECT_DIR$/Catcall-M-.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CatcallM.iml" filepath="$PROJECT_DIR$/CatcallM.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
+

@@ -13,12 +13,23 @@ import android.widget.Spinner;
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.fragments.CompaniesListFragment;
 import com.spb.kbv.catcallm.fragments.MapFragment;
+import com.spb.kbv.catcallm.services.Contacts;
+import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.spb.kbv.catcallm.views.MainNavDrawer;
+import com.squareup.otto.Subscribe;
+
+import java.util.ArrayList;
 
 public class SelectCompanyActivity extends BaseAuthenticatedActivity implements AdapterView.OnItemSelectedListener {
 
+    private static final String LIST_FRAGMENT = "Companies List";
+    private static final String MAP_FRAGMENT = "Companies Map";
     private ObjectAnimator currentAnimation;
     private ArrayAdapter<SpinnerItem> adapter;
+    private SpinnerItem item;
+    private ArrayList<UserDetails> companies;
+
+    private CompaniesListFragment listFragment;
 
 
     @Override
@@ -39,14 +50,30 @@ public class SelectCompanyActivity extends BaseAuthenticatedActivity implements 
 
         Spinner spinner = (Spinner) findViewById(R.id.activity_select_company_spinner);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        /*spinner.setOnItemSelectedListener(this);*/
 
         getSupportActionBar().setTitle(null);
+        listFragment = new CompaniesListFragment();
+
+
+
+        bus.post(new Contacts.GetCompaniesRequest());
+    }
+
+    @Subscribe
+    public void onCompaniesListReceived(Contacts.GetCompaniesResponse response) {
+        companies = response.companies;
+
+        getSupportFragmentManager().beginTransaction()
+                    /*.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)*/
+                .replace(R.id.activity_select_company_container, listFragment)
+                .commit();
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-        SpinnerItem item = adapter.getItem(position);
+        item = adapter.getItem(position);
         if (item == null)
             return;
         /*if (currentAnimation != null)
@@ -62,7 +89,7 @@ public class SelectCompanyActivity extends BaseAuthenticatedActivity implements 
 
 
 
-        if (item.getTitle().equals("Companiews List")) {
+        if (item.getTitle().equals(LIST_FRAGMENT)) {
             Fragment fragment;
             try {
                 fragment = (Fragment) item.getFragment().newInstance();
@@ -73,7 +100,7 @@ public class SelectCompanyActivity extends BaseAuthenticatedActivity implements 
 
             getSupportFragmentManager().beginTransaction()
                     /*.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)*/
-                    .replace(R.id.activity_select_company_container, fragment)
+                    .replace(R.id.activity_select_company_container, listFragment)
                     .commit();
         } else {
             Fragment fragment;
@@ -97,6 +124,24 @@ public class SelectCompanyActivity extends BaseAuthenticatedActivity implements 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        listFragment.adapter.clear();
+        listFragment.adapter.addAll(companies);
+        /*Log.d("myLogs", "===Fragment attached: " + item.getFragment().getName());*/
+        /*if (item.getTitle().equals(LIST_FRAGMENT)){
+            *//*CompaniesListFragment listFragment = (CompaniesListFragment)getSupportFragmentManager().findFragmentById(R.id.activity_select_company_container);*//*
+
+            listFragment.adapter.clear();
+            listFragment.adapter.addAll(companies);
+        }
+
+        if (item.getTitle().equals(MAP_FRAGMENT)){
+
+        }*/
     }
 
     private class SpinnerItem {
