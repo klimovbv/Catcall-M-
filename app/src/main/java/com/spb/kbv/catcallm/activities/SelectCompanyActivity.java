@@ -30,12 +30,16 @@ public class SelectCompanyActivity extends BaseAuthenticatedActivity implements 
     private ArrayList<UserDetails> companies;
 
     private CompaniesListFragment listFragment;
+    private MapFragment mapFragment;
+    private Spinner spinner;
 
 
     @Override
-    protected void onCatcallAppCreate(Bundle savedInstanceState) {
+    protected void onCatcallAppCreate (Bundle savedInstanceState) {
         setContentView(R.layout.activity_select_company);
         setNavDrawer(new MainNavDrawer(this));
+
+        Log.d("myLogs", "onCatcallAppCreate");
 
         adapter = new ArrayAdapter(this, R.layout.list_item_toolbar_spinner);
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
@@ -48,74 +52,59 @@ public class SelectCompanyActivity extends BaseAuthenticatedActivity implements 
                 Color.parseColor("#00BCD4"),
                 MapFragment.class));
 
-        Spinner spinner = (Spinner) findViewById(R.id.activity_select_company_spinner);
+        spinner = (Spinner) findViewById(R.id.activity_select_company_spinner);
         spinner.setAdapter(adapter);
-        /*spinner.setOnItemSelectedListener(this);*/
+        spinner.setOnItemSelectedListener(this);
 
         getSupportActionBar().setTitle(null);
         listFragment = new CompaniesListFragment();
-
-
-
-        bus.post(new Contacts.GetCompaniesRequest());
-    }
-
-    @Subscribe
-    public void onCompaniesListReceived(Contacts.GetCompaniesResponse response) {
-        companies = response.companies;
-
-        getSupportFragmentManager().beginTransaction()
-                    /*.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)*/
-                .replace(R.id.activity_select_company_container, listFragment)
-                .commit();
+        mapFragment = new MapFragment();
 
     }
+
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+        Log.d("myLogs", " ==onItemSelected");
         item = adapter.getItem(position);
         if (item == null)
             return;
         /*if (currentAnimation != null)
             currentAnimation.end();
-
         int currentColor = ((ColorDrawable) toolbar.getBackground()).getColor();
-
         currentAnimation = ObjectAnimator.ofObject(
                 toolbar, "backgroundColor", new ArgbEvaluator(), currentColor, item.getColor())
                 .setDuration(250);
-
         currentAnimation.start();*/
 
-
-
         if (item.getTitle().equals(LIST_FRAGMENT)) {
-            Fragment fragment;
-            try {
-                fragment = (Fragment) item.getFragment().newInstance();
-            } catch (Exception e) {
-                Log.e("myLogs", "Could not instantiate fragment " + item.getFragment().getName(), e);
-                return;
-            }
-
             getSupportFragmentManager().beginTransaction()
                     /*.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)*/
                     .replace(R.id.activity_select_company_container, listFragment)
                     .commit();
-        } else {
-            Fragment fragment;
+
+
+            /*Fragment fragment;
             try {
                 fragment = (Fragment) item.getFragment().newInstance();
             } catch (Exception e) {
                 Log.e("myLogs", "Could not instantiate fragment " + item.getFragment().getName(), e);
                 return;
-            }
+            }*/
 
 
-
+        } else {
+            /*Fragment fragment;
+            try {
+                fragment = (Fragment) item.getFragment().newInstance();
+            } catch (Exception e) {
+                Log.e("myLogs", "Could not instantiate fragment " + item.getFragment().getName(), e);
+                return;
+            }*/
             getSupportFragmentManager().beginTransaction()
                     /*.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)*/
-                    .replace(R.id.activity_select_company_container, fragment)
+                    .replace(R.id.activity_select_company_container, mapFragment)
                     .commit();
         }
 
@@ -127,21 +116,10 @@ public class SelectCompanyActivity extends BaseAuthenticatedActivity implements 
     }
 
     @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        listFragment.adapter.clear();
-        listFragment.adapter.addAll(companies);
-        /*Log.d("myLogs", "===Fragment attached: " + item.getFragment().getName());*/
-        /*if (item.getTitle().equals(LIST_FRAGMENT)){
-            *//*CompaniesListFragment listFragment = (CompaniesListFragment)getSupportFragmentManager().findFragmentById(R.id.activity_select_company_container);*//*
+    public void onResume() {
+        Log.d("myLogs", "onResume in Activity");
+        super.onResume();
 
-            listFragment.adapter.clear();
-            listFragment.adapter.addAll(companies);
-        }
-
-        if (item.getTitle().equals(MAP_FRAGMENT)){
-
-        }*/
     }
 
     private class SpinnerItem {

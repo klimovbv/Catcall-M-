@@ -3,6 +3,7 @@ package com.spb.kbv.catcallm.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,10 @@ import android.widget.ListView;
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.activities.ChatActivity;
+import com.spb.kbv.catcallm.services.Contacts;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.spb.kbv.catcallm.views.CompanyDetailsAdapter;
+import com.squareup.otto.Subscribe;
 
 public class CompaniesListFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
@@ -23,6 +26,8 @@ public class CompaniesListFragment extends BaseFragment implements AdapterView.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
+        Log.d("myLogs", "onCreateView in Fragment");
+
         View view = inflater.inflate(R.layout.fragment_companies_list, container, false);
         ListView listView = (ListView) view.findViewById(R.id.fragment_companies_list);
         adapter = new CompanyDetailsAdapter((BaseActivity)getActivity());
@@ -30,7 +35,7 @@ public class CompaniesListFragment extends BaseFragment implements AdapterView.O
         listView.setOnItemClickListener(this);
         view.findViewById(R.id.fragment_companies_progressFrame).setVisibility(View.GONE);
 
-        /*bus.post(new Contacts.GetCompaniesRequest());*/
+        bus.post(new Contacts.GetCompaniesRequest());
 
         return view;
     }
@@ -44,5 +49,9 @@ public class CompaniesListFragment extends BaseFragment implements AdapterView.O
         startActivity(intent);
     }
 
-
+    @Subscribe
+    public void onCompaniesListReceived(Contacts.GetCompaniesResponse response) {
+        adapter.clear();
+        adapter.addAll(response.companies);
+    }
 }
