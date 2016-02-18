@@ -13,10 +13,8 @@ import android.widget.Spinner;
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.fragments.CompaniesListFragment;
 import com.spb.kbv.catcallm.fragments.MapFragment;
-import com.spb.kbv.catcallm.services.Contacts;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.spb.kbv.catcallm.views.MainNavDrawer;
-import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
@@ -32,6 +30,8 @@ public class SelectCompanyActivity extends BaseAuthenticatedActivity implements 
     private CompaniesListFragment listFragment;
     private MapFragment mapFragment;
     private Spinner spinner;
+    private Fragment currentFragment;
+    private boolean mapShowing;
 
 
     @Override
@@ -83,6 +83,9 @@ public class SelectCompanyActivity extends BaseAuthenticatedActivity implements 
                     /*.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)*/
                     .replace(R.id.activity_select_company_container, listFragment)
                     .commit();
+            currentFragment  = listFragment;
+
+
 
 
             /*Fragment fragment;
@@ -102,10 +105,13 @@ public class SelectCompanyActivity extends BaseAuthenticatedActivity implements 
                 Log.e("myLogs", "Could not instantiate fragment " + item.getFragment().getName(), e);
                 return;
             }*/
+
             getSupportFragmentManager().beginTransaction()
                     /*.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)*/
                     .replace(R.id.activity_select_company_container, mapFragment)
                     .commit();
+            currentFragment  = mapFragment;
+
         }
 
     }
