@@ -28,7 +28,7 @@ public class InMemoryMessagesService extends BaseInMemoryService{
 
         UserDetails details = request.details;
         if (details == null) {
-            details = new UserDetails(1, "Other Person", null);
+            details = new UserDetails(1, "Other Person", null, 54, 32);
         }
 
         response.message = new Message(1, Calendar.getInstance(), "some new text", details, false, true);
