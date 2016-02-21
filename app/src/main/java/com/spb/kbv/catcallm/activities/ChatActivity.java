@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.spb.kbv.catcallm.R;
+import com.spb.kbv.catcallm.services.InMemoryMessagesService;
 import com.spb.kbv.catcallm.services.Messages;
 import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
@@ -42,6 +43,13 @@ public class ChatActivity extends BaseAuthenticatedActivity implements View.OnCl
         mMessagesLisView.setAdapter(mAdapter);
 
         mSendButton.setOnClickListener(this);
+
+        bus.post(new Messages.LoadMessagesRequest());
+
+    }
+
+    @Subscribe
+    public void onMessagesLoaded(Messages.LoadMessagesResponse response){
 
     }
 

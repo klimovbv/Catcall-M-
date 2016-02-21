@@ -34,6 +34,14 @@ public final class Messages {
 
     }
 
+    public static class LoadMessagesRequest {
+
+    }
+
+    public static class LoadMessagesResponse {
+
+    }
+
 
 
 

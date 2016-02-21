@@ -39,6 +39,12 @@
 
         <activity android:name=".activities.ChatActivity"/>
 
+        <provider
+            android:authorities="com.spb.kbv.catcallm"
+            android:name=".data.CatcallProvider"/>
+
+
+
     </application>
 
 </manifest>
