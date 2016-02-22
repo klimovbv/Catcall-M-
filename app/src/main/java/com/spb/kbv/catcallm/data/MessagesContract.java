@@ -32,7 +32,7 @@ public class MessagesContract {
 
         public static final String TABLE_NAME = "message";
 
-        public static final String COLUMN_COMP_KEY = "message_id";
+        public static final String COLUMN_COMP_KEY = "comp_id";
         public static final String COLUMN_DATE = "date";
         /*public static final String COLUMN_COMPANY = "company";*/
         public static final String COLUMN_ISFROMUS = "isfromus";

@@ -22,6 +22,7 @@ public class CatcallProvider extends ContentProvider{
         final String authority = MessagesContract.CONTENT_AUTHORITY;
 
         uriMatcher.addURI(authority, MessagesContract.PATH_COMPANY, COMPANIES);
+        uriMatcher.addURI(authority, MessagesContract.PATH_MESSAGE, MESSAGE);
 
         return uriMatcher;
     }
@@ -114,6 +115,15 @@ public class CatcallProvider extends ContentProvider{
                 long _id = db.insert(MessagesContract.CompaniesEntry.TABLE_NAME, null, values);
                 if (_id > 0)
                     returnUri = MessagesContract.CompaniesEntry.buildCompanyUri(_id);
+                else
+                    throw new SQLException("Faild to insert row into " + uri);
+                break;
+            }
+
+            case MESSAGE: {
+                long _id = db.insert(MessagesContract.MessagesEntry.TABLE_NAME, null, values);
+                if (_id > 0)
+                    returnUri = MessagesContract.MessagesEntry.buildMessageUri(_id);
                 else
                     throw new SQLException("Faild to insert row into " + uri);
                 break;

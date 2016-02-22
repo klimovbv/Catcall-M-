@@ -1,5 +1,6 @@
 package com.spb.kbv.catcallm.views;
 
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class MessageListAdapter extends BaseAdapter{
 
         TextView messageFrom = (TextView) convertView.findViewById(R.id.message_from);
         TextView messageText = (TextView) convertView.findViewById(R.id.message_text);
+        TextView messageDate = (TextView) convertView.findViewById(R.id.message_date);
 
         if (message.isFromUs()){
             messageFrom.setVisibility(View.GONE);
@@ -58,6 +60,13 @@ public class MessageListAdapter extends BaseAdapter{
         }
 
         messageText.setText(message.getMessageText());
+
+        String createdAt = DateUtils.formatDateTime(
+                activity.getApplicationContext(),
+                message.getCratedAt().getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_TIME);
+
+        messageDate.setText(createdAt);
 
         return convertView;
     }

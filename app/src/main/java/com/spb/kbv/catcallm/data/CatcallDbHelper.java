@@ -23,7 +23,7 @@ public class CatcallDbHelper extends SQLiteOpenHelper{
                 MessagesEntry.COLUMN_COMP_KEY + " INTEGER NOT NULL, " +
                 MessagesEntry.COLUMN_DATE + " INTEGER NOT NULL, " +
                 /*MessagesEntry.COLUMN_COMPANY + " TEXT NOT NULL, " +*/
-                MessagesEntry.COLUMN_ISFROMUS + " TEXT NOT NULL, " +
+                MessagesEntry.COLUMN_ISFROMUS + " INTEGER NOT NULL, " +
                 MessagesEntry.COLUMN_TEXT + " TEXT NOT NULL, " +
                 MessagesEntry.COLUMN_FILE + " TEXT NOT NULL, " +
                 " FOREIGN KEY (" + MessagesEntry.COLUMN_COMP_KEY + ") REFERENCES " +

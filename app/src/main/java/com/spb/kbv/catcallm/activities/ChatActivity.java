@@ -44,18 +44,19 @@ public class ChatActivity extends BaseAuthenticatedActivity implements View.OnCl
 
         mSendButton.setOnClickListener(this);
 
-        bus.post(new Messages.LoadMessagesRequest());
+        bus.post(new Messages.LoadMessagesRequest(details.getId(), details));
 
     }
 
     @Subscribe
     public void onMessagesLoaded(Messages.LoadMessagesResponse response){
-
+        mMessages.addAll(response.messages);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onClick(View v) {
-        bus.post(new Messages.SendMessageRequest(mMessageEditText.getText().toString()));
+        bus.post(new Messages.SendMessageRequest(mMessageEditText.getText().toString(), details.getId()));
         mMessageEditText.setText("");
     }
 
