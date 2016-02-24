@@ -55,7 +55,7 @@
 
                     </RelativeLayout>
 
-                    <Button
+                    <!--<Button
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="CHANGE PROFILE SETTINGS"
@@ -63,12 +63,12 @@
                         android:textColor="#ff5064aa"
                         android:background="@drawable/button_white"
                         android:id="@+id/activity_settings_changeprofile_button"
-                        android:layout_below="@id/activity_settings_profile_settings"/>
+                        android:layout_below="@id/activity_settings_profile_settings"/>-->
 
 
                 </RelativeLayout>
 
-                <TextView
+                <!--<TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="List Of Other Settings"
@@ -76,7 +76,7 @@
                     android:paddingLeft="10dp"
                     android:background="#ffffff"
                     android:layout_below="@id/top_settings"/>
-
+-->
             </RelativeLayout>
 
 
