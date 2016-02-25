@@ -1,5 +1,6 @@
 package com.spb.kbv.catcallm.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -31,7 +32,11 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
             return;
         }
 
+
         bus.post(new Account.RegisterWithPhoneNumberRequest(phoneNumber));
+
+        Intent intent = new Intent(this, EnterRegistrationCodeActivity.class);
+        startActivity(intent);
     }
 
 }

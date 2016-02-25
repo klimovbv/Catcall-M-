@@ -3,7 +3,6 @@ package com.spb.kbv.catcallm.services;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public final class Contacts {
     private Contacts(){
@@ -14,6 +13,18 @@ public final class Contacts {
     }
 
     public static class GetCompaniesResponse {
+        public ArrayList<UserDetails> companies;
+    }
+
+    public static class SearchCompanyRequest {
+        public String query;
+
+        public SearchCompanyRequest(String query) {
+            this.query = query;
+        }
+    }
+
+    public static class SearchCompanyResponse {
         public ArrayList<UserDetails> companies;
     }
 }

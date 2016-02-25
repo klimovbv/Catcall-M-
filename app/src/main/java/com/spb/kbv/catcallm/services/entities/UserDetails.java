@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class UserDetails implements Parcelable{
 
-    private final long id;
+    private long id;
     /*private final boolean isContact;*/
     /*private final String displayName;*/
     private final String username;
@@ -44,6 +44,10 @@ public class UserDetails implements Parcelable{
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getUsername() {

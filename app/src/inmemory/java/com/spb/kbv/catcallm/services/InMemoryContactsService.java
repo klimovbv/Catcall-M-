@@ -70,4 +70,28 @@ public class InMemoryContactsService extends BaseInMemoryService {
             bus.post(new Contacts.GetCompaniesRequest());
         }
     }
+
+    @Subscribe
+    public void onSearchCompanies(Contacts.SearchCompanyRequest request){
+        Contacts.SearchCompanyResponse response = new Contacts.SearchCompanyResponse();
+        String query = request.query;
+
+        ArrayList<Double> latitude = new ArrayList<>();
+        ArrayList<Double> longitude = new ArrayList<>();
+        latitude.add(59.95);
+        longitude.add(30.23);
+        latitude.add(59.96);
+        longitude.add(30.22);
+        latitude.add(59.88);
+        longitude.add(30.37);
+
+        ArrayList<UserDetails> fakeList = new ArrayList<>();
+
+        for (int i = 1; i <= 3; i++) {
+           fakeList.add(new UserDetails(i, query + "FakeComp # " + i, "some url", latitude.get(i-1), longitude.get(i-1)));
+        }
+
+        response.companies = fakeList;
+        bus.post(response);
+    }
 }

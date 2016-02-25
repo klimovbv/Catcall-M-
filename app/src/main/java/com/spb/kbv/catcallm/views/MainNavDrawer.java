@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.activities.BaseActivity;
+import com.spb.kbv.catcallm.activities.SearchActivity;
 import com.spb.kbv.catcallm.activities.SelectCompanyActivity;
 import com.spb.kbv.catcallm.activities.SettingsActivity;
 import com.spb.kbv.catcallm.infrastructure.User;
@@ -31,11 +32,11 @@ public class MainNavDrawer extends NavDrawer{
                 R.drawable.ic_launcher,
                 R.id.include_main_nav_drawer_topItems));
 
-        /*addItem(new ActivityNavDrawerItem(ProfileActivity.class,
-                "Profile",
+        addItem(new ActivityNavDrawerItem(SearchActivity.class,
+                "Search",
                 null,
                 R.drawable.ic_launcher,
-                R.id.include_main_nav_drawer_topItems));*/
+                R.id.include_main_nav_drawer_topItems));
 
 
         addItem(new BasicNavDrawerItem(
