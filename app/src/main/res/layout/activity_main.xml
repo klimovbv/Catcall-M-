@@ -10,11 +10,13 @@
         <include layout="@layout/include_toolbar"
             android:id="@+id/include_toolbar"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
             android:text="MainActivity"
-            android:layout_below="@id/include_toolbar"/>
+            android:layout_below="@id/include_toolbar"
+            android:background="#ffe4a3ff"/>
 
     </RelativeLayout>
 
