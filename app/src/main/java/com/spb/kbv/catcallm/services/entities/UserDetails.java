@@ -9,13 +9,17 @@ public class UserDetails implements Parcelable{
     /*private final boolean isContact;*/
     /*private final String displayName;*/
     private final String username;
+    private final String address;
+
     private final String avatarUrl;
     private final double latitude;
     private final double longitude;
 
-    public UserDetails(long id, String username, String avatarUrl, double latitude,  double longitude) {
+
+    public UserDetails(long id, String username, String address, String avatarUrl, double latitude,  double longitude) {
         this.id = id;
         this.username = username;
+        this.address = address;
         this.avatarUrl = avatarUrl;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -25,6 +29,7 @@ public class UserDetails implements Parcelable{
     private UserDetails(Parcel parcel) {
         id = parcel.readLong();
         username = parcel.readString();
+        address = parcel.readString();
         avatarUrl = parcel.readString();
         latitude = parcel.readDouble();
         longitude = parcel.readDouble();
@@ -54,6 +59,10 @@ public class UserDetails implements Parcelable{
         return username;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     public String getAvatarUrl() {
         return avatarUrl;
     }
@@ -75,6 +84,7 @@ public class UserDetails implements Parcelable{
     public void writeToParcel(Parcel destination, int flags) {
         destination.writeLong(id);
         destination.writeString(username);
+        destination.writeString(address);
         destination.writeString(avatarUrl);
         destination.writeDouble(latitude);
         destination.writeDouble(longitude);

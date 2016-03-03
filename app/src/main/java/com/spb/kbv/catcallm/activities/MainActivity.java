@@ -1,9 +1,9 @@
 package com.spb.kbv.catcallm.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.spb.kbv.catcallm.R;
+import com.spb.kbv.catcallm.services.Contacts;
 import com.spb.kbv.catcallm.views.MainNavDrawer;
 
 public class MainActivity extends BaseAuthenticatedActivity {
@@ -13,6 +13,8 @@ public class MainActivity extends BaseAuthenticatedActivity {
         setContentView(R.layout.activity_main);
 
         setNavDrawer(new MainNavDrawer(this));
+
+        bus.post(new Contacts.LoadCompaniesListWithOpenDialogsRequest());
 
 
     }

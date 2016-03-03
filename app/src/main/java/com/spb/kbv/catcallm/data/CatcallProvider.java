@@ -9,13 +9,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
-import com.spb.kbv.catcallm.services.entities.Message;
-
 public class CatcallProvider extends ContentProvider{
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final int COMPANIES = 100;
     private static final int MESSAGE = 200;
+    private static final int COMPANIES_WITH_OPEN_DIALOGS = 300;
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -23,6 +22,7 @@ public class CatcallProvider extends ContentProvider{
 
         uriMatcher.addURI(authority, MessagesContract.PATH_COMPANY, COMPANIES);
         uriMatcher.addURI(authority, MessagesContract.PATH_MESSAGE, MESSAGE);
+        uriMatcher.addURI(authority, MessagesContract.PATH_COMPANY_WITH_DIALOGS, COMPANIES_WITH_OPEN_DIALOGS);
 
         return uriMatcher;
     }
@@ -74,6 +74,19 @@ public class CatcallProvider extends ContentProvider{
                         selection,
                         selectionArgs,
                         null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+
+            case COMPANIES_WITH_OPEN_DIALOGS: {
+                reqCursor = mOpenHelper.getReadableDatabase().query(
+                        MessagesContract.MessagesEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        MessagesContract.MessagesEntry.COLUMN_COMP_KEY,
                         null,
                         sortOrder
                 );

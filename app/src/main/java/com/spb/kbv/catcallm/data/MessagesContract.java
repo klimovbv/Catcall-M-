@@ -11,6 +11,7 @@ public class MessagesContract {
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     public static final String PATH_MESSAGE = "message";
     public static final String PATH_COMPANY = "company";
+    public static final String PATH_COMPANY_WITH_DIALOGS = "dialogs";
 
     // To make it easy to query for the exact date, we normalize all dates that go into
     // the database to the start of the the Julian day at UTC.
@@ -60,6 +61,7 @@ public class MessagesContract {
         public static final String COLUMN_LATITUDE = "latitude";
         public static final String COLUMN_LONGITUDE = "longitude";
         public static final String COLUMN_AVATAR = "avatar";
+        public static final String COLUMN_LAST_MESSSAGE_ID = "last message id";
 
         public static Uri buildCompanyUri (long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

@@ -88,10 +88,18 @@ public class InMemoryContactsService extends BaseInMemoryService {
         ArrayList<UserDetails> fakeList = new ArrayList<>();
 
         for (int i = 1; i <= 3; i++) {
-           fakeList.add(new UserDetails(i, query + "FakeComp # " + i, "some url", latitude.get(i-1), longitude.get(i-1)));
+           fakeList.add(new UserDetails(i, query + "FakeComp # " + i, "Some address " + i, "some url", latitude.get(i-1), longitude.get(i-1)));
         }
 
         response.companies = fakeList;
         bus.post(response);
+    }
+
+    @Subscribe
+    public void onLoadDialogsList(Contacts.LoadCompaniesListWithOpenDialogsRequest request) {
+        Contacts.LoadCompaniesListWithOpenDialogsResponse response =
+                new Contacts.LoadCompaniesListWithOpenDialogsResponse();
+
+        Cursor dialogsCursor = application.getContentResolver().query(MessagesContract.)
     }
 }
