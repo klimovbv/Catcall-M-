@@ -14,7 +14,7 @@
         android:textColor="#000"
         android:background="#E0F7FA"
         android:gravity="center"
-        android:id="@+id/fragment_dialogs__list_emptyList"/>
+        android:id="@+id/fragment_dialogs_list_emptyList"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

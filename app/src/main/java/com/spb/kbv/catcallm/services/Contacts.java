@@ -4,7 +4,6 @@ import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public final class Contacts {
     private Contacts(){
@@ -36,6 +35,6 @@ public final class Contacts {
     }
 
     public static class LoadCompaniesListWithOpenDialogsResponse {
-        public ArrayList<HashMap<UserDetails, Message>> dialogsList;
+        public ArrayList<Message> dialogsList;
     }
 }

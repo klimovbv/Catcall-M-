@@ -68,15 +68,28 @@ public class CatcallProvider extends ContentProvider{
             }
 
             case MESSAGE: {
-                reqCursor = mOpenHelper.getReadableDatabase().query(
-                        MessagesContract.MessagesEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null,
-                        null,
-                        sortOrder
-                );
+
+                if (selection == null) {
+                    reqCursor = mOpenHelper.getReadableDatabase().query(
+                            MessagesContract.MessagesEntry.TABLE_NAME,
+                            projection,
+                            selection,
+                            selectionArgs,
+                            MessagesContract.MessagesEntry.COLUMN_COMP_KEY,
+                            null,
+                            sortOrder
+                    );
+                } else {
+                    reqCursor = mOpenHelper.getReadableDatabase().query(
+                            MessagesContract.MessagesEntry.TABLE_NAME,
+                            projection,
+                            selection,
+                            selectionArgs,
+                            null,
+                            null,
+                            sortOrder
+                    );
+                }
                 break;
             }
 

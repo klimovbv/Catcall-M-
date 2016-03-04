@@ -58,10 +58,10 @@ public class MessagesContract {
         public static final String TABLE_NAME = "company";
 
         public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_ADDRESS = "address";
         public static final String COLUMN_LATITUDE = "latitude";
         public static final String COLUMN_LONGITUDE = "longitude";
         public static final String COLUMN_AVATAR = "avatar";
-        public static final String COLUMN_LAST_MESSSAGE_ID = "last message id";
 
         public static Uri buildCompanyUri (long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

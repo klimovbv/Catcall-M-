@@ -7,10 +7,12 @@ import android.util.Log;
 
 import com.spb.kbv.catcallm.data.MessagesContract;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
+import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class InMemoryContactsService extends BaseInMemoryService {
 
@@ -27,13 +29,23 @@ public class InMemoryContactsService extends BaseInMemoryService {
                 MessagesContract.CompaniesEntry.CONTENT_URI, null, null, null, null);
 
         if (companiesCursor.moveToFirst()) {
+
+
             Log.d("myLogs", "companiesCursor is not empty " + companiesCursor);
             ArrayList<UserDetails> fakeList = new ArrayList<>();
             do {
-                Log.d("myLogs", " in WHILE " + companiesCursor.getInt(0) + " / " + companiesCursor.getString(2) + " / " + companiesCursor.getString(1) + " / " +
-                        companiesCursor.getDouble(3) + " / " + companiesCursor.getDouble(4));
-                fakeList.add(new UserDetails(companiesCursor.getLong(0), companiesCursor.getString(2), companiesCursor.getString(1),
-                        companiesCursor.getDouble(3), companiesCursor.getDouble(4)));
+                long id = companiesCursor.getInt(0);
+                String avatarUrl = companiesCursor.getString(1);
+                String companyName = companiesCursor.getString(2);
+                String address = companiesCursor.getString(3);
+                double latitude = companiesCursor.getDouble(4);
+                double longitude = companiesCursor.getDouble(5);
+
+
+                Log.d("myLogs", " in WHILE " + id + " / " + companyName + " / " + avatarUrl + " / " +
+                        latitude + " / " + longitude);
+                fakeList.add(new UserDetails(id, companyName, address, avatarUrl,
+                        latitude, longitude));
             } while (companiesCursor.moveToNext());
 
 
@@ -55,6 +67,7 @@ public class InMemoryContactsService extends BaseInMemoryService {
                 ContentValues fakeCompaniesValues = new ContentValues();
 
                 fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_NAME, "Company # " + i);
+                fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_ADDRESS, "Address " + i);
                 fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_LATITUDE, latitude.get(i - 1));
                 fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_LONGITUDE, longitude.get(i - 1));
                 fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_AVATAR, "someUrl");
@@ -100,6 +113,69 @@ public class InMemoryContactsService extends BaseInMemoryService {
         Contacts.LoadCompaniesListWithOpenDialogsResponse response =
                 new Contacts.LoadCompaniesListWithOpenDialogsResponse();
 
-        Cursor dialogsCursor = application.getContentResolver().query(MessagesContract.)
+        ArrayList<Message> listOfDialogs = new ArrayList<>();
+
+        Cursor messagiesCursor = application.getContentResolver().query(
+                MessagesContract.MessagesEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                "_id DESC"
+        );
+
+        if (messagiesCursor.moveToFirst()) {
+            do {
+
+                Message message;
+                UserDetails company;
+                long _id = messagiesCursor.getLong(0);
+                long id = messagiesCursor.getLong(1);
+                long date = messagiesCursor.getLong(2);
+                String text = messagiesCursor.getString(4);
+                boolean isFromus = (messagiesCursor.getInt(3) == 1);
+                boolean isRead = false;
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(date);
+
+
+
+                Log.d("myCursor", " id = " + id + " _id = " + _id);
+
+                Cursor companyCursor = application.getContentResolver().query(
+                        MessagesContract.CompaniesEntry.CONTENT_URI, null, null, null, null);
+
+                if (companyCursor.moveToFirst()) {
+
+                    String avatarUrl = companyCursor.getString(1);
+                    String companyName = companyCursor.getString(2);
+                    String address = companyCursor.getString(3);
+                    double latitude = companyCursor.getDouble(4);
+                    double longitude = companyCursor.getDouble(5);
+
+                    Log.d("myCursor", " company name = " + companyName);
+
+
+                    company = new UserDetails(id, companyName, address, avatarUrl,
+                            latitude, longitude);
+
+                    message = new Message(
+                            _id,
+                            calendar,
+                            text,
+                            company,
+                            isFromus,
+                            isRead
+                    );
+                    listOfDialogs.add(message);
+                }
+
+            } while (messagiesCursor.moveToNext());
+        } else
+            Log.d("myCursor", "cursor empty===");
+
+        response.dialogsList = listOfDialogs;
+        bus.post(response);
     }
+
+
 }

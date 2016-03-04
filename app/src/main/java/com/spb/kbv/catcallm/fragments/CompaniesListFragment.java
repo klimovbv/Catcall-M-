@@ -21,6 +21,7 @@ import com.squareup.otto.Subscribe;
 public class CompaniesListFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     public CompanyDetailsAdapter adapter;
+    public View progressFrame;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,7 +34,8 @@ public class CompaniesListFragment extends BaseFragment implements AdapterView.O
         adapter = new CompanyDetailsAdapter((BaseActivity)getActivity());
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
-        view.findViewById(R.id.fragment_companies_progressFrame).setVisibility(View.GONE);
+        progressFrame = view.findViewById(R.id.fragment_companies_progressFrame);
+        progressFrame.setVisibility(View.VISIBLE);
 
         bus.post(new Contacts.GetCompaniesRequest());
 
@@ -51,6 +53,7 @@ public class CompaniesListFragment extends BaseFragment implements AdapterView.O
 
     @Subscribe
     public void onCompaniesListReceived(Contacts.GetCompaniesResponse response) {
+        progressFrame.setVisibility(View.GONE);
         adapter.clear();
         adapter.addAll(response.companies);
     }

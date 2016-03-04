@@ -1,9 +1,10 @@
 package com.spb.kbv.catcallm.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import com.spb.kbv.catcallm.R;
-import com.spb.kbv.catcallm.services.Contacts;
+import com.spb.kbv.catcallm.fragments.DialogsListFragment;
 import com.spb.kbv.catcallm.views.MainNavDrawer;
 
 public class MainActivity extends BaseAuthenticatedActivity {
@@ -14,8 +15,9 @@ public class MainActivity extends BaseAuthenticatedActivity {
 
         setNavDrawer(new MainNavDrawer(this));
 
-        bus.post(new Contacts.LoadCompaniesListWithOpenDialogsRequest());
-
-
+        Fragment dialogsFragment = new DialogsListFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.activity_main_container, dialogsFragment)
+                .commit();
     }
 }

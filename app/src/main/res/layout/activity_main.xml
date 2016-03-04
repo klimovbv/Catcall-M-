@@ -16,7 +16,16 @@
             android:orientation="vertical"
             android:text="MainActivity"
             android:layout_below="@id/include_toolbar"
-            android:background="#ffe4a3ff"/>
+            android:background="#ffe4a3ff"
+            android:id="@+id/activity_main_info_frame"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/activity_main_info_frame"
+            android:id="@+id/activity_main_container"/>
+
+
 
     </RelativeLayout>
 

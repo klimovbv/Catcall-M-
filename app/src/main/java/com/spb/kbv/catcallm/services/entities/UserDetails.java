@@ -10,7 +10,6 @@ public class UserDetails implements Parcelable{
     /*private final String displayName;*/
     private final String username;
     private final String address;
-
     private final String avatarUrl;
     private final double latitude;
     private final double longitude;

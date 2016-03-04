@@ -34,7 +34,7 @@ public class CatcallDbHelper extends SQLiteOpenHelper{
                 CompaniesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 CompaniesEntry.COLUMN_AVATAR + " TEXT NOT NULL, " +
                 CompaniesEntry.COLUMN_NAME + " TEXT NOT NULL, " +
-                CompaniesEntry.COLUMN_LAST_MESSSAGE_ID + " INTEGER, " +
+                CompaniesEntry.COLUMN_ADDRESS + " TEXT NOT NULL, " +
                 CompaniesEntry.COLUMN_LATITUDE + " REAL NOT NULL, " +
                 CompaniesEntry.COLUMN_LONGITUDE + " REAL NOT NULL" +
                 ");";

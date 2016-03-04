@@ -12,7 +12,7 @@ import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 
-public class DialogsAdapter extends ArrayAdapter<UserDetails> {
+public class DialogsAdapter extends ArrayAdapter<Message> {
 
     private LayoutInflater inflater;
 
@@ -24,7 +24,9 @@ public class DialogsAdapter extends ArrayAdapter<UserDetails> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        UserDetails details = getItem(position);
+
+        Message message = getItem(position);
+        UserDetails details = message.getOtherUser();
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.list_item_dialogs_details, parent, false);
@@ -34,25 +36,21 @@ public class DialogsAdapter extends ArrayAdapter<UserDetails> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Message lastMessage = lastMessage(details);
+
 
         viewHolder.companyNameTextView.setText(details.getUsername());
         viewHolder.avatar.setImageResource(R.drawable.ic_launcher);
         viewHolder.companyAddressTextView.setText(details.getAddress());
-        viewHolder.lastMessageDateTextView.setText(lastMessage.message);
+        viewHolder.lastMessageDateTextView.setText(message.getMessageText());
 
-        if (lastMessage.isRead()){
+        if (message.isRead()){
             //todo change null to real sign
             viewHolder.status.setImageResource(R.drawable.ic_action_navigation_menu);
         } else {
             viewHolder.status.setImageResource(R.drawable.ic_media_play);
         }
 
-        viewHolder.lastMessageDateTextView.setText(lastMessage.getCratedAt().getTime().toString());
-
-
-
-
+        viewHolder.lastMessageDateTextView.setText(message.getCratedAt().getTime().toString());
         return convertView;
     }
 
@@ -75,7 +73,4 @@ public class DialogsAdapter extends ArrayAdapter<UserDetails> {
         }
     }
 
-    private Message lastMessage (UserDetails companyDetail) {
-        // todo: query lastMessageId if > 0
-    }
 }
