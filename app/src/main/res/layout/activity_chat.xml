@@ -1,43 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/activity_chat_messages_list"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@null"
-        android:divider="@null"
-        android:transcriptMode="alwaysScroll"
-        android:stackFromBottom="true">
-    </ListView>
+    <include layout="@layout/chat_toolbar"
+        android:id="@+id/include_toolbar"/>
+
 
     <LinearLayout
-        android:id="@+id/activity_chat_make_message_container"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/include_toolbar">
 
-        <EditText
-            android:id="@+id/activity_chat_message_editText"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="2"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"/>
-
-        <Button
-            android:id="@+id/activity_chat_send_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <ListView
+            android:id="@+id/activity_chat_messages_list"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Send" />
+            android:background="@null"
+            android:divider="@null"
+            android:transcriptMode="alwaysScroll"
+            android:stackFromBottom="true">
+        </ListView>
+
+        <LinearLayout
+            android:id="@+id/activity_chat_make_message_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3" >
+
+            <EditText
+                android:id="@+id/activity_chat_message_editText"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"/>
+
+            <Button
+                android:id="@+id/activity_chat_send_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Send" />
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

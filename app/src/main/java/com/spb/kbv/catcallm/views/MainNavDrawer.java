@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.activities.BaseActivity;
+import com.spb.kbv.catcallm.activities.MainActivity;
 import com.spb.kbv.catcallm.activities.SearchActivity;
 import com.spb.kbv.catcallm.activities.SelectCompanyActivity;
 import com.spb.kbv.catcallm.activities.SettingsActivity;
@@ -19,30 +20,37 @@ public class MainNavDrawer extends NavDrawer{
         super(activity);
 
         addItem(new ActivityNavDrawerItem(
+                MainActivity.class,
+                "Dialogs",
+                null,
+                R.drawable.ic_action_dialogs,
+                R.id.include_main_nav_drawer_topItems));
+
+        addItem(new ActivityNavDrawerItem(
                 SelectCompanyActivity.class,
                 "New Dialog",
                 null,
-                R.drawable.ic_launcher,
+                R.drawable.ic_action_new_dialog,
                 R.id.include_main_nav_drawer_topItems));
 
         addItem(new ActivityNavDrawerItem(
                 SettingsActivity.class,
                 "Settings",
                 null,
-                R.drawable.ic_launcher,
+                R.drawable.ic_action_settings,
                 R.id.include_main_nav_drawer_topItems));
 
         addItem(new ActivityNavDrawerItem(SearchActivity.class,
                 "Search",
                 null,
-                R.drawable.ic_launcher,
+                R.drawable.ic_action_search,
                 R.id.include_main_nav_drawer_topItems));
 
 
         addItem(new BasicNavDrawerItem(
                 "Logout",
                 null,
-                R.drawable.ic_launcher,
+                R.drawable.ic_action_logout,
                 R.id.include_main_nav_drawer_bottomItems) {
             @Override
             public void onClick(View v) {

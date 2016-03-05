@@ -1,5 +1,7 @@
 package com.spb.kbv.catcallm.views;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,16 +10,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.spb.kbv.catcallm.R;
+import com.spb.kbv.catcallm.Utils.DateFormats;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
+import com.squareup.picasso.Picasso;
 
 public class DialogsAdapter extends ArrayAdapter<Message> {
 
     private LayoutInflater inflater;
+    private Context context;
 
     public DialogsAdapter(BaseActivity activity) {
         super(activity, 0);
+        context = activity.getApplicationContext();
         inflater = activity.getLayoutInflater();
     }
 
@@ -39,18 +45,19 @@ public class DialogsAdapter extends ArrayAdapter<Message> {
 
 
         viewHolder.companyNameTextView.setText(details.getUsername());
-        viewHolder.avatar.setImageResource(R.drawable.ic_launcher);
+        Picasso.with(context).load(details.getAvatarUrl()).into(viewHolder.avatar);
         viewHolder.companyAddressTextView.setText(details.getAddress());
-        viewHolder.lastMessageDateTextView.setText(message.getMessageText());
+        viewHolder.lastMessageTextView.setText(message.getMessageText());
+        Log.d("dialogadap", "last message = " + message.getMessageText());
 
         if (message.isRead()){
             //todo change null to real sign
             viewHolder.status.setImageResource(R.drawable.ic_action_navigation_menu);
         } else {
-            viewHolder.status.setImageResource(R.drawable.ic_media_play);
+            viewHolder.status.setImageResource(R.mipmap.ic_message_unread);
         }
 
-        viewHolder.lastMessageDateTextView.setText(message.getCratedAt().getTime().toString());
+        viewHolder.lastMessageDateTextView.setText(DateFormats.showTimeAndDayFormat(message.getCratedAt()));
         return convertView;
     }
 
@@ -72,5 +79,4 @@ public class DialogsAdapter extends ArrayAdapter<Message> {
 
         }
     }
-
 }

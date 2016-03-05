@@ -126,6 +126,7 @@ public class SearchActivity extends BaseAuthenticatedActivity implements Adapter
         ContentValues fakeCompaniesValues = new ContentValues();
 
         fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_NAME, company.getUsername());
+        fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_ADDRESS, company.getAddress());
         fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_LATITUDE, company.getLatitude());
         fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_LONGITUDE, company.getLongitude());
         fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_AVATAR, company.getAvatarUrl());

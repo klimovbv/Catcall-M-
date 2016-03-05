@@ -11,14 +11,17 @@ import android.widget.TextView;
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
+import com.squareup.picasso.Picasso;
 
 public class CompanyDetailsAdapter extends ArrayAdapter<UserDetails> {
 
     private LayoutInflater inflater;
+    private Context context;
 
     public CompanyDetailsAdapter(BaseActivity activity) {
         super(activity, 0);
         inflater = activity.getLayoutInflater();
+        context = activity.getApplicationContext();
     }
 
     @Override
@@ -35,7 +38,7 @@ public class CompanyDetailsAdapter extends ArrayAdapter<UserDetails> {
         }
 
         viewHolder.companyNameTextView.setText(details.getUsername());
-        viewHolder.avatar.setImageResource(R.drawable.ic_launcher);
+        Picasso.with(context).load(details.getAvatarUrl()).into(viewHolder.avatar);
 
 
         return convertView;

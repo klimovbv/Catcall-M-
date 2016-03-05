@@ -64,13 +64,15 @@ public class InMemoryContactsService extends BaseInMemoryService {
             longitude.add(30.34);
 
             for (int i = 1; i <= 3; i++) {
+                String avatar = "http://www.gravatar.com/avatar/" + i + "?d=identicon&s=64";
+
                 ContentValues fakeCompaniesValues = new ContentValues();
 
                 fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_NAME, "Company # " + i);
                 fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_ADDRESS, "Address " + i);
                 fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_LATITUDE, latitude.get(i - 1));
                 fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_LONGITUDE, longitude.get(i - 1));
-                fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_AVATAR, "someUrl");
+                fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_AVATAR, avatar);
 
                 Uri insertedUri = application.getContentResolver().insert(
                         MessagesContract.CompaniesEntry.CONTENT_URI,
@@ -101,7 +103,9 @@ public class InMemoryContactsService extends BaseInMemoryService {
         ArrayList<UserDetails> fakeList = new ArrayList<>();
 
         for (int i = 1; i <= 3; i++) {
-           fakeList.add(new UserDetails(i, query + "FakeComp # " + i, "Some address " + i, "some url", latitude.get(i-1), longitude.get(i-1)));
+           int k = i * 10;
+           String avatar = "http://www.gravatar.com/avatar/" + k + "?d=identicon&s=64";
+           fakeList.add(new UserDetails(k, query + "FakeComp # " + k, "Some address " + k, avatar, latitude.get(i-1), longitude.get(i-1)));
         }
 
         response.companies = fakeList;
@@ -142,7 +146,11 @@ public class InMemoryContactsService extends BaseInMemoryService {
                 Log.d("myCursor", " id = " + id + " _id = " + _id);
 
                 Cursor companyCursor = application.getContentResolver().query(
-                        MessagesContract.CompaniesEntry.CONTENT_URI, null, null, null, null);
+                        MessagesContract.CompaniesEntry.CONTENT_URI,
+                        null,
+                        "_id = ?",
+                        new String[] {String.valueOf(id)},
+                        null);
 
                 if (companyCursor.moveToFirst()) {
 

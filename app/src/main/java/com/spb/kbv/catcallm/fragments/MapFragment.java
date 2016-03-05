@@ -4,9 +4,13 @@ package com.spb.kbv.catcallm.fragments;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,9 +20,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -81,6 +88,7 @@ public class MapFragment extends BaseFragment implements View.OnClickListener {
                     .getMap();
         /*}*/
         if(map != null) {
+            centerMap();
             map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
                 @Override
                 public View getInfoWindow(Marker marker) {
@@ -160,18 +168,50 @@ public class MapFragment extends BaseFragment implements View.OnClickListener {
         bus.post(new Contacts.GetCompaniesRequest());
     }
 
+    public void centerMap() {
+        /*LocationManager locationManager = (LocationManager) getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+
+        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+
+        if (location != null) {
+            Log.d("mafra", "location not null");
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(location.getLatitude(), location.getLongitude()), 13));
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
+                    .zoom(17)                   // Sets the zoom
+                    .bearing(90)                // Sets the orientation of the camera to east
+                    .tilt(40)                   // Sets the tilt of the camera to 30 degrees
+                    .build();                   // Creates a CameraPosition from the builder
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        } else
+            Log.d("mafra", "location is null");*/
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(59.92, 30.25))
+                .zoom(10)
+                .bearing(45)
+                .tilt(20)
+                .build();
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+        map.animateCamera(cameraUpdate);
+    }
+
     @Subscribe
     public void onCompaniesListReceived (Contacts.GetCompaniesResponse response) {
         companiesList = response.companies;
         setupMapIfNeeded();
     }
 
-    private void setupMap() {
+   /* private void setupMap() {
         Log.d("myLogs", "in setupMap fragment");
         map.addMarker(new MarkerOptions()
                 .position(new LatLng(-33.8696, 151.2094))
                 .title("Hello world"));//
-    }
+    }*/
 
     @Override
     public void onClick(View view) {

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.spb.kbv.catcallm.R;
+import com.spb.kbv.catcallm.Utils.DateFormats;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.services.entities.Message;
 
@@ -60,13 +61,13 @@ public class MessageListAdapter extends BaseAdapter{
         }
 
         messageText.setText(message.getMessageText());
-
+/*
         String createdAt = DateUtils.formatDateTime(
                 activity.getApplicationContext(),
                 message.getCratedAt().getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_TIME);
+                DateUtils.FORMAT_SHOW_TIME);*/
 
-        messageDate.setText(createdAt);
+        messageDate.setText(DateFormats.showTimeFormat(message.getCratedAt()));
 
         return convertView;
     }
