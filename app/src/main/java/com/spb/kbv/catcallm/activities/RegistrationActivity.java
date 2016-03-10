@@ -3,11 +3,14 @@ package com.spb.kbv.catcallm.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.spb.kbv.catcallm.R;
+import com.spb.kbv.catcallm.receivers.SmsReceiver;
 import com.spb.kbv.catcallm.services.Account;
+import com.squareup.otto.Subscribe;
 
 public class RegistrationActivity extends BaseActivity implements View.OnClickListener {
 
@@ -37,6 +40,8 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
 
         Intent intent = new Intent(this, EnterRegistrationCodeActivity.class);
         startActivity(intent);
+        finish();
     }
+
 
 }

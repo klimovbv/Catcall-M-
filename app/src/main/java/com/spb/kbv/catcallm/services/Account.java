@@ -38,5 +38,10 @@ public final class Account {
     public static class LoginWithLocalTokenResponse {
     }
 
+    public static class OnReceiveSmsCodeEvent {
+        public String code;
+    }
+
+
 
 }

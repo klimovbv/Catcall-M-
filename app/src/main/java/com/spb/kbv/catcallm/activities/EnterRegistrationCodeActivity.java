@@ -3,11 +3,14 @@ package com.spb.kbv.catcallm.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.spb.kbv.catcallm.R;
+import com.spb.kbv.catcallm.services.Account;
+import com.squareup.otto.Subscribe;
 
 public class EnterRegistrationCodeActivity extends BaseActivity implements View.OnClickListener {
     EditText editText;
@@ -24,11 +27,19 @@ public class EnterRegistrationCodeActivity extends BaseActivity implements View.
 
     @Override
     public void onClick(View view) {
-        if (editText.getText().toString().equals("3333")){
+        if (editText.getText().toString().equals("33333")){
             startActivity(new Intent(this, MainActivity.class));
             finish();
         } else {
             editText.setError("Wrong code");
         }
+    }
+
+    @Subscribe
+    public void onReceiveSms(Account.OnReceiveSmsCodeEvent event) {
+        Log.d("mySms", " in Activity listener " + event.code);
+        editText.setText(event.code);
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }
