@@ -13,6 +13,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,11 +52,14 @@ public class MapFragment extends BaseFragment implements View.OnClickListener {
     private ArrayList<UserDetails> companiesList;
     private HashMap <String, UserDetails> extraMarkerInfo;
     private UserDetails markerDetails;
+    private LayoutInflater inflater;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("myLogs", "in onCreateView map fragment");
+
+        this.inflater = inflater;
 
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_map, container, false);
@@ -70,8 +74,8 @@ public class MapFragment extends BaseFragment implements View.OnClickListener {
         Log.d("myLogs", "in onViewCreated map fragment");
         showInfoButton = (TextView) view.findViewById(R.id.fragment_map_info_button);
         showInfoButton.setOnClickListener(this);
-        info = (TextView) view.findViewById(R.id.fragment_map_company_info);
-        info.setOnClickListener(this);
+        /*info = (TextView) view.findViewById(R.id.fragment_map_company_info);*/
+        /*info.setOnClickListener(this);*/
         drawer = view.findViewById(R.id.fragment_map_drawer);
         isOpen = false;
     }
@@ -99,7 +103,7 @@ public class MapFragment extends BaseFragment implements View.OnClickListener {
                     drawer.setTranslationY(translateOffset);
                     drawer.setVisibility(View.VISIBLE);
                     showInfoButton.setText(markerDetails.getUsername());
-                    info.setText(markerDetails.getUsername());
+                    /*info.setText(markerDetails.getUsername());*/
                     return null;
                 }
 
@@ -229,6 +233,10 @@ public class MapFragment extends BaseFragment implements View.OnClickListener {
                 translationY = 0;
                 color = Color.parseColor("#EE1998FC");
                 showInfoButton.setText("Close");
+                showInfoFragment();
+
+
+
             } else {
                 translationY = drawer.getHeight() - showInfoButton.getHeight();
                 color = Color.parseColor("#221998FC");
@@ -251,10 +259,15 @@ public class MapFragment extends BaseFragment implements View.OnClickListener {
             currentAnimation.start();
         }
 
-        if (view.getId() == R.id.fragment_map_company_info) {
+        /*if (view.getId() == R.id.fragment_map_company_info) {
             Intent intent = new Intent(getActivity(), ChatActivity.class);
             intent.putExtra(ChatActivity.EXTRA_USER_DETAILS, markerDetails);
             startActivity(intent);
-        }
+        }*/
+    }
+
+    private void showInfoFragment() {
+            Fragment infoFragment = CompanyInfoFragment.newInstance(markerDetails, false);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_map_info_container, infoFragment).commit();
     }
 }

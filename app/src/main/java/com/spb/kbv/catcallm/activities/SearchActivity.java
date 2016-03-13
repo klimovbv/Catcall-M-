@@ -104,8 +104,12 @@ public class SearchActivity extends BaseAuthenticatedActivity implements Adapter
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, final int position, long l) {
         final UserDetails company = adapter.getItem(position);
+        Intent intent = new Intent(this, CompanyInfoActivity.class);
+        intent.putExtra(CompanyInfoActivity.EXTRA_COMPANY_DETAILS, company);
+        intent.putExtra(CompanyInfoActivity.EXTRA_COMPANY_IS_NEW, true);
+        startActivity(intent);
 
-        AlertDialog dialog = new AlertDialog.Builder(this)
+       /* AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Start new dialog with " + company.getUsername())
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
@@ -119,10 +123,10 @@ public class SearchActivity extends BaseAuthenticatedActivity implements Adapter
                 })
                 .setNegativeButton("Cancel", null)
                 .create();
-        dialog.show();
+        dialog.show();*/
     }
 
-    private void addCompanyToContacts(UserDetails company) {
+    /*private void addCompanyToContacts(UserDetails company) {
         ContentValues fakeCompaniesValues = new ContentValues();
 
         fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_NAME, company.getUsername());
@@ -143,5 +147,5 @@ public class SearchActivity extends BaseAuthenticatedActivity implements Adapter
         startActivity(intent);
 
 
-    }
+    }*/
 }

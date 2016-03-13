@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.activities.ChatActivity;
+import com.spb.kbv.catcallm.activities.CompanyInfoActivity;
 import com.spb.kbv.catcallm.services.Contacts;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.spb.kbv.catcallm.views.CompanyDetailsAdapter;
@@ -46,8 +47,8 @@ public class CompaniesListFragment extends BaseFragment implements AdapterView.O
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         UserDetails details = adapter.getItem(position);
-        Intent intent = new Intent(getActivity(), ChatActivity.class);
-        intent.putExtra(ChatActivity.EXTRA_USER_DETAILS, details);
+        Intent intent = new Intent(getActivity(), CompanyInfoActivity.class);
+        intent.putExtra(CompanyInfoActivity.EXTRA_COMPANY_DETAILS, details);
         startActivity(intent);
     }
 

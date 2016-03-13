@@ -47,6 +47,8 @@
 
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 
+        <activity android:name=".activities.CompanyInfoActivity"/>
+
         <provider
             android:authorities="com.spb.kbv.catcallm"
             android:name=".data.CatcallProvider"/>
