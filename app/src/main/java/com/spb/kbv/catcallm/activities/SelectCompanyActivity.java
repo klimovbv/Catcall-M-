@@ -128,6 +128,10 @@ public class SelectCompanyActivity extends BaseAuthenticatedActivity implements 
 
     }
 
+    /*public void showActionMenu(View view) {
+        Log.d("actLog", "clicked show menu");
+    }*/
+
     private class SpinnerItem {
         private final String title;
         private final int color;

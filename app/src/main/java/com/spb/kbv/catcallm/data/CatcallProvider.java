@@ -8,6 +8,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.util.Log;
 
 public class CatcallProvider extends ContentProvider{
 
@@ -166,7 +167,17 @@ public class CatcallProvider extends ContentProvider{
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        /*final int match = sUriMatcher.match(uri);*/
+        int rowDeleted;
+        rowDeleted = db.delete(MessagesContract.CompaniesEntry.TABLE_NAME, selection, selectionArgs);
+        /*db.delete(MessagesContract.MessagesEntry.TABLE_NAME, selection, selectionArgs);*/
+
+        if (rowDeleted != 0) {
+            Log.d("inAdp", "deleted " + rowDeleted);
+        }
+        //todo: getContext().getContentResolver().notifyChange(uri, null);
+        return rowDeleted;
     }
 
     @Override

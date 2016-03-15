@@ -5,7 +5,10 @@
     android:layout_height="wrap_content"
     android:padding="8dp"
     android:orientation="horizontal"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:clickable="false">
+
+
 
     <ImageView
         android:layout_width="64dp"
@@ -22,7 +25,21 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="#de000000"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="4dp"
+        />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:clickable="false"/>
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:paddingRight="8dp"
+        android:src="@drawable/ic_action_menu_for_list_item"
+        android:id="@+id/list_item_company_details_list_item_menu"
+        />
 
 
 </LinearLayout>

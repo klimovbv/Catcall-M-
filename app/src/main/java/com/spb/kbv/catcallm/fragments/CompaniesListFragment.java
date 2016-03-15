@@ -19,7 +19,7 @@ import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.spb.kbv.catcallm.views.CompanyDetailsAdapter;
 import com.squareup.otto.Subscribe;
 
-public class CompaniesListFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class CompaniesListFragment extends BaseFragment /*implements AdapterView.OnItemClickListener*/ {
 
     public CompanyDetailsAdapter adapter;
     public View progressFrame;
@@ -34,7 +34,7 @@ public class CompaniesListFragment extends BaseFragment implements AdapterView.O
         ListView listView = (ListView) view.findViewById(R.id.fragment_companies_list);
         adapter = new CompanyDetailsAdapter((BaseActivity)getActivity());
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
+        /*listView.setOnItemClickListener(this);*/
         progressFrame = view.findViewById(R.id.fragment_companies_progressFrame);
         progressFrame.setVisibility(View.VISIBLE);
 
@@ -44,13 +44,17 @@ public class CompaniesListFragment extends BaseFragment implements AdapterView.O
     }
 
 
-    @Override
+   /* @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        if (view.getId() == R.id.list_item_company_details_list_item_menu) {
+            Log.d("actLog", "clicked show menu in fragment");
+        }
         UserDetails details = adapter.getItem(position);
         Intent intent = new Intent(getActivity(), CompanyInfoActivity.class);
         intent.putExtra(CompanyInfoActivity.EXTRA_COMPANY_DETAILS, details);
         startActivity(intent);
-    }
+    }*/
 
     @Subscribe
     public void onCompaniesListReceived(Contacts.GetCompaniesResponse response) {
@@ -58,4 +62,9 @@ public class CompaniesListFragment extends BaseFragment implements AdapterView.O
         adapter.clear();
         adapter.addAll(response.companies);
     }
+
+    public void showActionMenu(View v) {
+        Log.d("actLog", "clicked show menu");
+    }
+
 }
