@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -13,7 +14,7 @@ import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
 import com.spb.kbv.catcallm.views.NavDrawer;
 import com.squareup.otto.Bus;
 
-public class BaseActivity extends ActionBarActivity {
+public class BaseActivity extends /*ActionBarActivity*/ AppCompatActivity {
     private boolean isRegisteredWithBus;
 
     protected CatcallApplication application;
