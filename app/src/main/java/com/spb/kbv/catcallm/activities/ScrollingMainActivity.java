@@ -3,14 +3,13 @@ package com.spb.kbv.catcallm.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.views.MyFragmentPagerAdapter;
-import com.spb.kbv.catcallm.views.SlidingTabLayout;
 
 public class ScrollingMainActivity extends BaseAuthenticatedActivity {
 
@@ -32,6 +31,9 @@ public class ScrollingMainActivity extends BaseAuthenticatedActivity {
 
         ViewPager pager = (ViewPager)findViewById(R.id.pager);
         pager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), new CharSequence[]{"One", "Two"}, 2));
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.main_fragment_issue_list_tab);
+        tabLayout.setupWithViewPager(pager);
 
     }
 }

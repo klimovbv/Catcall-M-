@@ -1,28 +1,32 @@
 package com.spb.kbv.catcallm.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.activities.BaseActivity;
-import com.spb.kbv.catcallm.activities.ChatActivity;
-import com.spb.kbv.catcallm.activities.CompanyInfoActivity;
 import com.spb.kbv.catcallm.services.Contacts;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
-import com.spb.kbv.catcallm.views.CompanyDetailsAdapter;
+import com.spb.kbv.catcallm.views.CompanyDetailsRecycleAdapter;
 import com.squareup.otto.Subscribe;
+
+import java.util.ArrayList;
 
 public class CompaniesListFragment extends BaseFragment /*implements AdapterView.OnItemClickListener*/ {
 
-    public CompanyDetailsAdapter adapter;
+    /*public CompanyDetailsAdapter adapter;*/
+    private ArrayList<UserDetails> detailsArray;
     public View progressFrame;
+    private CompanyDetailsRecycleAdapter adapter;
+    private RecyclerView recyclerView;
+    private BaseActivity activity;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,10 +35,16 @@ public class CompaniesListFragment extends BaseFragment /*implements AdapterView
         Log.d("myLogs", "onCreateView in Fragment");
 
         View view = inflater.inflate(R.layout.fragment_companies_list, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.fragment_companies_list);
+        /*ListView listView = (ListView) view.findViewById(R.id.fragment_companies_list);
         adapter = new CompanyDetailsAdapter((BaseActivity)getActivity());
-        listView.setAdapter(adapter);
+        listView.setAdapter(adapter);*/
         /*listView.setOnItemClickListener(this);*/
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.fragment_companies_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        activity = (BaseActivity) getActivity();
+
+
         progressFrame = view.findViewById(R.id.fragment_companies_progressFrame);
         progressFrame.setVisibility(View.VISIBLE);
 
@@ -58,9 +68,13 @@ public class CompaniesListFragment extends BaseFragment /*implements AdapterView
 
     @Subscribe
     public void onCompaniesListReceived(Contacts.GetCompaniesResponse response) {
+        Log.d("addAd", " in onReceived " + response.companies.size());
         progressFrame.setVisibility(View.GONE);
-        adapter.clear();
-        adapter.addAll(response.companies);
+        adapter = new CompanyDetailsRecycleAdapter(activity, response.companies);
+        recyclerView.setAdapter(adapter);
+
+/*        adapter.clear();
+        adapter.addAll(response.companies);*/
     }
 
     public void showActionMenu(View v) {
