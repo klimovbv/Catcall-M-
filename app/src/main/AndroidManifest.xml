@@ -30,7 +30,13 @@
         <activity android:name=".activities.MainActivity">
 
         </activity>
-        <activity android:name=".activities.RegistrationActivity" />
+        <activity android:name=".activities.RegistrationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.SelectCompanyActivity" />
         <activity android:name=".activities.SettingsActivity" />
         <activity android:name=".activities.ChatActivity" />
@@ -53,11 +59,7 @@
             android:name=".activities.ScrollingMainActivity"
             android:label="@string/title_activity_scrolling_main"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
