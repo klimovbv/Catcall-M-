@@ -46,7 +46,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
                 if (unableChangeEditText) {
                     return;
                 }
-                int mStarter = mPhoneNumberText.getSelectionStart();
+                mStarter = mPhoneNumberText.getSelectionStart();
                 int newStart = mPhoneNumberText.getSelectionStart();
                 Log.d("edLog", "editable = " + s + "start = " + mStarter);
                 /*String phone = mPhoneNumberText.getText().toString();
@@ -73,9 +73,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
 
                 unableChangeEditText = true;
                 /*int phoneLength = builder.length();*/
-                if (phoneNumberFormat.substring(mStarter, mStarter + 1).equals(" ")){
-                    /*builder.insert(start, " ");*/
-                }
+
                 /*builder.append(phoneNumberFormat.substring(phoneLength, phoneNumberFormat.length()));*/
 
                 /*for (int i = 0; i < (10 - phoneLength); i++) {
@@ -94,23 +92,65 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     public String stringMatch(String editingString) {
         String format = "--- --- -- --";
         String numbers = "0123456789";
+
         int editingLength = editingString.length();
         int formatLength = format.length();
+        boolean starterSet = false;
 
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < editingLength; i++) {
-            /*if (editingLength > formatLength) {
-                return ;
-            }*/
+        Log.d("edLog2", " editingString = " + editingString);
 
+        if (mStarter > formatLength && !editingString.substring(editingLength - 1, editingLength).equals("-")){
+            mStarter--;
+            return editingString.substring(0, editingLength - 1);
+        };
+
+        StringBuilder numbersFromEnteredString = new StringBuilder();
+        for (int i = 0; i < editingString.length(); i++) {
             String ch = editingString.substring(i, i + 1);
-            if (numbers.contains(ch)){
-                builder.append(ch);
-
+            if (numbers.contains(ch)) {
+                numbersFromEnteredString.append(ch);
             }
         }
+
+
+        if (mStarter != 0 && format.substring(mStarter - 1, mStarter).equals(" ") && !editingString.substring(mStarter - 2, mStarter - 1).equals("-")){
+            mStarter++;
+            starterSet = true;
+            /*Log.d("edLog2", "first if " + editingString.substring(mStarter, mStarter + 1));*/
+        }
+
+
+        String enteredNumbers = numbersFromEnteredString.toString();
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < formatLength; i++) {
+            if (format.substring(i, i + 1).equals(" ")){
+                builder.append(" ");
+                if (mStarter == i) {
+                    mStarter++;
+                    starterSet = true;
+                }
+            } else if (enteredNumbers.length() > 0) {
+                builder.append(enteredNumbers.charAt(0));
+                enteredNumbers = enteredNumbers.substring(1, enteredNumbers.length());
+                if (!starterSet && mStarter == i) {
+                    if (format.substring(i, i + 1).equals(" ")){
+                        mStarter++;
+                    }
+                    starterSet = true;
+                }
+            } else {
+                if (!starterSet) {
+                    mStarter = i;
+                    starterSet = true;
+                }
+                builder.append("-");
+            }
+        }
+
         Log.d("edLog2", "builder = " + builder);
-        StringBuilder phoneNumber = new StringBuilder();
+
+       /* StringBuilder phoneNumber = new StringBuilder();
         for (int i = 0; i < builder.length(); i++){
 
             if (format.substring(phoneNumber.length(), phoneNumber.length() + 1).equals(" ")){
@@ -129,11 +169,11 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
 
         if (phoneNumber.length() < formatLength){
             phoneNumber.append(format.substring(phoneNumber.length(), formatLength));
-        }
+        }*/
         /*if (builder.length() < format.length()) {
             builder.append(format.substring(builder.length(), format.length()));
         }*/
-        return phoneNumber.toString();
+        return builder.toString();
     }
 
     @Override
