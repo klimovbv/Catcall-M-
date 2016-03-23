@@ -10,9 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.spb.kbv.catcallm.R;
-import com.spb.kbv.catcallm.receivers.SmsReceiver;
 import com.spb.kbv.catcallm.services.Account;
-import com.squareup.otto.Subscribe;
 
 public class RegistrationActivity extends BaseActivity implements View.OnClickListener {
 
@@ -20,6 +18,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     private EditText mPhoneNumberText;
     private boolean unableChangeEditText = false;
     private String phoneNumberFormat = "--- --- -- --";
+    private int mStarter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,42 +46,94 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
                 if (unableChangeEditText) {
                     return;
                 }
-                int start = mPhoneNumberText.getSelectionStart();
+                int mStarter = mPhoneNumberText.getSelectionStart();
                 int newStart = mPhoneNumberText.getSelectionStart();
-                Log.d("edLog", "editable = " + s + "start = " + start);
-                String phone = mPhoneNumberText.getText().toString();
-                String numbers = "0123456789";
+                Log.d("edLog", "editable = " + s + "start = " + mStarter);
+                /*String phone = mPhoneNumberText.getText().toString();
+                String numbers = "0123456789";*/
 
-                StringBuilder builder = new StringBuilder(phone.length());
+                /*StringBuilder builder = new StringBuilder(phone.length());
                 for (int i = 0; i < phone.length(); i++) {
                     String ch = phone.substring(i, i + 1);
                     if (numbers.contains(ch)){
                         builder.append(ch);
                         if (phoneNumberFormat.substring(builder.length(), builder.length() + 1).equals(" ")) {
+                            Log.d("edLog2", "adding___  = " + ch);
                             builder.append(" ");
-                            /*start++;*/
+
+                            if (phone.substring(phone., start + 3).equals("-")) {
+                                Log.d("edLog2", "i == phone.length() -1 ");
+                                start++;
+                                *//*start = start + 2;*//*
+                            }
                         }
                         Log.d("edLog", "getting numbers  = " + ch);
                     }
-                }
+                }*/
 
                 unableChangeEditText = true;
-                int phoneLength = builder.length();
-                if (phoneNumberFormat.substring(start, start + 1).equals(" ")){
+                /*int phoneLength = builder.length();*/
+                if (phoneNumberFormat.substring(mStarter, mStarter + 1).equals(" ")){
                     /*builder.insert(start, " ");*/
                 }
-                builder.append(phoneNumberFormat.substring(phoneLength, phoneNumberFormat.length()));
+                /*builder.append(phoneNumberFormat.substring(phoneLength, phoneNumberFormat.length()));*/
 
                 /*for (int i = 0; i < (10 - phoneLength); i++) {
                     builder.append("-");
                 }*/
-                Log.d("edLog", "builder = " + builder);
-                mPhoneNumberText.setText(builder);
-                mPhoneNumberText.setSelection(start);
+                Log.d("edLog2", "getText = " + mPhoneNumberText.getText().toString());
+                String newText = stringMatch(mPhoneNumberText.getText().toString());
+                mPhoneNumberText.setText(newText);
+                mPhoneNumberText.setSelection(mStarter);
                 unableChangeEditText = false;
 
             }
         });
+    }
+
+    public String stringMatch(String editingString) {
+        String format = "--- --- -- --";
+        String numbers = "0123456789";
+        int editingLength = editingString.length();
+        int formatLength = format.length();
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < editingLength; i++) {
+            /*if (editingLength > formatLength) {
+                return ;
+            }*/
+
+            String ch = editingString.substring(i, i + 1);
+            if (numbers.contains(ch)){
+                builder.append(ch);
+
+            }
+        }
+        Log.d("edLog2", "builder = " + builder);
+        StringBuilder phoneNumber = new StringBuilder();
+        for (int i = 0; i < builder.length(); i++){
+
+            if (format.substring(phoneNumber.length(), phoneNumber.length() + 1).equals(" ")){
+                Log.d("edLog2", "added ___ " + " starter = " + mStarter + " length = " + phoneNumber.length());
+                phoneNumber.append(" ");
+                if (phoneNumber.length() == mStarter - 1) {
+                    mStarter++;
+                    Log.d("edLog2", "starter + 1");
+                }
+            }
+
+            phoneNumber.append(builder.substring(i, i + 1));
+
+        }
+        Log.d("edLog2", "phoneBuilder = " + phoneNumber);
+
+        if (phoneNumber.length() < formatLength){
+            phoneNumber.append(format.substring(phoneNumber.length(), formatLength));
+        }
+        /*if (builder.length() < format.length()) {
+            builder.append(format.substring(builder.length(), format.length()));
+        }*/
+        return phoneNumber.toString();
     }
 
     @Override
