@@ -11,28 +11,42 @@ import com.spb.kbv.catcallm.fragments.CompanyInfoFragment;
 import com.spb.kbv.catcallm.fragments.DialogsListFragment;
 import com.spb.kbv.catcallm.fragments.MapFragment;
 import com.spb.kbv.catcallm.fragments.PageFragment;
+import com.spb.kbv.catcallm.fragments.SearchByNamesFragment;
 
 
 public class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {
     CharSequence mTitles[];
     int numbOfTabs;
+    int type;
 
-    public MyFragmentPagerAdapter(FragmentManager fm, CharSequence mTitles[], int numbOfTabs) {
+    public MyFragmentPagerAdapter(FragmentManager fm, CharSequence mTitles[], int numbOfTabs, int typeOfFragments) {
         super(fm);
         this.mTitles = mTitles;
         this.numbOfTabs = numbOfTabs;
-
+        type = typeOfFragments;
     }
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 0) {
-            return new DialogsListFragment();
-        } else  if (position == 1) {
-            return new CompaniesListFragment();
-        } /*else if (position == 2) {
-            return new MapFragment();
-        }*/
+        if (type == 1) {
+            if (position == 0) {
+                return new DialogsListFragment();
+            } else if (position == 1) {
+                return new CompaniesListFragment();
+            } else if (position == 2) {
+                return new CompaniesListFragment();
+            }
+        }
+
+        if (type == 2) {
+            if (position == 0) {
+                return new SearchByNamesFragment();
+            } else if (position == 1) {
+                return new MapFragment();
+            } else if (position == 2) {
+                return new SearchByNamesFragment();
+            }
+        }
         return null;
     }
 

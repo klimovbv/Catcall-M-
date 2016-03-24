@@ -1,5 +1,6 @@
 package com.spb.kbv.catcallm.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,18 +24,19 @@ public class ScrollingMainActivity extends BaseAuthenticatedActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+                SearchPopupFragment searchPopupFragment = new SearchPopupFragment();
+                searchPopupFragment.show(getSupportFragmentManager(), "SearchFrag");
             }
         });
 
         ViewPager pager = (ViewPager)findViewById(R.id.pager);
-        pager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), new CharSequence[]{"One", "Two"}, 2));
+        pager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), new CharSequence[]{"ДИАЛОГИ", "АКЦИИ", "ИЗБРАННОЕ"}, 3, 1));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.main_fragment_issue_list_tab);
         tabLayout.setupWithViewPager(pager);
@@ -50,8 +52,7 @@ public class ScrollingMainActivity extends BaseAuthenticatedActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_search) {
-            SearchPopupFragment searchPopupFragment = new SearchPopupFragment();
-            searchPopupFragment.show(getSupportFragmentManager(), "SearchFrag");
+            startActivity(new Intent(this, ScrollingSearchActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

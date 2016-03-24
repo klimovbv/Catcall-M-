@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.spb.kbv.catcallm.activities.ScrollingMainActivity">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.spb.kbv.catcallm.activities.ScrollingMainActivity"
+        tools:showIn="@layout/activity_scrolling_main">
+
+        <include layout="@layout/include_toolbar"
+            android:id="@+id/include_toolbar"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/main_fragment_issue_list_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:tabGravity="center"
+            app:tabIndicatorColor="#FF2CA2D5"
+            app:tabPaddingEnd="30sp"
+            app:tabPaddingStart="30sp"
+            app:tabSelectedTextColor="#FF2CA2D5"
+            app:tabTextColor="#FF4F5354"
+            android:layout_below="@id/include_toolbar"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/main_fragment_issue_list_tab"/>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
