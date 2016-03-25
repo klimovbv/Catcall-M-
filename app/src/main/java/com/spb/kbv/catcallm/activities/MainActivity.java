@@ -23,6 +23,6 @@ public class MainActivity extends BaseAuthenticatedActivity {
                 .commit();*/
 
         ViewPager pager = (ViewPager)findViewById(R.id.pager);
-        pager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), new CharSequence[]{"One", "Two"}, 2, 1));
+        pager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), new CharSequence[]{"One", "Two"}, 2, 1, null));
     }
 }

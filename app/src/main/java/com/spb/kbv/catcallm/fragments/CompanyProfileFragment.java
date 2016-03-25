@@ -1,7 +1,6 @@
 package com.spb.kbv.catcallm.fragments;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,23 +13,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.spb.kbv.catcallm.R;
-import com.spb.kbv.catcallm.activities.BaseAuthenticatedActivity;
 import com.spb.kbv.catcallm.activities.ChatActivity;
-import com.spb.kbv.catcallm.activities.SearchActivity;
 import com.spb.kbv.catcallm.data.MessagesContract;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.squareup.picasso.Picasso;
 
-import junit.framework.TestCase;
-
-public class CompanyInfoFragment extends Fragment {
+public class CompanyProfileFragment extends Fragment {
     private static final String EXTRA_DETAILS = "EXTRA_DETAILS";
     private static final String EXTRA_COMPANY_IS_NEW = "EXTRA_COMPANY_IS_NEW";
     private UserDetails companyDetails;
 
-    public static CompanyInfoFragment newInstance (UserDetails companyDetails, boolean companyIsNew){
-        CompanyInfoFragment companyInfoFragment = new CompanyInfoFragment();
+    public static CompanyProfileFragment newInstance (UserDetails companyDetails, boolean companyIsNew){
+        CompanyProfileFragment companyInfoFragment = new CompanyProfileFragment();
         Bundle args = new Bundle();
         args.putParcelable(EXTRA_DETAILS, companyDetails);
         args.putBoolean(EXTRA_COMPANY_IS_NEW, companyIsNew);
@@ -53,7 +48,15 @@ public class CompanyInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_company_profile, container, false);
 
-        TextView startDialogButton = (TextView) view.findViewById(R.id.fragment_company_info_start_dialog_button);
+        TextView companyName = (TextView) view.findViewById(R.id.fragment_company_profile_name);
+        TextView companyAddress = (TextView) view.findViewById(R.id.fragment_company_profile_address);
+
+
+        companyName.setText(companyDetails.getUsername());
+        companyAddress.setText(companyDetails.getAddress());
+
+
+        /*TextView startDialogButton = (TextView) view.findViewById(R.id.fragment_company_info_start_dialog_button);
         startDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,17 +69,15 @@ public class CompanyInfoFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        ImageView avatar = (ImageView) view.findViewById(R.id.fragment_company_info_avatar);
-        TextView companyName = (TextView) view.findViewById(R.id.fragment_company_info_name);
-        TextView companyAddress = (TextView) view.findViewById(R.id.fragment_company_info_address);
 
-        Picasso.with(getContext()).load(companyDetails.getAvatarUrl()).into(avatar);
-        companyName.setText(companyDetails.getUsername());
-        companyAddress.setText(companyDetails.getAddress());
+
+
+
+        */
         return view;
     }
 
-    private void addCompanyToContacts(UserDetails company) {
+    /*private void addCompanyToContacts(UserDetails company) {
         ContentValues fakeCompaniesValues = new ContentValues();
 
         fakeCompaniesValues.put(MessagesContract.CompaniesEntry.COLUMN_NAME, company.getUsername());
@@ -94,8 +95,8 @@ public class CompanyInfoFragment extends Fragment {
 
         company.setId(Long.valueOf(insertedUri.getLastPathSegment()));
 
-        /*Intent intent = new Intent(getActivity(), ChatActivity.class);
+        *//*Intent intent = new Intent(getActivity(), ChatActivity.class);
         intent.putExtra(ChatActivity.EXTRA_USER_DETAILS, company);
-        startActivity(intent);*/
-    }
+        startActivity(intent);*//*
+    }*/
 }

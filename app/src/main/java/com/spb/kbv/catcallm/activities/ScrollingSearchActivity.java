@@ -80,7 +80,7 @@ public class ScrollingSearchActivity extends BaseAuthenticatedActivity {
         });
 
         ViewPager pager = (ViewPager)findViewById(R.id.pager);
-        pager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), new CharSequence[]{"ПО АЛФАВИТУ", "РЯДОМ", "КАТЕГОРИИ"}, 3, 2));
+        pager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), new CharSequence[]{"ПО АЛФАВИТУ", "РЯДОМ", "КАТЕГОРИИ"}, 3, 2, null));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.main_fragment_issue_list_tab);
         tabLayout.setupWithViewPager(pager);

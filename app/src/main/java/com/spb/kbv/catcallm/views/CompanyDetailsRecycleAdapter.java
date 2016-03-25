@@ -2,6 +2,7 @@ package com.spb.kbv.catcallm.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,10 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.readystatesoftware.viewbadger.BadgeView;
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.activities.ChatActivity;
 import com.spb.kbv.catcallm.activities.CompanyInfoActivity;
+import com.spb.kbv.catcallm.activities.ScrollingCompanyProfileActivity;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.squareup.picasso.Picasso;
@@ -55,6 +58,7 @@ public class CompanyDetailsRecycleAdapter extends RecyclerView.Adapter<CompanyDe
                 PopupMenu popup = new PopupMenu(context, v);
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     final UserDetails companyDetails = details;
+
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
@@ -87,18 +91,22 @@ public class CompanyDetailsRecycleAdapter extends RecyclerView.Adapter<CompanyDe
             }
         });
 
-
-
-
         viewHolder.companyNameTextView.setOnClickListener(new View.OnClickListener() {
             final UserDetails companyDetails = details;
+
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CompanyInfoActivity.class);
-                intent.putExtra(CompanyInfoActivity.EXTRA_COMPANY_DETAILS, companyDetails);
+                Intent intent = new Intent(context, ScrollingCompanyProfileActivity.class);
+                intent.putExtra(ScrollingCompanyProfileActivity.EXTRA_COMPANY_DETAILS, companyDetails);
                 v.getContext().startActivity(intent);
             }
         });
+
+        BadgeView badge = new BadgeView(context, viewHolder.avatar);
+        badge.setText("5");
+        badge.setBadgeMargin(0, 0);
+        badge.setBadgeBackgroundColor(Color.MAGENTA);
+        badge.show();
     }
 
     @Override

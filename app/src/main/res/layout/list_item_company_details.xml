@@ -8,14 +8,15 @@
     android:gravity="center_vertical"
     android:clickable="false">
 
-
-
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/list_item_company_details_avatar"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:id="@+id/list_item_company_details_avatar"
         android:src="@drawable/ic_launcher"
         android:layout_margin="8dp"/>
+
+
 
     <TextView
         android:layout_width="wrap_content"

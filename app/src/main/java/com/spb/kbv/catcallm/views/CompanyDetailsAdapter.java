@@ -74,9 +74,9 @@ public class CompanyDetailsAdapter extends ArrayAdapter<UserDetails> {
                             case R.id.menu_action_contact:
                                 return true;
                             case R.id.menu_action_profile:
-                                Intent intentProfile = new Intent(context, CompanyInfoActivity.class);
+                                /*Intent intentProfile = new Intent(context, CompanyInfoActivity.class);
                                 intentProfile.putExtra(CompanyInfoActivity.EXTRA_COMPANY_DETAILS, companyDetails);
-                                context.startActivity(intentProfile);
+                                context.startActivity(intentProfile);*/
                                 return true;
                             default:
                                 return false;

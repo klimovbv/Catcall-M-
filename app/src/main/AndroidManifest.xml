@@ -41,6 +41,7 @@
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity android:name=".activities.CompanyInfoActivity" />
         <activity android:name=".activities.ScrollingSearchActivity" />
+        <activity android:name=".activities.ScrollingCompanyProfileActivity"/>
 
         <provider
             android:name=".data.CatcallProvider"
