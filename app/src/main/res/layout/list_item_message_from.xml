@@ -26,7 +26,8 @@
         android:paddingRight="10dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:background="@drawable/message_from"/>
+        android:background="@drawable/message_from"
+        android:textColor="@color/company_text_color"/>
 
     <TextView
         android:layout_width="wrap_content"

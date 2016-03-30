@@ -80,7 +80,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
                     builder.append("-");
                 }*/
                 Log.d("edLog2", "getText = " + mPhoneNumberText.getText().toString());
-                String newText = stringMatch(mPhoneNumberText.getText().toString());
+                String newText = stringMatch(mPhoneNumberText.getText().toString(), mStarter);
                 mPhoneNumberText.setText(newText);
                 mPhoneNumberText.setSelection(mStarter);
                 unableChangeEditText = false;
@@ -89,7 +89,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
-    public String stringMatch(String editingString) {
+    public String stringMatch(String editingString, int starter) {
         String format = "--- --- -- --";
         String numbers = "0123456789";
 
@@ -154,9 +154,9 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
         for (int i = 0; i < builder.length(); i++){
 
             if (format.substring(phoneNumber.length(), phoneNumber.length() + 1).equals(" ")){
-                Log.d("edLog2", "added ___ " + " starter = " + mStarter + " length = " + phoneNumber.length());
+                Log.d("edLog2", "added ___ " + " starter = " + starter + " length = " + phoneNumber.length());
                 phoneNumber.append(" ");
-                if (phoneNumber.length() == mStarter - 1) {
+                if (phoneNumber.length() == starter - 1) {
                     mStarter++;
                     Log.d("edLog2", "starter + 1");
                 }

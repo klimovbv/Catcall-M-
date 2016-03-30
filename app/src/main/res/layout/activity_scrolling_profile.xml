@@ -50,10 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             app:tabGravity="center"
-            app:tabIndicatorColor="#FF2CA2D5"
-            app:tabPaddingEnd="30sp"
-            app:tabPaddingStart="30sp"
-            app:tabSelectedTextColor="#FF2CA2D5"
+            app:tabIndicatorColor="@color/background_message_from"
+            app:tabSelectedTextColor="@color/background_message_from"
             app:tabTextColor="#FF4F5354" />
 
         <android.support.v4.view.ViewPager

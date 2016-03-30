@@ -47,7 +47,7 @@ public class ScrollingCompanyProfileActivity extends BaseAuthenticatedActivity {
         });
 
         ViewPager pager = (ViewPager)findViewById(R.id.pager);
-        pager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), new CharSequence[]{"Профиль", "Акции", "Обовления"}, 3, 3, companyDetails));
+        pager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), new CharSequence[]{"Профиль", "Акции", "Обновления"}, 3, 3, companyDetails));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.main_fragment_issue_list_tab);
         tabLayout.setupWithViewPager(pager);

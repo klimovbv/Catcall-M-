@@ -8,6 +8,9 @@
     <color name="list_item_message_background">#eee</color>
     <color name="list_item_message_background_unread">#FFF2CF</color>
     <color name="list_item_nav_drawer_selected_item_background">#12000000</color>
-    <color name="background_message_client">#e7e7e7</color>
-    <color name="background_message_from">#c9ff2f</color>
+    <color name="background_message_client">#E6E6E6</color>
+    <color name="background_message_from">#7948E5</color>
+    <color name="base_background_color">#49138B</color>
+    <color name="client_text">#414141</color>
+    <color name="company_text_color">#E6E6E6</color>
 </resources>

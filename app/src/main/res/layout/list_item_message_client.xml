@@ -8,7 +8,8 @@
     android:paddingBottom="5dp"
     android:paddingRight="10dp"
     android:paddingTop="5dp"
-    android:clickable="false">
+    android:clickable="false"
+    >
 
     <TextView
         android:id="@+id/message_from"
@@ -29,7 +30,8 @@
         android:paddingRight="10dp"
         android:paddingTop="5dp"
         android:textSize="16sp"
-        android:text="some text"/>
+        android:text="some text"
+        android:textColor="@color/client_text"/>
 
     <TextView
         android:layout_width="wrap_content"

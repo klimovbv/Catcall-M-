@@ -43,6 +43,16 @@
         <activity android:name=".activities.ScrollingSearchActivity" />
         <activity android:name=".activities.ScrollingCompanyProfileActivity"/>
 
+        <activity android:name=".activities.SplashScreenActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <provider
             android:name=".data.CatcallProvider"
             android:authorities="com.spb.kbv.catcallm" />
@@ -58,11 +68,7 @@
             android:label="@string/title_activity_scrolling_main"
             android:theme="@style/AppTheme">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
     </application>
