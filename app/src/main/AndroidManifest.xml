@@ -27,6 +27,11 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <meta-data android:name="DATABASE" android:value="sugar_example.db" />
+        <meta-data android:name="VERSION" android:value="3" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.spb.kbv.catcallm" />
+
         <activity android:name=".activities.MainActivity">
 
         </activity>

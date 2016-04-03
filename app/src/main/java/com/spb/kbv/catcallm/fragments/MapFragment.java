@@ -39,6 +39,7 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MapFragment extends BaseFragment implements View.OnClickListener {
 
@@ -49,7 +50,7 @@ public class MapFragment extends BaseFragment implements View.OnClickListener {
     private TextView showInfoButton;
     private TextView info;
     private int translateOffset;
-    private ArrayList<UserDetails> companiesList;
+    private List<UserDetails> companiesList;
     private HashMap <String, UserDetails> extraMarkerInfo;
     private UserDetails markerDetails;
     private LayoutInflater inflater;
@@ -63,7 +64,7 @@ public class MapFragment extends BaseFragment implements View.OnClickListener {
 
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_map, container, false);
-        companiesList = new ArrayList<>();
+        /*companiesList = new List<>();*/
         extraMarkerInfo = new HashMap<>();
         return view;
     }

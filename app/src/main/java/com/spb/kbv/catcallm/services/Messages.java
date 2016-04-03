@@ -12,11 +12,13 @@ public final class Messages {
     public static class SendMessageRequest {
         public long companyId;
         public String messageText;
+        public UserDetails details;
 
 
-        public SendMessageRequest(String messageText, long companyId) {
+        public SendMessageRequest(String messageText, long companyId, UserDetails details) {
             this.companyId = companyId;
             this.messageText = messageText;
+            this.details = details;
         }
     }
 

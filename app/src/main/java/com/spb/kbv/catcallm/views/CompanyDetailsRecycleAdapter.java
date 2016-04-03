@@ -24,14 +24,15 @@ import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CompanyDetailsRecycleAdapter extends RecyclerView.Adapter<CompanyDetailsRecycleAdapter.ViewHolder>{
 
-    private ArrayList<UserDetails> detailsArray;
+    private List<UserDetails> detailsArray;
     private Context context;
     private CatcallApplication application;
 
-    public CompanyDetailsRecycleAdapter(BaseActivity activity, ArrayList<UserDetails> detailsArray) {
+    public CompanyDetailsRecycleAdapter(BaseActivity activity, List<UserDetails> detailsArray) {
         context = activity.getApplicationContext();
         application = (CatcallApplication) activity.getApplication();
         this.detailsArray = detailsArray;

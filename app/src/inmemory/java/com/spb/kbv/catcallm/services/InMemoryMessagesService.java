@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.spb.kbv.catcallm.data.DatabaseManager;
 import com.spb.kbv.catcallm.data.MessagesContract;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
 import com.spb.kbv.catcallm.services.entities.Message;
@@ -12,6 +13,7 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class InMemoryMessagesService extends BaseInMemoryService{
     protected InMemoryMessagesService(CatcallApplication application) {
@@ -22,7 +24,16 @@ public class InMemoryMessagesService extends BaseInMemoryService{
     public void sendMessage(Messages.SendMessageRequest request) {
         Messages.SendMessageResponse response = new Messages.SendMessageResponse();
 
-        ContentValues contentValues = new ContentValues();
+        Message message = new Message(
+                Calendar.getInstance(),
+                request.messageText,
+                request.details,
+                true
+        );
+
+        DatabaseManager.getInstance().addMessage(message);
+
+        /*ContentValues contentValues = new ContentValues();
         contentValues.put(MessagesContract.MessagesEntry.COLUMN_COMP_KEY, request.companyId);
         contentValues.put(MessagesContract.MessagesEntry.COLUMN_DATE, Calendar.getInstance().getTimeInMillis());
         contentValues.put(MessagesContract.MessagesEntry.COLUMN_ISFROMUS, 1);
@@ -32,9 +43,9 @@ public class InMemoryMessagesService extends BaseInMemoryService{
         Uri insertedUri = application.getContentResolver().insert(
                 MessagesContract.MessagesEntry.CONTENT_URI, contentValues);
 
+*/
 
-
-        Message message = new Message(1, Calendar.getInstance(), request.messageText, null, true, false);
+       /* Message message = new Message(1, Calendar.getInstance(), request.messageText, null, true, false);*/
 
         response.message = message;
         bus.post(response);
@@ -44,7 +55,16 @@ public class InMemoryMessagesService extends BaseInMemoryService{
     public void receiveMessage(Messages.ReceiveIncomeMessageRequest request){
         Messages.ReceiveIncomeMessageResponse response = new Messages.ReceiveIncomeMessageResponse();
 
-        ContentValues contentValues = new ContentValues();
+        Message message = new Message(
+                Calendar.getInstance(),
+                "some new text",
+                request.details,
+                false
+        );
+
+        DatabaseManager.getInstance().addMessage(message);
+
+        /*ContentValues contentValues = new ContentValues();
         contentValues.put(MessagesContract.MessagesEntry.COLUMN_COMP_KEY, request.details.getId());
         contentValues.put(MessagesContract.MessagesEntry.COLUMN_DATE, Calendar.getInstance().getTimeInMillis());
         contentValues.put(MessagesContract.MessagesEntry.COLUMN_ISFROMUS, 0);
@@ -52,21 +72,35 @@ public class InMemoryMessagesService extends BaseInMemoryService{
         contentValues.put(MessagesContract.MessagesEntry.COLUMN_FILE, "null");
 
         Uri insertedUri = application.getContentResolver().insert(
-                MessagesContract.MessagesEntry.CONTENT_URI, contentValues);
+                MessagesContract.MessagesEntry.CONTENT_URI, contentValues);*/
 
         /*UserDetails details = request.details;
         if (details == null) {
             details = new UserDetails(1, "Other Person", null, 54, 32);
         }*/
 
-        response.message = new Message(1, Calendar.getInstance(), "some new text", request.details, false, true);
+     /*   response.message = new Message(1, Calendar.getInstance(), "some new text", request.details, false, true);*/
+        response.message = message;
 
         bus.post(response);
     }
 
     @Subscribe
     public void loadMessages(Messages.LoadMessagesRequest request){
-        Cursor messagiesCursor = application.getContentResolver().query(
+
+        List<Message> allMessages = DatabaseManager.getInstance().getMessages();
+        ArrayList<Message> messages = new ArrayList<>();
+
+
+        if (allMessages.size() > 0){
+            for (Message message : allMessages) {
+                if (message.getOtherUser() == request.userDetails) {
+                    messages.add(message);
+                }
+            }
+        }
+
+        /*Cursor messagiesCursor = application.getContentResolver().query(
                 MessagesContract.MessagesEntry.CONTENT_URI,
                 null,
                 "comp_id = ?",
@@ -94,7 +128,7 @@ public class InMemoryMessagesService extends BaseInMemoryService{
                         isRead
                 ));
             } while (messagiesCursor.moveToNext());
-        }
+        }*/
 
         Messages.LoadMessagesResponse response = new Messages.LoadMessagesResponse();
         response.messages = messages;

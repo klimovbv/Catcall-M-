@@ -3,31 +3,20 @@ package com.spb.kbv.catcallm.services.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "companyTest")
-public class UserDetails/* extends SugarRecord*/ implements Parcelable{
+public class UserDetailsCopy/* extends SugarRecord*/ implements Parcelable{
 
-    @DatabaseField(generatedId = true)
     private long id;
     /*private final boolean isContact;*/
     /*private final String displayName;*/
-    @DatabaseField(columnName = "name")
-    private String username;
-    @DatabaseField
-    private String address;
-    @DatabaseField(columnName = "avatar")
-    private String avatarUrl;
-    @DatabaseField
-    private double latitude;
-    @DatabaseField
-    private double longitude;
-
-    public UserDetails() {};
+    private final String username;
+    private final String address;
+    private final String avatarUrl;
+    private final double latitude;
+    private final double longitude;
 
 
-    public UserDetails(long id, String username, String address, String avatarUrl, double latitude,  double longitude) {
+    public UserDetailsCopy(long id, String username, String address, String avatarUrl, double latitude, double longitude) {
         this.id = id;
         this.username = username;
         this.address = address;
@@ -37,7 +26,7 @@ public class UserDetails/* extends SugarRecord*/ implements Parcelable{
 
     }
 
-    private UserDetails(Parcel parcel) {
+    private UserDetailsCopy(Parcel parcel) {
         id = parcel.readLong();
         username = parcel.readString();
         address = parcel.readString();
@@ -46,15 +35,15 @@ public class UserDetails/* extends SugarRecord*/ implements Parcelable{
         longitude = parcel.readDouble();
     }
 
-    public static final Creator<UserDetails> CREATOR = new Creator<UserDetails>() {
+    public static final Creator<UserDetailsCopy> CREATOR = new Creator<UserDetailsCopy>() {
         @Override
-        public UserDetails createFromParcel(Parcel parcel) {
-            return new UserDetails(parcel);
+        public UserDetailsCopy createFromParcel(Parcel parcel) {
+            return new UserDetailsCopy(parcel);
         }
 
         @Override
-        public UserDetails[] newArray(int size) {
-            return new UserDetails[size];
+        public UserDetailsCopy[] newArray(int size) {
+            return new UserDetailsCopy[size];
         }
     };
 
@@ -99,15 +88,5 @@ public class UserDetails/* extends SugarRecord*/ implements Parcelable{
         destination.writeString(avatarUrl);
         destination.writeDouble(latitude);
         destination.writeDouble(longitude);
-    }
-
-    @Override
-    public String toString() {
-        return "id = " + id +
-                ", username = " + username +
-                ", address = " + address +
-                ", avatarUrl = " + avatarUrl +
-                ", lat = " + latitude +
-                ", long = " + longitude;
     }
 }

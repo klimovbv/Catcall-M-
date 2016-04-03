@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
+import com.spb.kbv.catcallm.data.DatabaseManager;
 import com.spb.kbv.catcallm.data.MessagesContract;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
 import com.spb.kbv.catcallm.services.entities.Message;
@@ -13,6 +14,7 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class InMemoryContactsService extends BaseInMemoryService {
 
@@ -25,7 +27,48 @@ public class InMemoryContactsService extends BaseInMemoryService {
     public void makeCompaniesList(Contacts.GetCompaniesRequest request) {
         Contacts.GetCompaniesResponse response = new Contacts.GetCompaniesResponse();
         Log.d("myLogs", "InMemoryContactsService/makeCompaniesList ==");
-        Cursor companiesCursor = application.getContentResolver().query(
+
+        /*List<UserDetails> companies = UserDetails.listAll(UserDetails.class);*/
+        List<UserDetails> companies = DatabaseManager.getInstance().getAllUsers();
+        if (companies != null && companies.size() > 0) {
+            Log.d("myLogs", "companies not null  " + companies.size());
+            response.companies = companies;
+            bus.post(response);
+        } else {
+            Log.d("myLogs", "companiesCurso is empty ");
+            ArrayList<Double> latitude = new ArrayList<>();
+            ArrayList<Double> longitude = new ArrayList<>();
+            latitude.add(59.92);
+            longitude.add(30.24);
+            latitude.add(59.94);
+            longitude.add(30.23);
+            latitude.add(59.87);
+            longitude.add(30.34);
+
+            for (int i = 1; i <= 3; i++) {
+                String avatar = "http://www.gravatar.com/avatar/" + i + "?d=identicon&s=64";
+
+                UserDetails company = new UserDetails(
+                        i,
+                        "Company # " + i,
+                        "Address " + i,
+                        avatar,
+                        latitude.get(i - 1),
+                        longitude.get(i - 1));
+                DatabaseManager.getInstance().addUser(company);
+
+                // sugar:
+                // company.save();
+
+
+            }
+            bus.post(new Contacts.GetCompaniesRequest());
+        }
+    }
+}
+
+
+/* Cursor companiesCursor = application.getContentResolver().query(
                 MessagesContract.CompaniesEntry.CONTENT_URI, null, null, null, null);
 
         if (companiesCursor.moveToFirst()) {
@@ -84,7 +127,8 @@ public class InMemoryContactsService extends BaseInMemoryService {
             companiesCursor.close();
             bus.post(new Contacts.GetCompaniesRequest());
         }
-    }
+    }*//*
+
 
     @Subscribe
     public void onSearchCompanies(Contacts.SearchCompanyRequest request){
@@ -187,3 +231,4 @@ public class InMemoryContactsService extends BaseInMemoryService {
 
 
 }
+*/

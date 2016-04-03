@@ -78,7 +78,7 @@ public class ChatActivity extends BaseAuthenticatedActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        bus.post(new Messages.SendMessageRequest(mMessageEditText.getText().toString(), details.getId()));
+        bus.post(new Messages.SendMessageRequest(mMessageEditText.getText().toString(), details.getId(), details));
         mMessageEditText.setText("");
     }
 
