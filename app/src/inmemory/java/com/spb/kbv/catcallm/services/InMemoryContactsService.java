@@ -24,11 +24,11 @@ public class InMemoryContactsService extends BaseInMemoryService {
         Log.d("myLogs", "InMemoryContactsService/makeCompaniesList ==");
 
         /*List<UserDetails> companies = UserDetails.listAll(UserDetails.class);*/
-        List<Message> companies = DatabaseManager.getInstance().getMessages();
+        List<UserDetails> companies = DatabaseManager.getInstance().getAllUsers();
         if (companies != null && companies.size() > 0) {
             Log.d("myLogs", "companies not null  " + companies.size());
-            /*response.companies = companies;
-            bus.post(response);*/
+            response.companies = companies;
+            bus.post(response);
         } else {
             Log.d("myLogs", "companiesCurso is empty ");
             ArrayList<Double> latitude = new ArrayList<>();

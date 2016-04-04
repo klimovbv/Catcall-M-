@@ -55,7 +55,7 @@ public class DialogsRecycleAdapter extends RecyclerView.Adapter<DialogsRecycleAd
             viewHolder.status.setImageResource(R.mipmap.ic_message_unread);
         }
 
-        viewHolder.lastMessageDateTextView.setText(DateFormats.showTimeAndDayFormat(message.getCratedAt()));
+        /*viewHolder.lastMessageDateTextView.setText(DateFormats.showTimeAndDayFormat(message.getCratedAt()));*/
     }
 
     @Override

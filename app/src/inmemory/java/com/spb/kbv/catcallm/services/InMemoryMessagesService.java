@@ -1,5 +1,7 @@
 package com.spb.kbv.catcallm.services;
 
+import android.util.Log;
+
 import com.spb.kbv.catcallm.data.DatabaseManager;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
 import com.spb.kbv.catcallm.services.entities.Message;
@@ -8,6 +10,7 @@ import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
 
 public class InMemoryMessagesService extends BaseInMemoryService{
     protected InMemoryMessagesService(CatcallApplication application) {
@@ -18,13 +21,16 @@ public class InMemoryMessagesService extends BaseInMemoryService{
     public void sendMessage(Messages.SendMessageRequest request) {
         Messages.SendMessageResponse response = new Messages.SendMessageResponse();
 
+
+
         Message message = new Message(1,
-                Calendar.getInstance(),
+/*                Calendar.getInstance(),*/
                 request.messageText,
-                request.details,
+                /*request.details,*/
                 true
         );
 
+        message.setOtherUser(request.details);
         DatabaseManager.getInstance().addMessage(message);
 
         /*ContentValues contentValues = new ContentValues();
@@ -50,12 +56,13 @@ public class InMemoryMessagesService extends BaseInMemoryService{
         Messages.ReceiveIncomeMessageResponse response = new Messages.ReceiveIncomeMessageResponse();
 
         Message message = new Message(1,
-                Calendar.getInstance(),
+                /*Calendar.getInstance(),*/
                 "some new text",
-                request.details,
+                /*request.details,*/
                 false
         );
 
+        message.setOtherUser(request.details);
         DatabaseManager.getInstance().addMessage(message);
 
         /*ContentValues contentValues = new ContentValues();
@@ -83,15 +90,26 @@ public class InMemoryMessagesService extends BaseInMemoryService{
     public void loadMessages(Messages.LoadMessagesRequest request){
 
         Collection<Message> allMessages = request.userDetails.getMessages();
+        List<Message> am = DatabaseManager.getInstance().getMessages();
+        if (am != null) {
+            Log.d("myLogs", " am > 0 " + am.size());
+        }
+        else {
+            Log.d("myLogs", " am = 0 " + (am == null));
+        }
+
         ArrayList<Message> messages = new ArrayList<>();
 
 
-        if (allMessages.size() > 0){
+        if (allMessages != null && allMessages.size() > 0){
+            Log.d("myLogs", " allMessage > 0 " + allMessages.size());
             for (Message message : allMessages) {
 
                     messages.add(message);
 
             }
+        } else {
+            Log.d("myLogs", " allMessage = 0 ");
         }
 
         /*Cursor messagiesCursor = application.getContentResolver().query(

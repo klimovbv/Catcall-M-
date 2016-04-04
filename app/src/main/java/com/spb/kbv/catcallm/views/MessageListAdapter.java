@@ -67,7 +67,7 @@ public class MessageListAdapter extends BaseAdapter{
                 message.getCratedAt().getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_TIME);*/
 
-        messageDate.setText(DateFormats.showTimeFormat(message.getCratedAt()));
+        /*messageDate.setText(DateFormats.showTimeFormat(message.getCratedAt()));*/
 
         return convertView;
     }

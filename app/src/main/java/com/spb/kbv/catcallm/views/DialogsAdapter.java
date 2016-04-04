@@ -57,7 +57,7 @@ public class DialogsAdapter extends ArrayAdapter<Message> {
             viewHolder.status.setImageResource(R.mipmap.ic_message_unread);
         }
 
-        viewHolder.lastMessageDateTextView.setText(DateFormats.showTimeAndDayFormat(message.getCratedAt()));
+        /*viewHolder.lastMessageDateTextView.setText(DateFormats.showTimeAndDayFormat(message.getCratedAt()));*/
         return convertView;
     }
 

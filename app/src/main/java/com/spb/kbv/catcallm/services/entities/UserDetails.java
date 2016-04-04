@@ -96,6 +96,10 @@ public class UserDetails/* extends SugarRecord*/ implements Parcelable{
         return messages;
     }
 
+    public void addMessage(Message message) {
+        messages.add(message);
+    }
+
 
 
     @Override
