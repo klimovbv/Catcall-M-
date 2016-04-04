@@ -1,19 +1,13 @@
 package com.spb.kbv.catcallm.services;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.net.Uri;
-
 import com.spb.kbv.catcallm.data.DatabaseManager;
-import com.spb.kbv.catcallm.data.MessagesContract;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
 import com.spb.kbv.catcallm.services.entities.Message;
-import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Collection;
 
 public class InMemoryMessagesService extends BaseInMemoryService{
     protected InMemoryMessagesService(CatcallApplication application) {
@@ -24,7 +18,7 @@ public class InMemoryMessagesService extends BaseInMemoryService{
     public void sendMessage(Messages.SendMessageRequest request) {
         Messages.SendMessageResponse response = new Messages.SendMessageResponse();
 
-        Message message = new Message(
+        Message message = new Message(1,
                 Calendar.getInstance(),
                 request.messageText,
                 request.details,
@@ -55,7 +49,7 @@ public class InMemoryMessagesService extends BaseInMemoryService{
     public void receiveMessage(Messages.ReceiveIncomeMessageRequest request){
         Messages.ReceiveIncomeMessageResponse response = new Messages.ReceiveIncomeMessageResponse();
 
-        Message message = new Message(
+        Message message = new Message(1,
                 Calendar.getInstance(),
                 "some new text",
                 request.details,
@@ -88,15 +82,15 @@ public class InMemoryMessagesService extends BaseInMemoryService{
     @Subscribe
     public void loadMessages(Messages.LoadMessagesRequest request){
 
-        List<Message> allMessages = DatabaseManager.getInstance().getMessages();
+        Collection<Message> allMessages = request.userDetails.getMessages();
         ArrayList<Message> messages = new ArrayList<>();
 
 
         if (allMessages.size() > 0){
             for (Message message : allMessages) {
-                if (message.getOtherUser() == request.userDetails) {
+
                     messages.add(message);
-                }
+
             }
         }
 

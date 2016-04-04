@@ -1,19 +1,14 @@
 package com.spb.kbv.catcallm.services;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.net.Uri;
 import android.util.Log;
 
 import com.spb.kbv.catcallm.data.DatabaseManager;
-import com.spb.kbv.catcallm.data.MessagesContract;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
 import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class InMemoryContactsService extends BaseInMemoryService {
@@ -29,11 +24,11 @@ public class InMemoryContactsService extends BaseInMemoryService {
         Log.d("myLogs", "InMemoryContactsService/makeCompaniesList ==");
 
         /*List<UserDetails> companies = UserDetails.listAll(UserDetails.class);*/
-        List<UserDetails> companies = DatabaseManager.getInstance().getAllUsers();
+        List<Message> companies = DatabaseManager.getInstance().getMessages();
         if (companies != null && companies.size() > 0) {
             Log.d("myLogs", "companies not null  " + companies.size());
-            response.companies = companies;
-            bus.post(response);
+            /*response.companies = companies;
+            bus.post(response);*/
         } else {
             Log.d("myLogs", "companiesCurso is empty ");
             ArrayList<Double> latitude = new ArrayList<>();

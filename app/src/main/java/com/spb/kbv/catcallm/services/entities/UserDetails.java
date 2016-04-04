@@ -4,7 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+
+import java.util.Collection;
 
 @DatabaseTable(tableName = "companyTest")
 public class UserDetails/* extends SugarRecord*/ implements Parcelable{
@@ -23,8 +26,11 @@ public class UserDetails/* extends SugarRecord*/ implements Parcelable{
     private double latitude;
     @DatabaseField
     private double longitude;
+    @ForeignCollectionField(eager = false)
+    private Collection<Message> messages;
 
-    public UserDetails() {};
+
+    public UserDetails() {}
 
 
     public UserDetails(long id, String username, String address, String avatarUrl, double latitude,  double longitude) {
@@ -85,6 +91,12 @@ public class UserDetails/* extends SugarRecord*/ implements Parcelable{
     public double getLongitude() {
         return longitude;
     }
+
+    public Collection<Message> getMessages() {
+        return messages;
+    }
+
+
 
     @Override
     public int describeContents() {

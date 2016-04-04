@@ -1,12 +1,12 @@
 package com.spb.kbv.catcallm.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
@@ -32,9 +32,10 @@ public class DatabaseManager {
     }
 
     public List<UserDetails> getAllUsers() {
+        Log.d("myLogs", "in getAllUsers");
         List<UserDetails> users = null;
         try {
-            users = getHelper().getUserDetailses().queryForAll();
+            users = getHelper().getUserDetailsDao().queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -42,6 +43,7 @@ public class DatabaseManager {
     }
 
     public List<Message> getMessages() {
+        Log.d("myLogs", "inGetMessages ");
         List<Message> messages = null;
         try {
             messages = getHelper().getMessagesDao().queryForAll();
@@ -54,7 +56,7 @@ public class DatabaseManager {
 
     public void addUser(UserDetails company) {
         try {
-            getHelper().getUserDetailses().create(company);
+            getHelper().getUserDetailsDao().create(company);
         } catch (SQLException e) {
             e.printStackTrace();
         }

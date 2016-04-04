@@ -14,8 +14,8 @@ public class Message {
     private Calendar cratedAt;
     @DatabaseField
     private String messageText;
-    @DatabaseField
-    private long otherUserId;
+    /*@DatabaseField
+    private long otherUserId;*/
     @DatabaseField(columnName = "id_c", foreign = true)
     private UserDetails otherUser;
     @DatabaseField
@@ -23,9 +23,9 @@ public class Message {
 
     private boolean isRead;
 
-    public Message(){};
+    public Message(){}
 
-    public Message(/*long id,*/
+    public Message(long id,
                    Calendar cratedAt,
                    String messageText,
                    UserDetails otherUser,
@@ -83,11 +83,11 @@ public class Message {
         this.isRead = isRead;
     }
 
-    public long getOtherUserId() {
+    /*public long getOtherUserId() {
         return otherUserId;
     }
 
     public void setOtherUserId(int otherUserId) {
         this.otherUserId = otherUserId;
-    }
+    }*/
 }
