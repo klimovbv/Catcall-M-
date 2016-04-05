@@ -1,13 +1,11 @@
 package com.spb.kbv.catcallm.infrastructure;
 
-import android.app.Application;
-
-import com.spb.kbv.catcallm.data.DatabaseManager;
+import com.orm.SugarApp;
 import com.spb.kbv.catcallm.services.Module;
 import com.squareup.otto.Bus;
 import com.squareup.picasso.Picasso;
 
-public class CatcallApplication extends Application {
+public class CatcallApplication extends SugarApp {
     private Auth auth;
     private Bus bus;
     private Picasso authedPicasso;
@@ -22,7 +20,10 @@ public class CatcallApplication extends Application {
         auth = new Auth(this);
         createAuthedPicasso();
         Module.register(this);
-        DatabaseManager.init(this);
+
+
+        //ormLite:
+        /*DatabaseManager.init(this);*/
 
     }
 

@@ -2,9 +2,7 @@ package com.spb.kbv.catcallm.services;
 
 import android.util.Log;
 
-import com.spb.kbv.catcallm.data.DatabaseManager;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
-import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.squareup.otto.Subscribe;
 
@@ -20,11 +18,13 @@ public class InMemoryContactsService extends BaseInMemoryService {
 
     @Subscribe
     public void makeCompaniesList(Contacts.GetCompaniesRequest request) {
+
         Contacts.GetCompaniesResponse response = new Contacts.GetCompaniesResponse();
         Log.d("myLogs", "InMemoryContactsService/makeCompaniesList ==");
 
         /*List<UserDetails> companies = UserDetails.listAll(UserDetails.class);*/
-        List<UserDetails> companies = DatabaseManager.getInstance().getAllUsers();
+        /*List<UserDetails> companies = DatabaseManager.getInstance().getAllUsers();*/
+        List<UserDetails> companies = UserDetails.listAll(UserDetails.class);
         if (companies != null && companies.size() > 0) {
             Log.d("myLogs", "companies not null  " + companies.size());
             response.companies = companies;
@@ -50,10 +50,12 @@ public class InMemoryContactsService extends BaseInMemoryService {
                         avatar,
                         latitude.get(i - 1),
                         longitude.get(i - 1));
-                DatabaseManager.getInstance().addUser(company);
+
+                //ormLite
+                // /*DatabaseManager.getInstance().addUser(company);*/
 
                 // sugar:
-                // company.save();
+                company.save();
 
 
             }

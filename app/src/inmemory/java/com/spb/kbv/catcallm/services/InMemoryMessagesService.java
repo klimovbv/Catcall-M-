@@ -2,14 +2,11 @@ package com.spb.kbv.catcallm.services;
 
 import android.util.Log;
 
-import com.spb.kbv.catcallm.data.DatabaseManager;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
 import com.spb.kbv.catcallm.services.entities.Message;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
 import java.util.List;
 
 public class InMemoryMessagesService extends BaseInMemoryService{
@@ -25,13 +22,14 @@ public class InMemoryMessagesService extends BaseInMemoryService{
 
         Message message = new Message(1,
 /*                Calendar.getInstance(),*/
-                request.messageText,
+                request.messageText
                 /*request.details,*/
-                true
+                /*true*/
         );
 
         message.setOtherUser(request.details);
-        DatabaseManager.getInstance().addMessage(message);
+        message.save();
+        /*DatabaseManager.getInstance().addMessage(message);*/
 
         /*ContentValues contentValues = new ContentValues();
         contentValues.put(MessagesContract.MessagesEntry.COLUMN_COMP_KEY, request.companyId);
@@ -57,13 +55,14 @@ public class InMemoryMessagesService extends BaseInMemoryService{
 
         Message message = new Message(1,
                 /*Calendar.getInstance(),*/
-                "some new text",
+                "some new text"
                 /*request.details,*/
-                false
+                /*false*/
         );
 
         message.setOtherUser(request.details);
-        DatabaseManager.getInstance().addMessage(message);
+        /*DatabaseManager.getInstance().addMessage(message);*/
+        message.save();
 
         /*ContentValues contentValues = new ContentValues();
         contentValues.put(MessagesContract.MessagesEntry.COLUMN_COMP_KEY, request.details.getId());
@@ -89,28 +88,33 @@ public class InMemoryMessagesService extends BaseInMemoryService{
     @Subscribe
     public void loadMessages(Messages.LoadMessagesRequest request){
 
-        Collection<Message> allMessages = request.userDetails.getMessages();
-        List<Message> am = DatabaseManager.getInstance().getMessages();
+        /*Collection<Message> allMessages = request.userDetails.getMessages();*/
+        List<Message> am = Message.listAll(Message.class);
         if (am != null) {
             Log.d("myLogs", " am > 0 " + am.size());
+            for (Message mes : am){
+                Log.d("myLogs", " messgae +" + mes.getId() + " " + mes.getOtherUser().getUsername() + mes.getMessageText());
+            }
         }
         else {
             Log.d("myLogs", " am = 0 " + (am == null));
         }
 
-        ArrayList<Message> messages = new ArrayList<>();
+        Messages.LoadMessagesResponse response = new Messages.LoadMessagesResponse();
+        if (am != null && am.size() > 0) {
+            ArrayList<Message> messages = new ArrayList<>();
 
 
-        if (allMessages != null && allMessages.size() > 0){
-            Log.d("myLogs", " allMessage > 0 " + allMessages.size());
-            for (Message message : allMessages) {
+            if (am != null && am.size() > 0) {
+                Log.d("myLogs", " allMessage > 0 " + am.size());
+                for (Message message : am) {
 
                     messages.add(message);
 
+                }
+            } else {
+                Log.d("myLogs", " allMessage = 0 ");
             }
-        } else {
-            Log.d("myLogs", " allMessage = 0 ");
-        }
 
         /*Cursor messagiesCursor = application.getContentResolver().query(
                 MessagesContract.MessagesEntry.CONTENT_URI,
@@ -142,8 +146,9 @@ public class InMemoryMessagesService extends BaseInMemoryService{
             } while (messagiesCursor.moveToNext());
         }*/
 
-        Messages.LoadMessagesResponse response = new Messages.LoadMessagesResponse();
-        response.messages = messages;
+
+            response.messages = messages;
+        }
         bus.post(response);
     }
 }

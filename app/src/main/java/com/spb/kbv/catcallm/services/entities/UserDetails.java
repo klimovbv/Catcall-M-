@@ -3,31 +3,33 @@ package com.spb.kbv.catcallm.services.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
-import com.j256.ormlite.table.DatabaseTable;
+import com.orm.SugarRecord;
 
-import java.util.Collection;
+import java.util.List;
 
-@DatabaseTable(tableName = "companyTest")
-public class UserDetails/* extends SugarRecord*/ implements Parcelable{
+/*@DatabaseTable(tableName = "companyTest")*/
+public class UserDetails extends SugarRecord implements Parcelable{
 
-    @DatabaseField(generatedId = true)
+    /*@DatabaseField(generatedId = true)*/
     private long id;
     /*private final boolean isContact;*/
     /*private final String displayName;*/
-    @DatabaseField(columnName = "name")
+    /*@DatabaseField(columnName = "name")*/
     private String username;
-    @DatabaseField
+    /*@DatabaseField*/
     private String address;
-    @DatabaseField(columnName = "avatar")
+    /*@DatabaseField(columnName = "avatar")*/
     private String avatarUrl;
-    @DatabaseField
+    /*@DatabaseField*/
     private double latitude;
-    @DatabaseField
+    /*@DatabaseField*/
     private double longitude;
-    @ForeignCollectionField(eager = false)
-    private Collection<Message> messages;
+
+    public List<Message> getMessages () {
+        return Message.find(Message.class, "otherUser = ?", getId().toString());
+    }
+    /*@ForeignCollectionField(eager = true)*/
+    /*private Collection<Message> messages;*/
 
 
     public UserDetails() {}
@@ -64,7 +66,7 @@ public class UserDetails/* extends SugarRecord*/ implements Parcelable{
         }
     };
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -92,14 +94,14 @@ public class UserDetails/* extends SugarRecord*/ implements Parcelable{
         return longitude;
     }
 
-    public Collection<Message> getMessages() {
+   /* public Collection<Message> getMessages() {
         return messages;
     }
 
     public void addMessage(Message message) {
         messages.add(message);
     }
-
+*/
 
 
     @Override
