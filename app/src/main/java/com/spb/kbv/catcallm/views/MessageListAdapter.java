@@ -1,6 +1,5 @@
 package com.spb.kbv.catcallm.views;
 
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.spb.kbv.catcallm.R;
-import com.spb.kbv.catcallm.Utils.DateFormats;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.services.entities.Message;
 
@@ -57,7 +55,7 @@ public class MessageListAdapter extends BaseAdapter{
         if (message.isFromUs()){
             messageFrom.setVisibility(View.GONE);
         } else {
-            messageFrom.setText(message.getOtherUser().getUsername());
+            messageFrom.setText("some comp"/*message.getOtherUser().getUsername()*/);
         }
 
         messageText.setText(message.getMessageText());

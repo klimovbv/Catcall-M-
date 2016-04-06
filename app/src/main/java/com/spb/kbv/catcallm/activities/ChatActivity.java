@@ -10,11 +10,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.spb.kbv.catcallm.R;
-import com.spb.kbv.catcallm.services.InMemoryMessagesService;
 import com.spb.kbv.catcallm.services.Messages;
 import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
-import com.spb.kbv.catcallm.views.MainNavDrawer;
 import com.spb.kbv.catcallm.views.MessageListAdapter;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
@@ -72,8 +70,11 @@ public class ChatActivity extends BaseAuthenticatedActivity implements View.OnCl
 
     @Subscribe
     public void onMessagesLoaded(Messages.LoadMessagesResponse response){
-        mMessages.addAll(response.messages);
-        mAdapter.notifyDataSetChanged();
+
+        if (response.messages != null && response.messages.size() > 0) {
+            mMessages.addAll(response.messages);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

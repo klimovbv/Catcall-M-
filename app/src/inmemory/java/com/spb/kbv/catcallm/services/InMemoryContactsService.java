@@ -29,7 +29,9 @@ public class InMemoryContactsService extends BaseInMemoryService {
             Log.d("myLogs", "companies not null  " + companies.size());
             response.companies = companies;
             bus.post(response);
-        } else {
+        } else {Log.d("myLogs", "companies  null  ");
+
+
             Log.d("myLogs", "companiesCurso is empty ");
             ArrayList<Double> latitude = new ArrayList<>();
             ArrayList<Double> longitude = new ArrayList<>();
@@ -44,7 +46,7 @@ public class InMemoryContactsService extends BaseInMemoryService {
                 String avatar = "http://www.gravatar.com/avatar/" + i + "?d=identicon&s=64";
 
                 UserDetails company = new UserDetails(
-                        i,
+                        /*i,*/
                         "Company # " + i,
                         "Address " + i,
                         avatar,
@@ -52,7 +54,7 @@ public class InMemoryContactsService extends BaseInMemoryService {
                         longitude.get(i - 1));
 
                 //ormLite
-                // /*DatabaseManager.getInstance().addUser(company);*/
+                // *//*DatabaseManager.getInstance().addUser(company);*//*
 
                 // sugar:
                 company.save();

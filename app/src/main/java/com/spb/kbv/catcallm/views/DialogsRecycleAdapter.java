@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.spb.kbv.catcallm.R;
-import com.spb.kbv.catcallm.Utils.DateFormats;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
@@ -40,7 +39,7 @@ public class DialogsRecycleAdapter extends RecyclerView.Adapter<DialogsRecycleAd
     public void onBindViewHolder(DialogsRecycleAdapter.ViewHolder viewHolder, final int position) {
         Log.d("addAd", " in Dialog onBind " + position);
         Message message = messagesArray.get(position);
-        UserDetails details = message.getOtherUser();
+        UserDetails details = message.getUserdetails();
 
         viewHolder.companyNameTextView.setText(details.getUsername());
         Picasso.with(context).load(details.getAvatarUrl()).into(viewHolder.avatar);

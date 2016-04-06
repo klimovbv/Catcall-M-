@@ -18,16 +18,14 @@ public class InMemoryMessagesService extends BaseInMemoryService{
     public void sendMessage(Messages.SendMessageRequest request) {
         Messages.SendMessageResponse response = new Messages.SendMessageResponse();
 
-
-
         Message message = new Message(1,
 /*                Calendar.getInstance(),*/
-                request.messageText
+                request.messageText,
                 /*request.details,*/
-                /*true*/
+                true
         );
 
-        message.setOtherUser(request.details);
+        message.setUserdetails(request.details);
         message.save();
         /*DatabaseManager.getInstance().addMessage(message);*/
 
@@ -55,12 +53,12 @@ public class InMemoryMessagesService extends BaseInMemoryService{
 
         Message message = new Message(1,
                 /*Calendar.getInstance(),*/
-                "some new text"
+                "some new text",
                 /*request.details,*/
-                /*false*/
+                false
         );
 
-        message.setOtherUser(request.details);
+        message.setUserdetails(request.details);
         /*DatabaseManager.getInstance().addMessage(message);*/
         message.save();
 
@@ -88,12 +86,25 @@ public class InMemoryMessagesService extends BaseInMemoryService{
     @Subscribe
     public void loadMessages(Messages.LoadMessagesRequest request){
 
+
         /*Collection<Message> allMessages = request.userDetails.getMessages();*/
-        List<Message> am = Message.listAll(Message.class);
+
+        List<Message> am1 = Message.listAll(Message.class);
+        if (am1 != null) {
+            Log.d("myLogs", " am > 0 " + am1.size());
+            for (Message mes : am1){
+                Log.d("myLogs", " messgae +" + mes.getId() + " " + mes.getUserdetails().getUsername() + " " +  mes.getMessageText());
+            }
+        }
+        else {
+            Log.d("myLogs", " am = 0 " + (am1 == null));
+        }
+
+        List<Message> am = request.userDetails.getMessages();
         if (am != null) {
             Log.d("myLogs", " am > 0 " + am.size());
             for (Message mes : am){
-                Log.d("myLogs", " messgae +" + mes.getId() + " " + mes.getOtherUser().getUsername() + mes.getMessageText());
+                Log.d("myLogs", " messgae +" + mes.getId() + " " + mes.getUserdetails().getId() + mes.getMessageText());
             }
         }
         else {

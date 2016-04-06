@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.spb.kbv.catcallm.R;
-import com.spb.kbv.catcallm.Utils.DateFormats;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
@@ -32,7 +31,7 @@ public class DialogsAdapter extends ArrayAdapter<Message> {
         ViewHolder viewHolder;
 
         Message message = getItem(position);
-        UserDetails details = message.getOtherUser();
+        UserDetails details = message.getUserdetails();
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.list_item_dialogs_details, parent, false);

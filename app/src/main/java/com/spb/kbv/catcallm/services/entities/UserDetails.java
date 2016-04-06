@@ -2,6 +2,7 @@ package com.spb.kbv.catcallm.services.entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.orm.SugarRecord;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class UserDetails extends SugarRecord implements Parcelable{
 
     /*@DatabaseField(generatedId = true)*/
-    private long id;
+    private Long id;
     /*private final boolean isContact;*/
     /*private final String displayName;*/
     /*@DatabaseField(columnName = "name")*/
@@ -26,7 +27,8 @@ public class UserDetails extends SugarRecord implements Parcelable{
     private double longitude;
 
     public List<Message> getMessages () {
-        return Message.find(Message.class, "otherUser = ?", getId().toString());
+        Log.d("myLogs", " in get Messages id = " + Long.toString(getId()));
+        return Message.find(Message.class, "userdetails = ?", Long.toString(getId()));
     }
     /*@ForeignCollectionField(eager = true)*/
     /*private Collection<Message> messages;*/
@@ -35,8 +37,8 @@ public class UserDetails extends SugarRecord implements Parcelable{
     public UserDetails() {}
 
 
-    public UserDetails(long id, String username, String address, String avatarUrl, double latitude,  double longitude) {
-        this.id = id;
+    public UserDetails(/*long id, */String username, String address, String avatarUrl, double latitude,  double longitude) {
+        /*this.id = id;*/
         this.username = username;
         this.address = address;
         this.avatarUrl = avatarUrl;
@@ -46,7 +48,7 @@ public class UserDetails extends SugarRecord implements Parcelable{
     }
 
     private UserDetails(Parcel parcel) {
-        id = parcel.readLong();
+        /*id = parcel.readLong();*/
         username = parcel.readString();
         address = parcel.readString();
         avatarUrl = parcel.readString();
@@ -111,7 +113,7 @@ public class UserDetails extends SugarRecord implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel destination, int flags) {
-        destination.writeLong(id);
+        /*destination.writeLong(id);*/
         destination.writeString(username);
         destination.writeString(address);
         destination.writeString(avatarUrl);

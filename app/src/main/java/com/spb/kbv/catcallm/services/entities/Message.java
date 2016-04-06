@@ -10,7 +10,7 @@ import com.orm.dsl.Ignore;
 public class Message extends SugarRecord implements Parcelable {
 
     /*@DatabaseField(generatedId =  true)*/
-    private long id;
+    private Long id;
     /*@DatabaseField
     private Calendar cratedAt;*/
     /*@DatabaseField*/
@@ -18,10 +18,8 @@ public class Message extends SugarRecord implements Parcelable {
     /*@DatabaseField
     private long otherUserId;*/
     /*@DatabaseField(columnName = "id_c", foreign = true, foreignAutoRefresh = true)*/
-    @Ignore
-    private UserDetails otherUser;
+    private UserDetails userdetails;
     /*@DatabaseField*/
-    @Ignore
     private boolean isFromUs;
     @Ignore
     private boolean isRead;
@@ -30,15 +28,15 @@ public class Message extends SugarRecord implements Parcelable {
 
     public Message(long id,
                    /*Calendar cratedAt,*/
-                   String messageText
+                   String messageText,
                    /*UserDetails otherUser,*/
-                   /*boolean isFromUs*/
+                   boolean isFromUs
                    /*boolean isRead*/) {
         this.id = id;
         /*this.cratedAt = cratedAt;*/
         this.messageText = messageText;
         /*this.otherUser = otherUser;*/
-        /*this.isFromUs = isFromUs;*/
+        this.isFromUs = isFromUs;
         /*this.isRead = isRead;*/
     }
 
@@ -82,12 +80,12 @@ public class Message extends SugarRecord implements Parcelable {
         this.messageText = messageText;
     }
 
-    public UserDetails getOtherUser() {
-        return otherUser;
+    public UserDetails getUserdetails() {
+        return userdetails;
     }
 
-    public void setOtherUser(UserDetails otherUser) {
-        this.otherUser = otherUser;
+    public void setUserdetails(UserDetails userdetails) {
+        this.userdetails = userdetails;
     }
 
     public boolean isFromUs() {
@@ -117,8 +115,8 @@ public class Message extends SugarRecord implements Parcelable {
         dest.writeLong(id);
         dest.writeString(messageText);
         /*dest.writeParcelable(otherUser, flags);*/
-        /*dest.writeByte((byte) (isFromUs ? 1 : 0));
-        dest.writeByte((byte) (isRead ? 1 : 0));*/
+        dest.writeByte((byte) (isFromUs ? 1 : 0));
+        /*dest.writeByte((byte) (isRead ? 1 : 0));*/
     }
 
     /*public long getOtherUserId() {

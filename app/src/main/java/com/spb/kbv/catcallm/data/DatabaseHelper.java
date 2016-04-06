@@ -1,3 +1,4 @@
+/*
 package com.spb.kbv.catcallm.data;
 
 import android.content.Context;
@@ -62,3 +63,4 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
 }
+*/
