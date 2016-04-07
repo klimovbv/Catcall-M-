@@ -55,6 +55,7 @@ public class DialogsListFragment extends BaseFragment implements AdapterView.OnI
         progressFrame.setVisibility(View.GONE);
         Log.d("addAd", "Dialogs onReceived " + response.dialogsList.size());
 
+
         if (response.dialogsList.size() > 0) {
             emptyList.setVisibility(View.GONE);
             adapter = new DialogsRecycleAdapter(activity, response.dialogsList);
@@ -69,7 +70,7 @@ public class DialogsListFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        /*UserDetails details = adapter.getItem(position).getOtherUser();
+       /* UserDetails details = adapter.getItem(position).getOtherUser();
         Intent intent = new Intent(getActivity(), ChatActivity.class);
         intent.putExtra(ChatActivity.EXTRA_USER_DETAILS, details);
         startActivity(intent);*/

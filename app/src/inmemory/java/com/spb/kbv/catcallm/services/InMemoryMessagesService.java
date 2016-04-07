@@ -7,6 +7,7 @@ import com.spb.kbv.catcallm.services.entities.Message;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class InMemoryMessagesService extends BaseInMemoryService{
@@ -19,7 +20,7 @@ public class InMemoryMessagesService extends BaseInMemoryService{
         Messages.SendMessageResponse response = new Messages.SendMessageResponse();
 
         Message message = new Message(1,
-/*                Calendar.getInstance(),*/
+                Calendar.getInstance(),
                 request.messageText,
                 /*request.details,*/
                 true
@@ -52,7 +53,7 @@ public class InMemoryMessagesService extends BaseInMemoryService{
         Messages.ReceiveIncomeMessageResponse response = new Messages.ReceiveIncomeMessageResponse();
 
         Message message = new Message(1,
-                /*Calendar.getInstance(),*/
+                Calendar.getInstance(),
                 "some new text",
                 /*request.details,*/
                 false
@@ -89,7 +90,7 @@ public class InMemoryMessagesService extends BaseInMemoryService{
 
         /*Collection<Message> allMessages = request.userDetails.getMessages();*/
 
-        List<Message> am1 = Message.listAll(Message.class);
+  /*      List<Message> am1 = Message.listAll(Message.class);
         if (am1 != null) {
             Log.d("myLogs", " am > 0 " + am1.size());
             for (Message mes : am1){
@@ -98,13 +99,13 @@ public class InMemoryMessagesService extends BaseInMemoryService{
         }
         else {
             Log.d("myLogs", " am = 0 " + (am1 == null));
-        }
+        }*/
 
         List<Message> am = request.userDetails.getMessages();
         if (am != null) {
             Log.d("myLogs", " am > 0 " + am.size());
             for (Message mes : am){
-                Log.d("myLogs", " messgae +" + mes.getId() + " " + mes.getUserdetails().getId() + mes.getMessageText());
+                Log.d("myLogs", " messgae +" + mes.getId() + " " + /*mes.getUserdetails().getId()*/  mes.getMessageText());
             }
         }
         else {

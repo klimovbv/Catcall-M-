@@ -59,11 +59,11 @@ public class SearchByNamesFragment extends BaseFragment implements AdapterView.O
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, final int position, long l) {
-        final UserDetails company = adapter.getItem(position);
+        /*final UserDetails company = adapter.getItem(position);
         Intent intent = new Intent((BaseActivity)getActivity(), CompanyInfoActivity.class);
         intent.putExtra(CompanyInfoActivity.EXTRA_COMPANY_DETAILS, company);
         intent.putExtra(CompanyInfoActivity.EXTRA_COMPANY_IS_NEW, true);
-        startActivity(intent);
+        startActivity(intent);*/
 
        /* AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Start new dialog with " + company.getUsername())

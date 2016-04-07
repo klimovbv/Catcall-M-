@@ -3,7 +3,6 @@ package com.spb.kbv.catcallm.views;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +15,7 @@ import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.activities.ChatActivity;
 import com.spb.kbv.catcallm.activities.CompanyInfoActivity;
+import com.spb.kbv.catcallm.activities.ScrollingCompanyProfileActivity;
 import com.spb.kbv.catcallm.data.MessagesContract;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
@@ -67,6 +67,7 @@ public class CompanyDetailsAdapter extends ArrayAdapter<UserDetails> {
                                 notifyDataSetChanged();
                                 return true;
                             case R.id.menu_action_chat:
+                                companyDetails.save();
                                 Intent intentChat = new Intent(context, ChatActivity.class);
                                 intentChat.putExtra(ChatActivity.EXTRA_USER_DETAILS, companyDetails);
                                 context.startActivity(intentChat);
@@ -95,7 +96,7 @@ public class CompanyDetailsAdapter extends ArrayAdapter<UserDetails> {
             final UserDetails companyDetails = details;
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CompanyInfoActivity.class);
+                Intent intent = new Intent(context, ScrollingCompanyProfileActivity.class);
                 intent.putExtra(CompanyInfoActivity.EXTRA_COMPANY_DETAILS, companyDetails);
                 v.getContext().startActivity(intent);
             }

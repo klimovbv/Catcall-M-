@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.spb.kbv.catcallm.R;
+import com.spb.kbv.catcallm.Utils.DateFormats;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.services.entities.Message;
 
@@ -55,17 +56,16 @@ public class MessageListAdapter extends BaseAdapter{
         if (message.isFromUs()){
             messageFrom.setVisibility(View.GONE);
         } else {
-            messageFrom.setText("some comp"/*message.getOtherUser().getUsername()*/);
+            messageFrom.setText(message.getUserdetails().getUsername());
         }
 
         messageText.setText(message.getMessageText());
-/*
-        String createdAt = DateUtils.formatDateTime(
+     /*   String createdAt = DateUtils.formatDateTime(
                 activity.getApplicationContext(),
-                message.getCratedAt().getTimeInMillis(),
+                message.getCreatedAt().getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_TIME);*/
 
-        /*messageDate.setText(DateFormats.showTimeFormat(message.getCratedAt()));*/
+        messageDate.setText(DateFormats.showTimeFormat(message.getCreatedAt()));
 
         return convertView;
     }

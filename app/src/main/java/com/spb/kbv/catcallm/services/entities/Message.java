@@ -6,13 +6,16 @@ import android.os.Parcelable;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /*/@DatabaseTable(tableName = "messages")*/
 public class Message extends SugarRecord implements Parcelable {
 
     /*@DatabaseField(generatedId =  true)*/
-    private Long id;
-    /*@DatabaseField
-    private Calendar cratedAt;*/
+    private long id;
+    /*@DatabaseField*/
+    private Calendar createdAt;
     /*@DatabaseField*/
     private String messageText;
     /*@DatabaseField
@@ -27,13 +30,13 @@ public class Message extends SugarRecord implements Parcelable {
     public Message(){}
 
     public Message(long id,
-                   /*Calendar cratedAt,*/
+                   Calendar createdAt,
                    String messageText,
                    /*UserDetails otherUser,*/
                    boolean isFromUs
                    /*boolean isRead*/) {
         this.id = id;
-        /*this.cratedAt = cratedAt;*/
+        this.createdAt = createdAt;
         this.messageText = messageText;
         /*this.otherUser = otherUser;*/
         this.isFromUs = isFromUs;
@@ -42,10 +45,12 @@ public class Message extends SugarRecord implements Parcelable {
 
     protected Message(Parcel in) {
         id = in.readLong();
+        createdAt = new GregorianCalendar();
+        createdAt.setTimeInMillis(in.readLong());
         messageText = in.readString();
         /*otherUser = in.readParcelable(UserDetails.class.getClassLoader());*/
-       /* isFromUs = in.readByte() != 0;
-        isRead = in.readByte() != 0;*/
+        isFromUs = in.readByte() != 0;
+        /*isRead = in.readByte() != 0;*/
     }
 
     public static final Creator<Message> CREATOR = new Creator<Message>() {
@@ -64,13 +69,13 @@ public class Message extends SugarRecord implements Parcelable {
         return id;
     }
 
-    /*public Calendar getCratedAt() {
-        return cratedAt;
+    public Calendar getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCratedAt(Calendar cratedAt) {
-        this.cratedAt = cratedAt;
-    }*/
+    public void setCreatedAt(Calendar createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public String getMessageText() {
         return messageText;
@@ -113,6 +118,7 @@ public class Message extends SugarRecord implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
+        dest.writeLong(createdAt.getTimeInMillis());
         dest.writeString(messageText);
         /*dest.writeParcelable(otherUser, flags);*/
         dest.writeByte((byte) (isFromUs ? 1 : 0));

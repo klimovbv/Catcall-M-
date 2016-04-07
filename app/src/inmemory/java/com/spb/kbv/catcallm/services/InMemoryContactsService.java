@@ -3,11 +3,14 @@ package com.spb.kbv.catcallm.services;
 import android.util.Log;
 
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
+import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InMemoryContactsService extends BaseInMemoryService {
 
@@ -46,7 +49,7 @@ public class InMemoryContactsService extends BaseInMemoryService {
                 String avatar = "http://www.gravatar.com/avatar/" + i + "?d=identicon&s=64";
 
                 UserDetails company = new UserDetails(
-                        /*i,*/
+                        1,
                         "Company # " + i,
                         "Address " + i,
                         avatar,
@@ -64,7 +67,7 @@ public class InMemoryContactsService extends BaseInMemoryService {
             bus.post(new Contacts.GetCompaniesRequest());
         }
     }
-}
+
 
 
 /* Cursor companiesCursor = application.getContentResolver().query(
@@ -126,7 +129,7 @@ public class InMemoryContactsService extends BaseInMemoryService {
             companiesCursor.close();
             bus.post(new Contacts.GetCompaniesRequest());
         }
-    }*//*
+    }*/
 
 
     @Subscribe
@@ -148,7 +151,7 @@ public class InMemoryContactsService extends BaseInMemoryService {
         for (int i = 1; i <= 3; i++) {
            int k = i * 10;
            String avatar = "http://www.gravatar.com/avatar/" + k + "?d=identicon&s=64";
-           fakeList.add(new UserDetails(k, query + "FakeComp # " + k, "Some address " + k, avatar, latitude.get(i-1), longitude.get(i-1)));
+           fakeList.add(new UserDetails(i, query + "FakeComp # " + k, "Some address " + k, avatar, latitude.get(i-1), longitude.get(i-1)));
         }
 
         response.companies = fakeList;
@@ -162,7 +165,22 @@ public class InMemoryContactsService extends BaseInMemoryService {
 
         ArrayList<Message> listOfDialogs = new ArrayList<>();
 
-        Cursor messagiesCursor = application.getContentResolver().query(
+        List<Message> messages = Message.listAll(Message.class);
+        Map<Long, Message> idMap= new HashMap<>();
+        for (Message mes : messages) {
+            idMap.put(mes.getUserdetails().getId(), mes);
+        }
+
+        for (Message mes : idMap.values()){
+            listOfDialogs.add(mes);
+        }
+
+
+
+        response.dialogsList = listOfDialogs;
+        bus.post(response);
+
+       /* Cursor messagiesCursor = application.getContentResolver().query(
                 MessagesContract.MessagesEntry.CONTENT_URI,
                 null,
                 null,
@@ -226,8 +244,9 @@ public class InMemoryContactsService extends BaseInMemoryService {
 
         response.dialogsList = listOfDialogs;
         bus.post(response);
+    }*/
+
+
     }
-
-
 }
-*/
+
