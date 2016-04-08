@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.spb.kbv.catcallm"
@@ -44,5 +44,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile files('libs/android-viewbadger.jar')
     compile 'com.github.satyan:sugar:1.4'
+    compile 'com.android.support:multidex:1.0.1'
 
 }

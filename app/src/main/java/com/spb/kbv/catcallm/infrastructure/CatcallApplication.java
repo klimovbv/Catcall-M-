@@ -1,5 +1,8 @@
 package com.spb.kbv.catcallm.infrastructure;
 
+import android.content.Context;
+import android.support.multidex.MultiDex;
+
 import com.orm.SugarApp;
 import com.spb.kbv.catcallm.services.Module;
 import com.squareup.otto.Bus;
@@ -41,5 +44,11 @@ public class CatcallApplication extends SugarApp {
 
     public Picasso getAuthedPicasso() {
         return authedPicasso;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }
