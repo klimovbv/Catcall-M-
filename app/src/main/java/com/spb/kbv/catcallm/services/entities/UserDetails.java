@@ -130,4 +130,14 @@ public class UserDetails extends SugarRecord implements Parcelable{
                 ", lat = " + latitude +
                 ", long = " + longitude;
     }
+
+    public void deleteCompany() {
+        Message.deleteAll(Message.class, "userdetails = ?", Long.toString(getId()));
+        delete();
+        /*List<Message> messages = getMessages();
+        for (Message ms : messages){
+            ms.delete();
+        }*/
+
+    }
 }

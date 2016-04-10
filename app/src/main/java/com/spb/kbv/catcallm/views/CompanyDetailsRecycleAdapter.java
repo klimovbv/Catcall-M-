@@ -69,6 +69,9 @@ public class CompanyDetailsRecycleAdapter extends RecyclerView.Adapter<CompanyDe
                                 remove(getItem(position));
                                 //todo: delete dialog from database
                                 notifyDataSetChanged();*/
+                                companyDetails.deleteCompany();
+                                detailsArray.remove(position);
+                                notifyDataSetChanged();
                                 return true;
                             case R.id.menu_action_chat:
                                 Intent intentChat = new Intent(context, ChatActivity.class);
@@ -78,8 +81,8 @@ public class CompanyDetailsRecycleAdapter extends RecyclerView.Adapter<CompanyDe
                             case R.id.menu_action_contact:
                                 return true;
                             case R.id.menu_action_profile:
-                                Intent intentProfile = new Intent(context, CompanyInfoActivity.class);
-                                intentProfile.putExtra(CompanyInfoActivity.EXTRA_COMPANY_DETAILS, companyDetails);
+                                Intent intentProfile = new Intent(context, ScrollingCompanyProfileActivity.class);
+                                intentProfile.putExtra(ScrollingCompanyProfileActivity.EXTRA_COMPANY_DETAILS, companyDetails);
                                 context.startActivity(intentProfile);
                                 return true;
                             default:

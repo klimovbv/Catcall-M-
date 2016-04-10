@@ -19,6 +19,7 @@ import com.spb.kbv.catcallm.views.DialogsRecycleAdapter;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DialogsListFragment extends BaseFragment implements AdapterView.OnItemClickListener {
@@ -75,6 +76,10 @@ public class DialogsListFragment extends BaseFragment implements AdapterView.OnI
 
     private void fillDialogList(ArrayList<Message> dialogs) {
         Log.d("myLogs", " dialogs =  " + dialogs.size());
+
+        Collections.sort(dialogs);
+
+
         if (progressFrame != null)
             progressFrame.setVisibility(View.GONE);
         if (dialogs.size() > 0) {

@@ -74,7 +74,7 @@ public class MapFragment extends BaseFragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         Log.d("myLogs", "in onViewCreated map fragment");
         showInfoButton = (TextView) view.findViewById(R.id.fragment_map_info_button);
-        showInfoButton.setOnClickListener(this);
+        /*showInfoButton.setOnClickListener(this);*/
         /*info = (TextView) view.findViewById(R.id.fragment_map_company_info);*/
         /*info.setOnClickListener(this);*/
         drawer = view.findViewById(R.id.fragment_map_drawer);

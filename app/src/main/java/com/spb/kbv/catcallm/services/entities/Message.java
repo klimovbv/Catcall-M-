@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /*/@DatabaseTable(tableName = "messages")*/
-public class Message extends SugarRecord implements Parcelable {
+public class Message extends SugarRecord implements Parcelable, Comparable {
 
     /*@DatabaseField(generatedId =  true)*/
     private long id;
@@ -136,5 +136,16 @@ public class Message extends SugarRecord implements Parcelable {
     @Override
     public String toString() {
         return "id = " + id + " text = " + messageText /*+ " user = " + otherUser.getUsername()*/ ;
+    }
+
+    @Override
+    public int compareTo(Object another) {
+        Message tmp = (Message) another;
+        if (this.getCreatedAt().getTimeInMillis() < tmp.getCreatedAt().getTimeInMillis()){
+            return 1;
+        } else if (this.getCreatedAt().getTimeInMillis() > tmp.getCreatedAt().getTimeInMillis()){
+            return -1;
+        }
+        return 0;
     }
 }
