@@ -28,7 +28,7 @@ import java.util.List;
 
 public class CompanyDetailsRecycleAdapter extends RecyclerView.Adapter<CompanyDetailsRecycleAdapter.ViewHolder>{
 
-    private List<UserDetails> detailsArray;
+    public List<UserDetails> detailsArray;
     private Context context;
     private CatcallApplication application;
 

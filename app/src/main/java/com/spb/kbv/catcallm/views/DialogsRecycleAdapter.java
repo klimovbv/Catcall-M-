@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class DialogsRecycleAdapter extends RecyclerView.Adapter<DialogsRecycleAdapter.ViewHolder>{
 
-    private ArrayList<Message> messagesArray;
+    public ArrayList<Message> messagesArray;
     private Context context;
 
     public DialogsRecycleAdapter(BaseActivity activity, ArrayList<Message> messagesArray) {

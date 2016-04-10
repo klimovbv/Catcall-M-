@@ -28,6 +28,12 @@ public class StockListFragment extends BaseFragment  {
 */
     private BaseActivity activity;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,7 +56,7 @@ public class StockListFragment extends BaseFragment  {
         progressFrame.setVisibility(View.VISIBLE);*/
 
         //todo change to getStocksRequest
-        bus.post(new Contacts.GetCompaniesRequest());
+        /*bus.post(new Contacts.GetCompaniesRequest());*/
 
         return view;
     }

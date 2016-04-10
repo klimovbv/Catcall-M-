@@ -1,6 +1,7 @@
 package com.spb.kbv.catcallm.fragments;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.spb.kbv.catcallm.views.CompanyDetailsRecycleAdapter;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CompaniesListFragment extends BaseFragment /*implements AdapterView.OnItemClickListener*/ {
 
@@ -26,13 +28,23 @@ public class CompaniesListFragment extends BaseFragment /*implements AdapterView
     private CompanyDetailsRecycleAdapter adapter;
     private RecyclerView recyclerView;
     private BaseActivity activity;
+    private boolean isCreated;
+    private List<UserDetails> companies;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("myLogs", "onCreate");
+        setRetainInstance(true);
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
-        Log.d("myLogs", "onCreateView in Fragment");
+        Log.d("myLogs", "onCreateView in CompanyListFragment");
 
         View view = inflater.inflate(R.layout.fragment_companies_list, container, false);
         /*ListView listView = (ListView) view.findViewById(R.id.fragment_companies_list);
@@ -48,9 +60,28 @@ public class CompaniesListFragment extends BaseFragment /*implements AdapterView
         progressFrame = view.findViewById(R.id.fragment_companies_progressFrame);
         progressFrame.setVisibility(View.VISIBLE);
 
-        bus.post(new Contacts.GetCompaniesRequest());
-
+        if (companies == null) {
+            Log.d("myLogs", " companies == null in oncreateview");
+            bus.post(new Contacts.GetCompaniesRequest());
+        }
+        else {
+            Log.d("myLogs", " companies != null in oncreateview");
+            fillList(companies);
+        }
         return view;
+    }
+
+    private void fillList(List<UserDetails> companies) {
+        Log.d("myLogs", " in filllist " + companies.size());
+        if (progressFrame != null)
+            progressFrame.setVisibility(View.GONE);
+        if (adapter == null) {
+            Log.d("myLogs", " in filllist adapter == null");
+            adapter = new CompanyDetailsRecycleAdapter(activity, companies);
+        } else {
+            Log.d("myLogs", " in filllist adapter != null");
+        }
+        recyclerView.setAdapter(adapter);
     }
 
 
@@ -69,9 +100,20 @@ public class CompaniesListFragment extends BaseFragment /*implements AdapterView
     @Subscribe
     public void onCompaniesListReceived(Contacts.GetCompaniesResponse response) {
         Log.d("addAd", " in onReceived " + response.companies.size());
-        progressFrame.setVisibility(View.GONE);
-        adapter = new CompanyDetailsRecycleAdapter(activity, response.companies);
-        recyclerView.setAdapter(adapter);
+        /*if (isCreated) {*/
+        Log.d("myLogs", "isCreated");
+        companies = response.companies;
+        fillList(companies);
+
+
+
+
+        /*} else {
+            Log.d("myLogs", "in compListF is not created yet");
+            Contacts.GetCompaniesResponse newResponse = new Contacts.GetCompaniesResponse();
+            newResponse.companies = response.companies;
+            bus.post(newResponse);
+        }*/
 
 /*        adapter.clear();
         adapter.addAll(response.companies);*/

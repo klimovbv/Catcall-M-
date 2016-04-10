@@ -14,8 +14,12 @@ import android.widget.TextView;
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.activities.BaseActivity;
 import com.spb.kbv.catcallm.services.Contacts;
+import com.spb.kbv.catcallm.services.entities.Message;
 import com.spb.kbv.catcallm.views.DialogsRecycleAdapter;
 import com.squareup.otto.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DialogsListFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
@@ -25,14 +29,20 @@ public class DialogsListFragment extends BaseFragment implements AdapterView.OnI
     RecyclerView recyclerView;
     DialogsRecycleAdapter adapter;
     private BaseActivity activity;
+    private ArrayList<Message> dialogs;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
-        Log.d("myLogs", "onCreateView in Fragment");
+        Log.d("myLogs", "onCreateView in DialogsFragment");
 
         View view = inflater.inflate(R.layout.fragment_dialogs_list, container, false);
         emptyList = (TextView) view.findViewById(R.id.fragment_dialogs_list_emptyList);
@@ -45,20 +55,38 @@ public class DialogsListFragment extends BaseFragment implements AdapterView.OnI
         progressFrame = view.findViewById(R.id.fragment_dialogs_list_progressFrame);
         progressFrame.setVisibility(View.VISIBLE);
 
-        bus.post(new Contacts.LoadCompaniesListWithOpenDialogsRequest());
+        if (dialogs == null) {
+            Log.d("myLogs", " dialogd == null in oncreateview");
+            bus.post(new Contacts.LoadCompaniesListWithOpenDialogsRequest());
+        } else {
+            Log.d("myLogs", " dialogd != null in oncreateview");
+            fillDialogList(dialogs);
+        }
         return view;
     }
 
 
     @Subscribe
     public void onDialogsListReceived(Contacts.LoadCompaniesListWithOpenDialogsResponse response) {
-        progressFrame.setVisibility(View.GONE);
         Log.d("addAd", "Dialogs onReceived " + response.dialogsList.size());
+        dialogs = response.dialogsList;
+        fillDialogList(dialogs);
+    }
 
-
-        if (response.dialogsList.size() > 0) {
+    private void fillDialogList(ArrayList<Message> dialogs) {
+        Log.d("myLogs", " dialogs =  " + dialogs.size());
+        if (progressFrame != null)
+            progressFrame.setVisibility(View.GONE);
+        if (dialogs.size() > 0) {
             emptyList.setVisibility(View.GONE);
-            adapter = new DialogsRecycleAdapter(activity, response.dialogsList);
+            if (adapter == null) {
+                Log.d("myLogs", "adapter == null in dialogs   " );
+                adapter = new DialogsRecycleAdapter(activity, dialogs);
+            } else {
+                Log.d("myLogs", "adapter != null in dialogs   " );
+                adapter = new DialogsRecycleAdapter(activity, dialogs);
+            }
+
             recyclerView.setAdapter(adapter);
 
             /*adapter.clear();
