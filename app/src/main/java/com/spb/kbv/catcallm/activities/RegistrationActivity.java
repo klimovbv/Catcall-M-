@@ -179,13 +179,13 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         String phoneNumber = mPhoneNumberText.getText().toString();
-        if (phoneNumber.length() != 7) {
+        /*if (phoneNumber.length() != 7) {
             mPhoneNumberText.setError("Enter valid number");
             return;
         }
+*/
 
-
-        bus.post(new Account.RegisterWithPhoneNumberRequest(phoneNumber));
+        bus.post(new Account.RegisterWithPhoneNumberRequest("81234567890"));
 
         Intent intent = new Intent(this, EnterRegistrationCodeActivity.class);
         startActivity(intent);

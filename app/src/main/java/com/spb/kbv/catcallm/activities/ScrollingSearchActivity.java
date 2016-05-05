@@ -17,9 +17,6 @@ import com.spb.kbv.catcallm.fragments.SearchPopupFragment;
 import com.spb.kbv.catcallm.services.Contacts;
 import com.spb.kbv.catcallm.views.MyFragmentPagerAdapter;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
 
 public class ScrollingSearchActivity extends BaseAuthenticatedActivity {
 
@@ -27,7 +24,6 @@ public class ScrollingSearchActivity extends BaseAuthenticatedActivity {
     private View progressFrame;
     private SearchView searchView;
     private Handler handler;
-    private Subscription subscription;
 
     private Runnable searchRunnable = new Runnable() {
         @Override

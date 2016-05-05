@@ -14,9 +14,11 @@ import java.util.Map;
 
 public class LiveContactsService extends BaseLiveService {
 
-    protected LiveContactsService(CatcallApplication application) {
-        super(application);
+    protected LiveContactsService(CatcallApplication application, CatcallWebService api) {
+        super(application, api);
     }
+
+
 
 
     @Subscribe

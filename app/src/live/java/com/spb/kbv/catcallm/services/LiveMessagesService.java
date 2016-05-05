@@ -11,8 +11,10 @@ import java.util.Calendar;
 import java.util.List;
 
 public class LiveMessagesService extends BaseLiveService {
-    protected LiveMessagesService(CatcallApplication application) {
-        super(application);
+
+
+    protected LiveMessagesService(CatcallApplication application, CatcallWebService api) {
+        super(application, api);
     }
 
     @Subscribe

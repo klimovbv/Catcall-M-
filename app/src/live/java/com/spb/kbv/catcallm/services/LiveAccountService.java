@@ -8,6 +8,7 @@ import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
 import com.spb.kbv.catcallm.services.entities.UserDetails;
 import com.squareup.otto.Subscribe;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -24,20 +25,24 @@ public class LiveAccountService extends BaseLiveService {
 
     @Subscribe
     public void register(Account.RegisterWithPhoneNumberRequest request) {
-        Call<UserDetails> call = api.createAccount(request.phoneNumber);
-        call.enqueue(new Callback<UserDetails>() {
+        Call<Object> call = api.createAccount(request.phoneNumber);
+        call.enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(Call<UserDetails> call, Response<UserDetails> response) {
+            public void onResponse(Call<Object> call, Response<Object> response) {
                 Log.d("retroLog", "Response status code: " + response.code());
-                Map<String, String> map = gson.fromJson(response.toString(), Map.class);
+                Log.d("retroLog", "Response toString: " + response.toString());
+                Log.d("retroLog", "Response body toString: " + response.body().toString());
+                /*Log.d("retroLog", "Response : " + new Gson().toJson(response));*/
+               /* Map<String, String> map = new HashMap<String, String>();
+                map = gson.fromJson(new Gson().toJson(response), map.getClass());
 
                 for (Map.Entry e : map.entrySet()) {
                     Log.d("retroLog", "Response body: " + e.getKey() + " " + e.getValue());
-                }
+                }*/
             }
 
             @Override
-            public void onFailure(Call<UserDetails> call, Throwable t) {
+            public void onFailure(Call<Object> call, Throwable t) {
                 Log.d("retroLog", "==== FAILURE ");
             }
         });

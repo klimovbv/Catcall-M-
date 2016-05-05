@@ -6,14 +6,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Module {
-    private static final String API_URL = "http://api.catcall.ru/api";
+    private static final String API_URL = "http://api.catcall.ru/api/";
 
     public static void register (CatcallApplication application) {
         /*new InMemoryAccountService(application);*/
 
         CatcallWebService api = createWebService();
-        new LiveMessagesService(application);
-        new LiveContactsService(application);
+        new LiveMessagesService(application, api);
+        new LiveContactsService(application, api);
         new LiveAccountService(application, api);
     }
 
