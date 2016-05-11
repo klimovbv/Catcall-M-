@@ -8,7 +8,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RetrofitCallbackPost <T extends ApiResponse> implements Callback<ApiResponse> {
+public class RetrofitCallbackPost <T extends ApiResponse> implements Callback<T> {
 
     private final Bus bus;
     private final Class<T> resultType;
@@ -19,18 +19,14 @@ public class RetrofitCallbackPost <T extends ApiResponse> implements Callback<Ap
         this.bus = bus;
     }
 
-
-
-
     @Override
-    public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+    public void onResponse(Call<T> call, Response<T> response) {
         Log.d("retroLog", "in onResponse in RetrofitCallback" + resultType);
-
         bus.post(response.body());
     }
 
     @Override
-    public void onFailure(Call<ApiResponse> call, Throwable t) {
+    public void onFailure(Call<T> call, Throwable t) {
 
     }
 }

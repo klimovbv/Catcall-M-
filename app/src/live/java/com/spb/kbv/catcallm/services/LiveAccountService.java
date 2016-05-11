@@ -9,7 +9,9 @@ import com.spb.kbv.catcallm.services.enteties.ApiResponse;
 import com.spb.kbv.catcallm.services.enteties.RetrofitCallbackPost;
 import com.squareup.otto.Subscribe;
 
+import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LiveAccountService extends BaseLiveService {
 
@@ -21,10 +23,11 @@ public class LiveAccountService extends BaseLiveService {
 
     @Subscribe
     public void register(Account.RegisterWithPhoneNumberRequest request) {
-        /*Call<ApiResponse> call = api.createAccount();*/
+        /*Call<Account.RegisterWithPhoneNumberResponse> call = api.createAccount(request.phoneNumber);*/
         Log.d("retroLog", "in register");
-        api.createAccount(request.phoneNumber).enqueue((Callback<ApiResponse>) new RetrofitCallbackPost<>(
+        api.createAccount(request.phoneNumber).enqueue(new RetrofitCallbackPost<>(
                 Account.RegisterWithPhoneNumberResponse.class, bus));
+
 
       /*  api.createAccount(request.phoneNumber).enqueue(new Callback<ApiResponse>() {
             @Override

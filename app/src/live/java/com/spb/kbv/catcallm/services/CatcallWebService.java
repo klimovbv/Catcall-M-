@@ -12,7 +12,7 @@ public interface CatcallWebService {
 
     @FormUrlEncoded
     @POST("user.create")
-    Call<ApiResponse> createAccount(
+    Call<Account.RegisterWithPhoneNumberResponse> createAccount(
             @Field("user_phone") String phoneNumber
     );
 }

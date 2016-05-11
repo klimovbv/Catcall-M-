@@ -194,7 +194,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Subscribe
-    public void onGetResponseFromRegistrationRequest (ApiResponse response){
+    public void onGetResponseFromRegistrationRequest (Account.RegisterWithPhoneNumberResponse response){
         Log.d("retroLog", "on Response");
         if (response.didSucceed()){
             Log.d("retroLog", "on respone OK");
