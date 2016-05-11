@@ -6,11 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
 import com.spb.kbv.catcallm.services.enteties.ApiResponse;
+import com.spb.kbv.catcallm.services.enteties.RetrofitCallbackPost;
 import com.squareup.otto.Subscribe;
 
-import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LiveAccountService extends BaseLiveService {
 
@@ -23,10 +22,14 @@ public class LiveAccountService extends BaseLiveService {
     @Subscribe
     public void register(Account.RegisterWithPhoneNumberRequest request) {
         /*Call<ApiResponse> call = api.createAccount();*/
-        api.createAccount(request.phoneNumber).enqueue(new Callback<ApiResponse>() {
+        Log.d("retroLog", "in register");
+        api.createAccount(request.phoneNumber).enqueue((Callback<ApiResponse>) new RetrofitCallbackPost<>(
+                Account.RegisterWithPhoneNumberResponse.class, bus));
+
+      /*  api.createAccount(request.phoneNumber).enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call <ApiResponse> apiResponseCall, Response<ApiResponse> response) {
-                if (response.body().getError() != null) {
+                if (!response.body().didSucceed()) {
                     Log.d("retroLog", "Response status code: " + response.code());
                     Log.d("retroLog", "Response toString: " + response.toString());
                     Log.d("retroLog", "Response body toString: " + response.body().toString());
@@ -35,20 +38,20 @@ public class LiveAccountService extends BaseLiveService {
                 } else {
                     Log.d("retroLog", "NOT ERROR ");
                 }
-                /*Log.d("retroLog", "Response : " + new Gson().toJson(response));*/
-               /* Map<String, String> map = new HashMap<String, String>();
+                *//*Log.d("retroLog", "Response : " + new Gson().toJson(response));*//*
+               *//* Map<String, String> map = new HashMap<String, String>();
                 map = gson.fromJson(new Gson().toJson(response), map.getClass());
 
                 for (Map.Entry e : map.entrySet()) {
                     Log.d("retroLog", "Response body: " + e.getKey() + " " + e.getValue());
-                }*/
+                }*//*
             }
 
             @Override
             public void onFailure(Call <ApiResponse> apiResponseCall, Throwable t) {
                 Log.d("retroLog", "==== FAILURE ");
             }
-        });
+        });*/
 
     }
 }

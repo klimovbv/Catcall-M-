@@ -1,6 +1,5 @@
 package com.spb.kbv.catcallm.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -11,6 +10,8 @@ import android.widget.EditText;
 
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.services.Account;
+import com.spb.kbv.catcallm.services.enteties.ApiResponse;
+import com.squareup.otto.Subscribe;
 
 public class RegistrationActivity extends BaseActivity implements View.OnClickListener {
 
@@ -187,9 +188,21 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
 
         bus.post(new Account.RegisterWithPhoneNumberRequest("81234567890"));
 
-        Intent intent = new Intent(this, EnterRegistrationCodeActivity.class);
+        /*Intent intent = new Intent(this, EnterRegistrationCodeActivity.class);
         startActivity(intent);
-        finish();
+        finish();*/
+    }
+
+    @Subscribe
+    public void onGetResponseFromRegistrationRequest (ApiResponse response){
+        Log.d("retroLog", "on Response");
+        if (response.didSucceed()){
+            Log.d("retroLog", "on respone OK");
+
+        } else {
+            Log.d("retroLog", "Response new message: " + response.getError().getMessage());
+            response.showErrorToast(this);
+        }
     }
 
 

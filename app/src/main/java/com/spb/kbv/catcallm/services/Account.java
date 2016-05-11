@@ -1,5 +1,7 @@
 package com.spb.kbv.catcallm.services;
 
+import com.spb.kbv.catcallm.services.enteties.ApiResponse;
+
 public final class Account {
 
     private Account(){
@@ -13,7 +15,7 @@ public final class Account {
         }
     }
 
-    public static class RegisterWithPhoneNumberResponse{
+    public static class RegisterWithPhoneNumberResponse extends ApiResponse {
     }
 
     public static class SendVerificationCodeRequest {

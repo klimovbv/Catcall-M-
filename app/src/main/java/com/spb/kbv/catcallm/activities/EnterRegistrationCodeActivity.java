@@ -42,4 +42,15 @@ public class EnterRegistrationCodeActivity extends BaseActivity implements View.
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
+
+    @Subscribe
+    public void onGetResponseFromRegistrationRequest (Account.RegisterWithPhoneNumberResponse response){
+        Log.d("retroLog", "on Response");
+        if (response.didSucceed()){
+            Log.d("retroLog", "on respone OK");
+            response.showErrorToast(this);
+        } else {
+            Log.d("retroLog", "Response new message: " + response.getError());
+        }
+    }
 }

@@ -1,10 +1,10 @@
 package com.spb.kbv.catcallm.infrastructure;
 
-public class Error {
+public class ApiError {
     private int code;
     private String message;
 
-    public Error(){}
+    public ApiError(){}
 
     public int getCode() {
         return code;
