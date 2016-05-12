@@ -2,6 +2,7 @@ package com.spb.kbv.catcallm.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -11,10 +12,11 @@ import android.widget.EditText;
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.services.Account;
 import com.spb.kbv.catcallm.services.enteties.ApiResponse;
+import com.spb.kbv.catcallm.services.enteties.Response;
 import com.squareup.otto.Subscribe;
 
 public class RegistrationActivity extends BaseActivity implements View.OnClickListener {
-
+    private static String numbers = "0123456789";
     private View mSendButton;
     private EditText mPhoneNumberText;
     private boolean unableChangeEditText = false;
@@ -31,7 +33,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
         mSendButton.setOnClickListener(this);
 
 
-        mPhoneNumberText.addTextChangedListener(new TextWatcher() {
+        /*mPhoneNumberText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 Log.d("edLog", "charseq = " + s + " start = " + start + " count = " + count + " after = " + after);
@@ -50,10 +52,10 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
                 mStarter = mPhoneNumberText.getSelectionStart();
                 int newStart = mPhoneNumberText.getSelectionStart();
                 Log.d("edLog", "editable = " + s + "start = " + mStarter);
-                /*String phone = mPhoneNumberText.getText().toString();
-                String numbers = "0123456789";*/
+                *//*String phone = mPhoneNumberText.getText().toString();
+                String numbers = "0123456789";*//*
 
-                /*StringBuilder builder = new StringBuilder(phone.length());
+                *//*StringBuilder builder = new StringBuilder(phone.length());
                 for (int i = 0; i < phone.length(); i++) {
                     String ch = phone.substring(i, i + 1);
                     if (numbers.contains(ch)){
@@ -65,21 +67,21 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
                             if (phone.substring(phone., start + 3).equals("-")) {
                                 Log.d("edLog2", "i == phone.length() -1 ");
                                 start++;
-                                *//*start = start + 2;*//*
+                                *//**//*start = start + 2;*//**//*
                             }
                         }
                         Log.d("edLog", "getting numbers  = " + ch);
                     }
-                }*/
+                }*//*
 
                 unableChangeEditText = true;
-                /*int phoneLength = builder.length();*/
+                *//*int phoneLength = builder.length();*//*
 
-                /*builder.append(phoneNumberFormat.substring(phoneLength, phoneNumberFormat.length()));*/
+                *//*builder.append(phoneNumberFormat.substring(phoneLength, phoneNumberFormat.length()));*//*
 
-                /*for (int i = 0; i < (10 - phoneLength); i++) {
+                *//*for (int i = 0; i < (10 - phoneLength); i++) {
                     builder.append("-");
-                }*/
+                }*//*
                 Log.d("edLog2", "getText = " + mPhoneNumberText.getText().toString());
                 String newText = stringMatch(mPhoneNumberText.getText().toString(), mStarter);
                 mPhoneNumberText.setText(newText);
@@ -87,12 +89,14 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
                 unableChangeEditText = false;
 
             }
-        });
+        });*/
+
+        mPhoneNumberText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
     }
 
     public String stringMatch(String editingString, int starter) {
         String format = "--- --- -- --";
-        String numbers = "0123456789";
+
 
         int editingLength = editingString.length();
         int formatLength = format.length();
@@ -180,30 +184,42 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         String phoneNumber = mPhoneNumberText.getText().toString();
-        /*if (phoneNumber.length() != 7) {
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("8");
+        for (int i = 0; i < phoneNumber.length(); i++) {
+            String charCheck = phoneNumber.substring(i, i +1);
+            if (numbers.contains(charCheck)) {
+                buffer.append(charCheck);
+            }
+        }
+        String numberForRegistration = buffer.toString();
+        Log.d("phoneLog", "phone = " + buffer.toString());
+        if (numberForRegistration.length() != 11) {
             mPhoneNumberText.setError("Enter valid number");
             return;
         }
-*/
 
-        bus.post(new Account.RegisterWithPhoneNumberRequest("81234567890"));
+
+        bus.post(new Account.RegisterWithPhoneNumberRequest(numberForRegistration));
 
         /*Intent intent = new Intent(this, EnterRegistrationCodeActivity.class);
         startActivity(intent);
         finish();*/
-    }
+    }/**/
 
     @Subscribe
     public void onGetResponseFromRegistrationRequest (Account.RegisterWithPhoneNumberResponse response){
         Log.d("retroLog", "on Response");
         if (response.didSucceed()){
-            Log.d("retroLog", "on respone OK");
+            Log.d("retroLog", "on respone OK " + response.getResponse().getData().getPhoto());
 
         } else {
             Log.d("retroLog", "Response new message: " + response.getError().getMessage());
             response.showErrorToast(this);
         }
     }
+
+
 
 
 }

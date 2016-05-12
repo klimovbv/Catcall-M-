@@ -9,6 +9,18 @@ import com.spb.kbv.catcallm.infrastructure.ApiError;
 
 public class ApiResponse {
 
+    @SerializedName("response")
+    @Expose
+    private Response response;
+
+    public Response getResponse() {
+        return response;
+    }
+
+    public void setResponse(Response response) {
+        this.response = response;
+    }
+
     @SerializedName("error")
     @Expose
     private ApiError error;
