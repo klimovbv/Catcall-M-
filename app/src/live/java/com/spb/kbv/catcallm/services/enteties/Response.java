@@ -10,10 +10,10 @@ public class Response extends ApiResponse {
     private Integer code;
     @SerializedName("data")
     @Expose
-    private Data data;
+    private String message;
     @SerializedName("api_v")
     @Expose
-    private String apiV;
+    private String api_v;
 
     public Integer getCode() {
         return code;
@@ -23,20 +23,20 @@ public class Response extends ApiResponse {
         this.code = code;
     }
 
-    public Data getData() {
-        return data;
+    public String getMessage() {
+        return message;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setMessage(String data) {
+        this.message = data;
     }
 
     public String getApiV() {
-        return apiV;
+        return api_v;
     }
 
-    public void setApiV(String apiV) {
-        this.apiV = apiV;
+    public void setApiV(String api_v) {
+        this.api_v = api_v;
     }
 }
 

@@ -3,16 +3,12 @@ package com.spb.kbv.catcallm.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.spb.kbv.catcallm.R;
 import com.spb.kbv.catcallm.services.Account;
-import com.spb.kbv.catcallm.services.enteties.ApiResponse;
-import com.spb.kbv.catcallm.services.enteties.Response;
 import com.squareup.otto.Subscribe;
 
 public class RegistrationActivity extends BaseActivity implements View.OnClickListener {
@@ -211,7 +207,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     public void onGetResponseFromRegistrationRequest (Account.RegisterWithPhoneNumberResponse response){
         Log.d("retroLog", "on Response");
         if (response.didSucceed()){
-            Log.d("retroLog", "on respone OK " + response.getResponse().getData().getPhoto());
+            Log.d("retroLog", "on respone OK " + response.getResponse().getMessage());
 
         } else {
             Log.d("retroLog", "Response new message: " + response.getError().getMessage());
