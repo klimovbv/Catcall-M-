@@ -181,7 +181,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View view) {
         String phoneNumber = mPhoneNumberText.getText().toString();
         StringBuilder buffer = new StringBuilder();
-        buffer.append("8");
+        buffer.append("+7");
         for (int i = 0; i < phoneNumber.length(); i++) {
             String charCheck = phoneNumber.substring(i, i +1);
             if (numbers.contains(charCheck)) {
@@ -190,13 +190,13 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
         }
         String numberForRegistration = buffer.toString();
         Log.d("phoneLog", "phone = " + buffer.toString());
-        if (numberForRegistration.length() != 11) {
+        /*if (numberForRegistration.length() != 12) {
             mPhoneNumberText.setError("Enter valid number");
             return;
-        }
+        }*/
 
 
-        bus.post(new Account.RegisterWithPhoneNumberRequest(numberForRegistration));
+        bus.post(new Account.RegisterWithPhoneNumberRequest(/*numberForRegistration*/"+79062446078"));
 
         /*Intent intent = new Intent(this, EnterRegistrationCodeActivity.class);
         startActivity(intent);
@@ -207,10 +207,10 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     public void onGetResponseFromRegistrationRequest (Account.RegisterWithPhoneNumberResponse response){
         Log.d("retroLog", "on Response");
         if (response.didSucceed()){
-            Log.d("retroLog", "on respone OK " + response.getResponse().getMessage());
+            Log.d("retroLog", "on respone OK " + response.getResponse().getStatus() +" id = " + response.getResponse().getUserId());
 
         } else {
-            Log.d("retroLog", "Response new message: " + response.getError().getMessage());
+            Log.d("retroLog", "Response new message: " + response.getError().getErrMsg());
             response.showErrorToast(this);
         }
     }

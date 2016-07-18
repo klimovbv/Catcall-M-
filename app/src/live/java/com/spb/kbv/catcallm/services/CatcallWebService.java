@@ -11,8 +11,8 @@ import retrofit2.http.POST;
 public interface CatcallWebService {
 
     @FormUrlEncoded
-    @POST("user.create")
+    @POST("user.new")
     Call<Account.RegisterWithPhoneNumberResponse> createAccount(
-            @Field("user_phone") String phoneNumber
+            @Field("phone") String phoneNumber
     );
 }

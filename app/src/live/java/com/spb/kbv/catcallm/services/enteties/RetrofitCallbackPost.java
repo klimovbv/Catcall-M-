@@ -21,7 +21,11 @@ public class RetrofitCallbackPost <T extends ApiResponse> implements Callback<T>
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
-        Log.d("retroLog", "in onResponse in RetrofitCallback" + resultType);
+        if (response.code() == 403) {
+            Log.d("retroLog", "403!!!");
+            return;
+        }
+        Log.d("retroLog", "code = " + response.code() + " message =  + " + response.message());
         bus.post(response.body());
     }
 

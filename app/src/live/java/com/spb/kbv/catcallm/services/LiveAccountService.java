@@ -28,6 +28,30 @@ public class LiveAccountService extends BaseLiveService {
         api.createAccount(request.phoneNumber).enqueue(new RetrofitCallbackPost<>(
                 Account.RegisterWithPhoneNumberResponse.class, bus));
 
+    /*    api.createAccount(request.phoneNumber).enqueue(new Callback<Account.RegisterWithPhoneNumberResponse>() {
+            @Override
+            public void onResponse(Call<Account.RegisterWithPhoneNumberResponse> call, Response<Account.RegisterWithPhoneNumberResponse> response) {
+                if (response.code() == 400) {
+                    Log.d("retroLog", "400");
+                }
+                Log.d("retroLog", "code" + response.code() + " / " + response.message());
+                if (!response.body().didSucceed()) {
+                    Log.d("retroLog", "Response status code: " + response.code());
+                    Log.d("retroLog", "Response toString: " + response.toString());
+                    Log.d("retroLog", "Response body toString: " + response.body().toString());
+                    String text = response.body().getError().getErrMsg();
+                    Log.d("retroLog", "Response new message: " + text);
+                } else {
+                    Log.d("retroLog", "NOT ERROR ");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Account.RegisterWithPhoneNumberResponse> call, Throwable t) {
+                Log.d("retroLog", "==== FAILURE ");
+            }
+        });*/
+
 
       /*  api.createAccount(request.phoneNumber).enqueue(new Callback<ApiResponse>() {
             @Override

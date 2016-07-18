@@ -5,7 +5,6 @@ import android.widget.Toast;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.spb.kbv.catcallm.infrastructure.ApiError;
 
 public class ApiResponse {
 
@@ -23,16 +22,25 @@ public class ApiResponse {
 
     @SerializedName("error")
     @Expose
-    private ApiError error;
+    private Error error;
 
-    public ApiError getError() {
+    /**
+     *
+     * @return
+     * The error
+     */
+    public Error getError() {
         return error;
     }
 
-    public void setError(ApiError error) {
+    /**
+     *
+     * @param error
+     * The error
+     */
+    public void setError(Error error) {
         this.error = error;
     }
-
     public boolean didSucceed() {
         return (error == null);
     }
@@ -40,7 +48,7 @@ public class ApiResponse {
     public void showErrorToast(Context context){
         if (context == null || error == null)
             return;
-        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(context, error.getErrMsg(), Toast.LENGTH_LONG).show();
     }
 
 }

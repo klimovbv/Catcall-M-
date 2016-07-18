@@ -5,38 +5,68 @@ import com.google.gson.annotations.SerializedName;
 
 public class Response extends ApiResponse {
 
-    @SerializedName("code")
+    @SerializedName("status")
     @Expose
-    private Integer code;
-    @SerializedName("data")
+    private String status;
+    @SerializedName("user_id")
     @Expose
-    private String message;
-    @SerializedName("api_v")
+    private String userId;
+    @SerializedName("user_device")
     @Expose
-    private String api_v;
+    private String userDevice;
 
-    public Integer getCode() {
-        return code;
+    /**
+     *
+     * @return
+     * The status
+     */
+    public String getStatus() {
+        return status;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    /**
+     *
+     * @param status
+     * The status
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getMessage() {
-        return message;
+    /**
+     *
+     * @return
+     * The userId
+     */
+    public String getUserId() {
+        return userId;
     }
 
-    public void setMessage(String data) {
-        this.message = data;
+    /**
+     *
+     * @param userId
+     * The user_id
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getApiV() {
-        return api_v;
+    /**
+     *
+     * @return
+     * The userDevice
+     */
+    public String getUserDevice() {
+        return userDevice;
     }
 
-    public void setApiV(String api_v) {
-        this.api_v = api_v;
+    /**
+     *
+     * @param userDevice
+     * The user_device
+     */
+    public void setUserDevice(String userDevice) {
+        this.userDevice = userDevice;
     }
 }
 

@@ -19,7 +19,7 @@ public final class Account {
         }
     }
 
-    public static class RegisterWithPhoneNumberResponse extends Response {
+    public static class RegisterWithPhoneNumberResponse extends ApiResponse {
         /*@SerializedName("code")
         @Expose
         private Integer code;
