@@ -196,7 +196,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
         }*/
 
 
-        bus.post(new Account.RegisterWithPhoneNumberRequest(/*numberForRegistration*/"+79062446078"));
+        bus.post(new Account.RegisterWithPhoneNumberRequest(numberForRegistration/*"+79062446078"*/));
 
         /*Intent intent = new Intent(this, EnterRegistrationCodeActivity.class);
         startActivity(intent);

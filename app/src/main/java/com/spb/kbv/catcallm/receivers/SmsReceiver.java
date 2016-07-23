@@ -18,6 +18,7 @@ public class SmsReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.d("mySms", " sms onReceive ");
 
         application = ((CatcallApplication)context.getApplicationContext());
         bus = application.getBus();
@@ -34,7 +35,7 @@ public class SmsReceiver extends BroadcastReceiver {
 
             String sms_from = messages[0].getDisplayOriginatingAddress();
             Log.d("mySms", " sms from " + sms_from);
-            if (sms_from.equals("+79817698969")){
+            if (sms_from.equals("PLIVO")){
                 StringBuilder smsText = new StringBuilder();
                 for (SmsMessage message : messages) {
                     smsText.append(message.getMessageBody());

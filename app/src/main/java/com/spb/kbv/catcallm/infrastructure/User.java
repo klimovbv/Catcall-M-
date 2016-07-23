@@ -6,6 +6,11 @@ public class User {
     private String phoneNumber;
     private boolean isLoggedIn;
 
+    //Authorization Ids
+    private String userId;
+    private String deviceId;
+    private String phone;
+
     public String getUserName() {
         return userName;
     }
@@ -36,5 +41,29 @@ public class User {
 
     public void setLoggedIn(boolean isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

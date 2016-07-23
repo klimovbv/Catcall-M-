@@ -20,39 +20,7 @@ public final class Account {
     }
 
     public static class RegisterWithPhoneNumberResponse extends ApiResponse {
-        /*@SerializedName("code")
-        @Expose
-        private Integer code;
-        @SerializedName("data")
-        @Expose
-        private Data data;
-        @SerializedName("api_v")
-        @Expose
-        private String apiV;
 
-        public Integer getCode() {
-            return code;
-        }
-
-        public void setCode(Integer code) {
-            this.code = code;
-        }
-
-        public Data getData() {
-            return data;
-        }
-
-        public void setData(Data data) {
-            this.data = data;
-        }
-
-        public String getApiV() {
-            return apiV;
-        }
-
-        public void setApiV(String apiV) {
-            this.apiV = apiV;
-        }*/
     }
 
     public static class SendVerificationCodeRequest {
@@ -82,5 +50,7 @@ public final class Account {
     }
 
 
-
+    public class GetUserResponse extends Response {
+        public String user_id;
+    }
 }
