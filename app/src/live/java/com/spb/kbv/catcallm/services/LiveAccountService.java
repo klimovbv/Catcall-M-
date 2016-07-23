@@ -31,7 +31,7 @@ public class LiveAccountService extends BaseLiveService {
             @Override
             public void onResponse(Call<Account.RegisterWithPhoneNumberResponse> call, Response<Account.RegisterWithPhoneNumberResponse> response) {
                 Account.RegisterWithPhoneNumberResponse resp = response.body();
-                Log.d("retroLog", "onResponse callback" + response.message() + " / " + response.body()
+                Log.d("retroLog", "onResponse callback" + response.message() + " / " + response.body().getResponse().getUserId()
                 );
                 if (response.body() != null)
                     bus.post(response.body());
