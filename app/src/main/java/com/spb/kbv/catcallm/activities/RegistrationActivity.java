@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.spb.kbv.catcallm.R;
+import com.spb.kbv.catcallm.infrastructure.User;
 import com.spb.kbv.catcallm.services.Account;
 import com.squareup.otto.Subscribe;
 
@@ -185,6 +186,9 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
         int itemId = view.getId();
 
         if (itemId == R.id.activity_registration_delete_button) {
+            application.getAuth().loadUserFromPrefs();
+            Log.d("retroLog", " uid = " + application.getAuth().getUser().getUserId()
+                    + "did = " + application.getAuth().getUser().getDeviceId());
             bus.post(new Account.DeleteAccountRequest());
         }
 
@@ -208,18 +212,20 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
 
             bus.post(new Account.RegisterWithPhoneNumberRequest(numberForRegistration/*"+79062446078"*/));
         }
-
-        /*Intent intent = new Intent(this, EnterRegistrationCodeActivity.class);
-        startActivity(intent);
-        finish();*/
-    }/**/
+    }
 
     @Subscribe
     public void onGetResponseFromRegistrationRequest (Account.RegisterWithPhoneNumberResponse response){
         Log.d("retroLog", "on Response");
         if (response.didSucceed()){
-            Log.d("retroLog", "on respone OK " + response.getResponse().getStatus() +" id = " + response.getUserId() + " .."
-                      + response.getResponse().getUserId());
+            User user = application.getAuth().getUser();
+            String uid = response.getResponse().getUserId();
+            String did = response.getResponse().getUserDevice();
+            user.setDeviceId(did);
+            user.setUserId(uid);
+            application.getAuth().saveUserIds(uid, did);
+
+            Log.d("retroLog", "uid ==" + uid + " did == " + did);
 
         } else {
             Log.d("retroLog", "Response new message: " + response.getError().getErrMsg());
@@ -231,18 +237,32 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     public void onGetResponseFromDeleteRequest (Account.DeleteAccountResponse response) {
         Log.d("retroLog", "on DeleteResponse" + response.getResponse());
 
-        /*if (response.didSucceed()){
-            Log.d("retroLog", "on respone OK " + response.getResponse().getStatus() +" id = " + response.getResponse().getUserId() + " .."
-                    + response.getResponse().getUserId());
+
+        if (response.didSucceed()){
+            Log.d("retroLog", "on respone DELETE = " + response.getResponse());
+            application.getAuth().saveUserIds("", "");
 
         } else {
             Log.d("retroLog", "Response new message: " + response.getError().getErrMsg());
             response.showErrorToast(this);
-        }*/
+        }
     }
 
-    //  "user_id": "7nrHSqheTroKtlTAjviow6RNoHjBFQ5PS0OXWGipbA2GZwjRU3HHBDPS1TigQa0J",
-    // "user_device": "WO1jqJnnktofZXSvk5OK9ztMMGmQfmUG"
+    @Subscribe
+    public void onGetResponseSmsVerification (Account.LoginUserBySmsResponse response) {
+        Log.d("retroLog", "on LoginUserBySmsResponse" + response.getResponse());
+
+
+        if (response.didSucceed()){
+            Log.d("retroLog", "on respone DELETE = " + response.getResponse());
+            application.getAuth().saveUserIds("", "");
+
+        } else {
+            Log.d("retroLog", "Response new message: " + response.getError().getErrMsg());
+            response.showErrorToast(this);
+        }
+    }
+
 
 
 

@@ -2,7 +2,8 @@ package com.spb.kbv.catcallm.services;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.spb.kbv.catcallm.services.enteties.ApiResponse;
+import com.spb.kbv.catcallm.services.enteties.BaseApiResponse;
+import com.spb.kbv.catcallm.services.enteties.RegisterApiResponse;
 import com.spb.kbv.catcallm.services.enteties.Response;
 
 public final class Account {
@@ -18,7 +19,10 @@ public final class Account {
         }
     }
 
-    public static class RegisterWithPhoneNumberResponse extends ApiResponse {
+    public static class RegisterWithPhoneNumberResponse extends RegisterApiResponse {
+
+
+        //Register Account Response
         @SerializedName("status")
         @Expose
         private String status;
@@ -118,28 +122,46 @@ public final class Account {
     public static class DeleteAccountRequest {
     }
 
-    public static class DeleteAccountResponse {
+    public static class DeleteAccountResponse extends BaseApiResponse {
 
         @SerializedName("response")
         @Expose
         private Integer response;
 
-        /**
-         *
-         * @return
-         * The response
-         */
         public Integer getResponse() {
             return response;
         }
 
-        /**
-         *
-         * @param response
-         * The response
-         */
         public void setResponse(Integer response) {
             this.response = response;
         }
+    }
+
+    public static class LoginUserBySmsRequest {
+        public String uid;
+        public String did;
+        public String code;
+
+        public LoginUserBySmsRequest(String uid, String did, String code) {
+            this.did = did;
+            this.uid = uid;
+            this.code = code;
+        }
+
+    }
+
+    public static class LoginUserBySmsResponse extends BaseApiResponse {
+        @SerializedName("response")
+        @Expose
+        private Integer response;
+
+        public Integer getResponse() {
+            return response;
+        }
+
+        public void setResponse(Integer response) {
+            this.response = response;
+        }
+
     }
 }

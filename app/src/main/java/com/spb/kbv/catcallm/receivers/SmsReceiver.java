@@ -8,6 +8,7 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
+import com.spb.kbv.catcallm.infrastructure.User;
 import com.spb.kbv.catcallm.services.Account;
 import com.squareup.otto.Bus;
 
@@ -43,9 +44,15 @@ public class SmsReceiver extends BroadcastReceiver {
                 String body = smsText.toString();
                 Log.d("mySms", " sms text " + body);
 
-                Account.OnReceiveSmsCodeEvent event = new Account.OnReceiveSmsCodeEvent();
+                /*Account.OnReceiveSmsCodeEvent event = new Account.OnReceiveSmsCodeEvent();
                 event.code = body;
-                bus.post(event);
+                bus.post(event);*/
+
+                String[] arrayMessage = body.split(" ");
+
+                User user = application.getAuth().getUser();
+                Account.LoginUserBySmsRequest request = new Account.LoginUserBySmsRequest(user.getUserId(), user.getDeviceId(), arrayMessage[2]);
+                bus.post(request);
             }
         }
     }

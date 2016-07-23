@@ -41,6 +41,18 @@ public class Auth {
         editor.commit();
     }
 
+    public void saveUserIds (String uid, String did){
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("uid", uid);
+        editor.putString("did", did);
+        editor.apply();
+    }
+
+    public void loadUserFromPrefs(){
+        user.setUserId(preferences.getString("uid", ""));
+        user.setDeviceId(preferences.getString("did", ""));
+    }
+
     public void logout() {
         setAuthToken(null);
 

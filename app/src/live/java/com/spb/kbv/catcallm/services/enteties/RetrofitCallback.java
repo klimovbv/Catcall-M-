@@ -4,7 +4,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public abstract class RetrofitCallback <T extends ApiResponse> implements Callback<T> {
+public abstract class RetrofitCallback <T extends RegisterApiResponse> implements Callback<T> {
 
     protected final Class<T> resultType;
 
