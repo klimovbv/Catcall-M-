@@ -5,8 +5,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.spb.kbv.catcallm.infrastructure.CatcallApplication;
-import com.spb.kbv.catcallm.services.enteties.ApiResponse;
-import com.spb.kbv.catcallm.services.enteties.RetrofitCallbackPost;
+import com.spb.kbv.catcallm.infrastructure.User;
 import com.squareup.otto.Subscribe;
 
 import retrofit2.Call;
@@ -25,60 +24,43 @@ public class LiveAccountService extends BaseLiveService {
     public void register(Account.RegisterWithPhoneNumberRequest request) {
         /*Call<Account.RegisterWithPhoneNumberResponse> call = api.createAccount(request.phoneNumber);*/
         Log.d("retroLog", "in register");
-        api.createAccount(request.phoneNumber).enqueue(new RetrofitCallbackPost<>(
-                Account.RegisterWithPhoneNumberResponse.class, bus));
+        /*api.createAccount(request.phoneNumber).enqueue(new RetrofitCallbackPost<>(
+                Account.RegisterWithPhoneNumberResponse.class, bus));*/
 
-    /*    api.createAccount(request.phoneNumber).enqueue(new Callback<Account.RegisterWithPhoneNumberResponse>() {
+        api.createAccount(request.phoneNumber).enqueue(new Callback<Account.RegisterWithPhoneNumberResponse>() {
             @Override
             public void onResponse(Call<Account.RegisterWithPhoneNumberResponse> call, Response<Account.RegisterWithPhoneNumberResponse> response) {
-                if (response.code() == 400) {
-                    Log.d("retroLog", "400");
-                }
-                Log.d("retroLog", "code" + response.code() + " / " + response.message());
-                if (!response.body().didSucceed()) {
-                    Log.d("retroLog", "Response status code: " + response.code());
-                    Log.d("retroLog", "Response toString: " + response.toString());
-                    Log.d("retroLog", "Response body toString: " + response.body().toString());
-                    String text = response.body().getError().getErrMsg();
-                    Log.d("retroLog", "Response new message: " + text);
-                } else {
-                    Log.d("retroLog", "NOT ERROR ");
-                }
+                Account.RegisterWithPhoneNumberResponse resp = response.body();
+                Log.d("retroLog", "onResponse callback" + response.message() + " / " + response.body()
+                );
+                if (response.body() != null)
+                    bus.post(response.body());
             }
 
             @Override
             public void onFailure(Call<Account.RegisterWithPhoneNumberResponse> call, Throwable t) {
-                Log.d("retroLog", "==== FAILURE ");
+
             }
-        });*/
+        });
 
 
-      /*  api.createAccount(request.phoneNumber).enqueue(new Callback<ApiResponse>() {
+
+    }
+
+    @Subscribe
+    public void delete(Account.DeleteAccountRequest request){
+        Log.d("retroLog", " in delete");
+        User user = application.getAuth().getUser();
+        api.deleteAccount(user.getDeviceId(), user.getUserId(), 3).enqueue(new Callback<Account.DeleteAccountResponse>() {
             @Override
-            public void onResponse(Call <ApiResponse> apiResponseCall, Response<ApiResponse> response) {
-                if (!response.body().didSucceed()) {
-                    Log.d("retroLog", "Response status code: " + response.code());
-                    Log.d("retroLog", "Response toString: " + response.toString());
-                    Log.d("retroLog", "Response body toString: " + response.body().toString());
-                    String text = response.body().getError().getMessage();
-                    Log.d("retroLog", "Response new message: " + text);
-                } else {
-                    Log.d("retroLog", "NOT ERROR ");
-                }
-                *//*Log.d("retroLog", "Response : " + new Gson().toJson(response));*//*
-               *//* Map<String, String> map = new HashMap<String, String>();
-                map = gson.fromJson(new Gson().toJson(response), map.getClass());
-
-                for (Map.Entry e : map.entrySet()) {
-                    Log.d("retroLog", "Response body: " + e.getKey() + " " + e.getValue());
-                }*//*
+            public void onResponse(Call<Account.DeleteAccountResponse> call, Response<Account.DeleteAccountResponse> response) {
+                bus.post(response);
             }
 
             @Override
-            public void onFailure(Call <ApiResponse> apiResponseCall, Throwable t) {
-                Log.d("retroLog", "==== FAILURE ");
-            }
-        });*/
+            public void onFailure(Call<Account.DeleteAccountResponse> call, Throwable t) {
 
+            }
+        });
     }
 }

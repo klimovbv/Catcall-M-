@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Response extends ApiResponse {
+
+//------------------------------------------------------------------//
+    //Register Account Response
     @SerializedName("status")
     @Expose
     private String status;
@@ -67,6 +70,7 @@ public class Response extends ApiResponse {
     public void setUserDevice(String userDevice) {
         this.userDevice = userDevice;
     }
-
+//-------------------------------------------------------//
+//
 }
 

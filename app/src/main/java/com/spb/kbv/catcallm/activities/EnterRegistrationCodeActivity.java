@@ -46,11 +46,11 @@ public class EnterRegistrationCodeActivity extends BaseActivity implements View.
     @Subscribe
     public void onGetResponseFromRegistrationRequest (Account.RegisterWithPhoneNumberResponse response){
         Log.d("retroLog", "on Response");
-        if (response.didSucceed()){
+        /*if (response.didSucceed()){
             Log.d("retroLog", "on respone OK");
             response.showErrorToast(this);
         } else {
             Log.d("retroLog", "Response new message: " + response.getError());
-        }
+        }*/
     }
 }

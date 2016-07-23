@@ -13,7 +13,7 @@ import com.squareup.otto.Subscribe;
 
 public class RegistrationActivity extends BaseActivity implements View.OnClickListener {
     private static String numbers = "0123456789";
-    private View mSendButton;
+    private View mSendButton, deleteButton;
     private EditText mPhoneNumberText;
     private boolean unableChangeEditText = false;
     private String phoneNumberFormat = "--- --- -- --";
@@ -27,6 +27,9 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
         mPhoneNumberText = (EditText) findViewById(R.id.activity_phone_number_text);
         mSendButton = findViewById(R.id.activity_registration_send_button);
         mSendButton.setOnClickListener(this);
+
+        deleteButton = findViewById(R.id.activity_registration_delete_button);
+        deleteButton.setOnClickListener(this);
 
 
         /*mPhoneNumberText.addTextChangedListener(new TextWatcher() {
@@ -179,24 +182,32 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        String phoneNumber = mPhoneNumberText.getText().toString();
-        StringBuilder buffer = new StringBuilder();
-        buffer.append("+7");
-        for (int i = 0; i < phoneNumber.length(); i++) {
-            String charCheck = phoneNumber.substring(i, i +1);
-            if (numbers.contains(charCheck)) {
-                buffer.append(charCheck);
-            }
+        int itemId = view.getId();
+
+        if (itemId == R.id.activity_registration_delete_button) {
+            bus.post(new Account.DeleteAccountRequest());
         }
-        String numberForRegistration = buffer.toString();
-        Log.d("phoneLog", "phone = " + buffer.toString());
+
+        if (itemId == R.id.activity_registration_send_button) {
+            String phoneNumber = mPhoneNumberText.getText().toString();
+            StringBuilder buffer = new StringBuilder();
+            buffer.append("+7");
+            for (int i = 0; i < phoneNumber.length(); i++) {
+                String charCheck = phoneNumber.substring(i, i + 1);
+                if (numbers.contains(charCheck)) {
+                    buffer.append(charCheck);
+                }
+            }
+            String numberForRegistration = buffer.toString();
+            Log.d("phoneLog", "phone = " + buffer.toString());
         /*if (numberForRegistration.length() != 12) {
             mPhoneNumberText.setError("Enter valid number");
             return;
         }*/
 
 
-        bus.post(new Account.RegisterWithPhoneNumberRequest(numberForRegistration/*"+79062446078"*/));
+            bus.post(new Account.RegisterWithPhoneNumberRequest(numberForRegistration/*"+79062446078"*/));
+        }
 
         /*Intent intent = new Intent(this, EnterRegistrationCodeActivity.class);
         startActivity(intent);
@@ -207,13 +218,31 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     public void onGetResponseFromRegistrationRequest (Account.RegisterWithPhoneNumberResponse response){
         Log.d("retroLog", "on Response");
         if (response.didSucceed()){
-            Log.d("retroLog", "on respone OK " + response.getResponse().getStatus() +" id = " + response.getResponse().getUserId());
+            Log.d("retroLog", "on respone OK " + response.getResponse().getStatus() +" id = " + response.getUserId() + " .."
+                      + response.getResponse().getUserId());
 
         } else {
             Log.d("retroLog", "Response new message: " + response.getError().getErrMsg());
             response.showErrorToast(this);
         }
     }
+
+    @Subscribe
+    public void onGetResponseFromDeleteRequest (Account.DeleteAccountResponse response) {
+        Log.d("retroLog", "on DeleteResponse" + response.getResponse());
+
+        /*if (response.didSucceed()){
+            Log.d("retroLog", "on respone OK " + response.getResponse().getStatus() +" id = " + response.getResponse().getUserId() + " .."
+                    + response.getResponse().getUserId());
+
+        } else {
+            Log.d("retroLog", "Response new message: " + response.getError().getErrMsg());
+            response.showErrorToast(this);
+        }*/
+    }
+
+    //  "user_id": "7nrHSqheTroKtlTAjviow6RNoHjBFQ5PS0OXWGipbA2GZwjRU3HHBDPS1TigQa0J",
+    // "user_device": "WO1jqJnnktofZXSvk5OK9ztMMGmQfmUG"
 
 
 

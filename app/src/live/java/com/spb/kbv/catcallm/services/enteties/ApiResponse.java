@@ -5,18 +5,19 @@ import android.widget.Toast;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.spb.kbv.catcallm.services.Account;
 
-public class ApiResponse {
+public class ApiResponse  {
 
     @SerializedName("response")
     @Expose
-    private Response response;
+    private Account.RegisterWithPhoneNumberResponse response;
 
-    public Response getResponse() {
+    public Account.RegisterWithPhoneNumberResponse getResponse() {
         return response;
     }
 
-    public void setResponse(Response response) {
+    public void setResponse(Account.RegisterWithPhoneNumberResponse response) {
         this.response = response;
     }
 
@@ -24,20 +25,10 @@ public class ApiResponse {
     @Expose
     private Error error;
 
-    /**
-     *
-     * @return
-     * The error
-     */
     public Error getError() {
         return error;
     }
 
-    /**
-     *
-     * @param error
-     * The error
-     */
     public void setError(Error error) {
         this.error = error;
     }

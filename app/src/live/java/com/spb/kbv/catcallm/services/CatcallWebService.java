@@ -1,8 +1,6 @@
 package com.spb.kbv.catcallm.services;
 
 
-import com.spb.kbv.catcallm.services.enteties.ApiResponse;
-
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -16,7 +14,15 @@ public interface CatcallWebService {
             @Field("phone") String phoneNumber
     );
 
-    //Get information about user
+    @FormUrlEncoded
+    @POST("user.remove")
+    Call<Account.DeleteAccountResponse> deleteAccount(
+            @Field("did") String deviceId,
+            @Field("uid") String userId,
+            @Field("act") Integer actionCode
+    );
+
+/*    //Get information about user
     @FormUrlEncoded
     @POST("user.get")
     Call<Account.GetUserResponse> getAccount(
@@ -24,7 +30,7 @@ public interface CatcallWebService {
             @Field("uid") String userId
     );
 
- /*   @FormUrlEncoded
+    @FormUrlEncoded
     @POST("user.login")
     Call<Account.LoginUserBySmsResponse> loginUserSmsCode(
             @Field("act") Integer action,
@@ -49,13 +55,7 @@ public interface CatcallWebService {
             @Field("code") String smsCode
     );
 
-    @FormUrlEncoded
-    @POST("user.remove")
-    Call<Account.DeleteAccountResponse> deleteAccount(
-            @Field("did") String deviceId,
-            @Field("uid") String userId,
-            @Field("act") Integer actionCode
-    );
+
 
 */
 }

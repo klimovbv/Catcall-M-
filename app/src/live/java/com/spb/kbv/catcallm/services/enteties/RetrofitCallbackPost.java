@@ -31,6 +31,6 @@ public class RetrofitCallbackPost <T extends ApiResponse> implements Callback<T>
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
-
+        Log.d("retroLog", "onFailure" + t);
     }
 }
